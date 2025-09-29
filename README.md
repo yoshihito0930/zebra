@@ -6,11 +6,13 @@
 
 ## リポジトリ構成
 
+```
 zebra/
 ├── studio-website/          # Astroで開発
 ├── booking-saas-app/        # Next.jsで開発
 ├── .github/                  # GitHub関連の設定
 └── README.md                # このファイル
+```
 
 ## ロードマップ
 ### 1. 公式サイトの作り替え
