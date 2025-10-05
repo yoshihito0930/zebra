@@ -1,0 +1,144 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/studio', label: 'スタジオ案内', imgSrc: '/img/shared/gnav01.png' },
+  { href: '/price', label: '料金案内', imgSrc: '/img/shared/gnav02.png' },
+  { href: '/rental', label: 'レンタル機材', imgSrc: '/img/shared/gnav03.png' },
+  { href: '/access', label: 'アクセス', imgSrc: '/img/shared/gnav04.png' },
+  { href: '/faq', label: 'よくある質問', imgSrc: '/img/shared/gnav_a1.png' },
+  { href: '/horizon', label: 'ホリゾントルール', imgSrc: '/img/shared/gnav_a2.png' },
+  { href: '/reservation', label: 'ご予約・お問い合わせ', imgSrc: '/img/shared/gnav05.png' },
+  { href: '/news', label: 'NEWS', imgSrc: '/img/shared/gnavi_news.png' },
+];
+
+const isActive = (path: string) => currentPath === path;
+const isHome = currentPath === '/';
+---
+
+<header class="header-box">
+  <p class="logo sp">
+    <a href="/">
+      <img src="/img/shared/logo.png" alt="スタジオゼブラ ロゴ">
+    </a>
+  </p>
+
+  <div class="nav-header">
+    <div class="inner">
+      <p class="logo-fix pc">
+        <a href="/">
+          <img src="/img/shared/logo_fix.png" alt="スタジオゼブラ ロゴ">
+        </a>
+      </p>
+
+      <ul class="nav">
+        <li class={`sp ${isHome ? 'active' : ''}`}>
+          <a class="nav-main" href="/">
+            <span class="sp">トップページ</span>
+          </a>
+        </li>
+
+        {navItems.map((item) => (
+          <li class={isActive(item.href) ? 'active' : ''}>
+            <a class="nav-main" href={item.href}>
+              <img src={item.imgSrc} alt={item.label} class="non-over pc">
+              <span class="sp">{item.label}</span>
+            </a>
+          </li>
+        ))}
+
+        <li>
+          <a href="https://twitter.com/studiozebra1st" target="_blank" rel="noopener noreferrer">
+            <img src="/img/shared/gnavi_tw.png" alt="Twitter">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hamberger-btn">
+    <span></span>
+  </div>
+</header>
+
+<style>
+  /* 基本スタイル - 詳細はグローバルCSSで */
+  .header-box {
+    position: relative;
+  }
+
+  .logo {
+    text-align: center;
+  }
+
+  .logo img {
+    max-width: 200px;
+    height: auto;
+  }
+
+  .nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav li {
+    margin: 0 10px;
+  }
+
+  .nav a {
+    text-decoration: none;
+  }
+
+  .nav .active a {
+    font-weight: bold;
+  }
+
+  .hamberger-btn {
+    display: none;
+    cursor: pointer;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    .pc {
+      display: none !important;
+    }
+
+    .sp {
+      display: block;
+    }
+
+    .nav {
+      flex-direction: column;
+    }
+
+    .hamberger-btn {
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .sp {
+      display: none !important;
+    }
+
+    .pc {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // ハンバーガーメニュートグル
+  const hambergerBtn = document.querySelector('.hamberger-btn');
+  const navHeader = document.querySelector('.nav-header');
+
+  if (hambergerBtn && navHeader) {
+    hambergerBtn.addEventListener('click', () => {
+      navHeader.classList.toggle('active');
+      hambergerBtn.classList.toggle('active');
+    });
+  }
+</script>

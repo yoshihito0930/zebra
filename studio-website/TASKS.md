@@ -30,29 +30,31 @@
 
 ## フェーズ2: 共通部分の構築
 
-- [ ] 4. **ベースレイアウト作成**
-  - `src/layouts/BaseLayout.astro`
-  - HTML基本構造（DOCTYPE, html, head, body）
-  - メタタグ設定（charset, viewport, description等）
-  - Google Analytics統合（GA4: G-9958VF71PZ）
-  - Google Fonts (Montserrat) 読み込み
+- [x] 4. **ベースレイアウト作成**
+  - `src/layouts/BaseLayout.astro` ✓
+  - HTML基本構造（DOCTYPE, html, head, body） ✓
+  - メタタグ設定（charset, viewport, description等） ✓
+  - Google Analytics統合（GA4: G-9958VF71PZ） ✓
+  - Google Fonts (Montserrat) 読み込み ✓
+  - Header/Footer統合 ✓
 
-- [ ] 5. **Headerコンポーネント**
-  - `src/components/Header.astro`
-  - ロゴ（PC/SP切り替え）
-  - グローバルナビゲーション
-  - ハンバーガーメニュー（SP）
-  - アクティブページのハイライト
+- [x] 5. **Headerコンポーネント**
+  - `src/components/Header.astro` ✓
+  - ロゴ（PC/SP切り替え） ✓
+  - グローバルナビゲーション（9項目） ✓
+  - ハンバーガーメニュー（SP） ✓
+  - アクティブページのハイライト ✓
 
-- [ ] 6. **Footerコンポーネント**
-  - `src/components/Footer.astro`
-  - フッターナビゲーション（PC/SP）
-  - 店舗情報（住所、電話番号）
-  - 予約バナー（条件付き表示）
-  - Twitterタイムライン埋め込み
-  - 固定予約ボタン（右下）
-  - ページトップボタン
-  - コピーライト
+- [x] 6. **Footerコンポーネント**
+  - `src/components/Footer.astro` ✓
+  - フッターナビゲーション（PC/SP） ✓
+  - 店舗情報（住所、電話番号） ✓
+  - 予約バナー（条件付き表示） ✓
+  - Twitterタイムライン埋め込み ✓
+  - 固定予約ボタン（右下） ✓
+  - ページトップボタン ✓
+  - コピーライト ✓
+  - スムーススクロール機能 ✓
 
 ---
 
@@ -231,8 +233,8 @@
 
 - **開始日**: 2025-10-05
 - **目標完了日**: 未定
-- **現在のフェーズ**: フェーズ1完了 → フェーズ2（共通部分の構築）
-- **完了タスク数**: 3 / 37
+- **現在のフェーズ**: フェーズ2完了 → フェーズ3（スタイル・JavaScript移行）
+- **完了タスク数**: 6 / 37
 
 ---
 
