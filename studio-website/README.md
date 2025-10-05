@@ -6,6 +6,6 @@
 ```
 studio-website/
 ├── wordpress/               # WordPressで使用しているコード
-├── xxx/                     # Astroで開発
+├── astro/                   # Astroで開発
 └── README.md                # このファイル
 ```
