@@ -2,28 +2,29 @@
 
 ## フェーズ1: 初期セットアップ
 
-- [ ] 1. **Astroプロジェクトのセットアップ**
-  - `npm create astro@latest` で astro/ ディレクトリにセットアップ
-  - テンプレート: Empty または Minimal
-  - TypeScript: 推奨（型安全性のため）
+- [x] 1. **Astroプロジェクトのセットアップ**
+  - `npm create astro@latest` で astro/ ディレクトリにセットアップ ✓
+  - テンプレート: Minimal ✓
+  - TypeScript: Strict ✓
 
-- [ ] 2. **基本ディレクトリ構造構築**
+- [x] 2. **基本ディレクトリ構造構築**
   ```
   astro/
   ├── src/
-  │   ├── layouts/      # レイアウトコンポーネント
-  │   ├── components/   # 再利用可能なコンポーネント
-  │   ├── pages/        # ページファイル（ルーティング）
-  │   ├── content/      # Content Collections（ブログ・ニュース）
-  │   ├── styles/       # グローバルCSS
-  │   └── scripts/      # JavaScript
-  └── public/           # 静的アセット（画像等）
+  │   ├── layouts/      # レイアウトコンポーネント ✓
+  │   ├── components/   # 再利用可能なコンポーネント ✓
+  │   ├── pages/        # ページファイル（ルーティング） ✓
+  │   ├── content/      # Content Collections（ブログ・ニュース） ✓
+  │   ├── styles/       # グローバルCSS ✓
+  │   └── scripts/      # JavaScript ✓
+  └── public/           # 静的アセット（画像等） ✓
   ```
 
-- [ ] 3. **基本設定**
-  - `astro.config.mjs` の確認・調整
-  - `package.json` の確認
-  - 必要な依存関係のインストール
+- [x] 3. **基本設定**
+  - `astro.config.mjs` の確認・調整 ✓
+  - `package.json` の確認 ✓
+  - 必要な依存関係のインストール ✓
+  - 開発サーバー起動確認 (`npm run dev`) ✓
 
 ---
 
@@ -228,10 +229,10 @@
 
 ## 進捗管理
 
-- **開始日**: 未定
+- **開始日**: 2025-10-05
 - **目標完了日**: 未定
-- **現在のフェーズ**: フェーズ1（初期セットアップ）
-- **完了タスク数**: 0 / 37
+- **現在のフェーズ**: フェーズ1完了 → フェーズ2（共通部分の構築）
+- **完了タスク数**: 3 / 37
 
 ---
 
