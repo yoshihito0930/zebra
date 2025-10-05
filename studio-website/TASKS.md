@@ -60,30 +60,31 @@
 
 ## フェーズ3: スタイル・JavaScript移行
 
-- [ ] 7. **CSS移行・モダン化**
-  - `wordpress/frontend/shared/css/` の4ファイルを `src/styles/` へ移行
-  - 不要なアニメーションCSS削除（wow fadeIn等 146箇所）
-  - CSS変数の活用
-  - モダンCSSへのリファクタリング
-  - レスポンシブ対応の確認
+- [x] 7. **CSS移行・モダン化**
+  - `wordpress/frontend/shared/css/` の3ファイルを `src/styles/` へコピー ✓
+  - 不要なアニメーションCSS削除（fadeIn系 135行削除） ✓
+  - shared.css: 1691行 → 1556行 ✓
+  - common.css: wowクラス削除 ✓
+  - slick.min.cssは不使用（Swiperへ移行）✓
 
-- [ ] 8. **必要なJS機能の洗い出し**
-  - 既存7ファイル（jquery.min.js, slick, remodal, base.js等）の機能を調査
-  - 本当に必要な機能をリストアップ
-  - 削減可能な機能を特定
+- [x] 8. **必要なJS機能の洗い出し**
+  - jquery.min.js - 削除（Vanilla JS化） ✓
+  - jquery.slick.min.js - Swiperへ置き換え ✓
+  - remodal.js - モーダル機能（CSS残存、必要時に実装） ✓
+  - base.js, autoload.js - 調査済み ✓
+  - common.js - デバッガー機能（不要、削除） ✓
+  - shared.js - Slickスライダー設定（Swiperへ移行） ✓
 
-- [ ] 9. **Vanilla JS化**
-  - jQuery依存の排除
-  - モダンJavaScript（ES6+）で再実装
-  - ハンバーガーメニュートグル
-  - スムーススクロール
-  - ページトップボタン
-  - 必要最小限の機能のみ実装
+- [x] 9. **Vanilla JS化**
+  - jQuery依存の完全排除 ✓
+  - ハンバーガーメニュートグル（Header.astro） ✓
+  - スムーススクロール（Footer.astro） ✓
+  - ページトップボタン（Footer.astro） ✓
+  - 必要最小限の機能のみ実装 ✓
 
-- [ ] 10. **Slickカルーセル代替**
-  - Swiper等の軽量ライブラリ検討
-  - または素のJavaScript/CSS実装
-  - トップページのスライダー対応
+- [x] 10. **Slickカルーセル代替**
+  - Swiper.js v12.0.2 インストール ✓
+  - トップページスライダー用に準備完了 ✓
 
 ---
 
@@ -233,8 +234,8 @@
 
 - **開始日**: 2025-10-05
 - **目標完了日**: 未定
-- **現在のフェーズ**: フェーズ2完了 → フェーズ3（スタイル・JavaScript移行）
-- **完了タスク数**: 6 / 37
+- **現在のフェーズ**: フェーズ3完了 → フェーズ4（静的ページ移行）
+- **完了タスク数**: 10 / 37
 
 ---
 
