@@ -25,7 +25,7 @@ studio-website/
 
 ## サイト構成
 
-### ページ一覧（10ページ）
+### 既存ページ一覧（10ページ）
 1. **home** (`tpl-home.php`) - トップページ
 2. **studio** (`tpl-studio.php`) - スタジオ案内
 3. **price** (`tpl-price.php`) - 料金案内
@@ -36,6 +36,11 @@ studio-website/
 8. **reservation** (`tpl-reservation.php`) - ご予約・お問い合わせ
 9. **policy** (`tpl-policy.php`) - 利用規約
 10. **archive** (`archive.php`) - ニュース一覧
+
+### 新規追加ページ（Astro移行時）
+11. **blog** - ブログ一覧ページ（新規）
+12. **blog/[slug]** - ブログ記事詳細ページ（新規）
+13. **blog/category/[category]** - ブログカテゴリページ（新規）
 
 ### ナビゲーション構造
 - メインナビ: スタジオ案内、料金案内、レンタル機材、アクセス、よくある質問、ホリゾントルール、ご予約・お問い合わせ
@@ -86,7 +91,14 @@ studio-website/
 - `shared.js` - 共有機能
 
 ### 移行先（Astro）
-- 未定（これから構築）
+- **フレームワーク**: Astro（静的サイトジェネレータ）
+- **コンテンツ管理**: Content Collections（ブログ・ニュース記事用）
+- **記事フォーマット**: Markdown
+- **スタイル**: CSS（モダン化、アニメーションライブラリ削減）
+- **JavaScript**: Vanilla JS（jQuery削減）
+- **カルーセル**: Swiper等の軽量ライブラリ、またはネイティブ実装
+- **フォント**: Google Fonts (Montserrat) - 継続
+- **アナリティクス**: Google Analytics (GA4) - 継続
 
 ## WordPress依存機能
 
@@ -145,13 +157,41 @@ studio-website/
 - スタジオ検索ドットコムバナーリンク
 
 ## 次のステップ
-1. Astroプロジェクトのセットアップ
-2. 静的コンテンツの抽出・整理
-3. コンポーネント設計
-4. ページ移行（優先順位: home → studio → price...）
-5. 動的機能の実装検討
-6. Astroサイトの動作確認・検証
-7. **wordpress/ディレクトリの削除**（移行完了・動作確認後）
+
+### フェーズ1: 初期セットアップ
+1. Astroプロジェクトのセットアップ（astro/ディレクトリ）
+2. 基本ディレクトリ構造構築（layouts, components, pages, content）
+3. 基本設定（astro.config.mjs, package.json）
+
+### フェーズ2: 共通部分の構築
+4. ベースレイアウト作成（HTML構造、head、GA）
+5. Header/Footerコンポーネント
+6. CSS移行・モダン化（アニメーション削減）
+7. JavaScript移行（jQuery削減、Vanilla JS化）
+
+### フェーズ3: 静的ページ移行
+8. トップページ（home）
+9. 各種案内ページ（studio, price, rental, access, faq, horizon, reservation, policy）
+
+### フェーズ4: ブログ機能構築（新規）
+10. Content Collectionsセットアップ（ブログスキーマ定義）
+11. ブログ一覧ページ（/blog/）
+12. ブログ詳細ページ（/blog/[slug]）
+13. カテゴリページ（/blog/category/[category]）
+14. ページネーション実装
+15. サンプル記事作成
+
+### フェーズ5: ニュース機能移行（既存）
+16. ニュース一覧ページ（/news/）
+17. ニュース詳細ページ（/news/[slug]）
+18. WordPressニュース記事のMarkdown変換（必要に応じて）
+
+### フェーズ6: 最終調整
+19. SEO設定（メタタグ、OGP、sitemap、RSS）
+20. レスポンシブ確認
+21. パフォーマンス最適化（Lighthouse）
+22. 全ページ動作確認
+23. **wordpress/ディレクトリの削除**（移行完了・動作確認後）
 
 ## 重要事項
 **`wordpress/`ディレクトリについて**:
