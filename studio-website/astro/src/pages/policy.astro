@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="利用規約 | スタジオゼブラ">
+  <div id="head-top" class="page-all policy">
+    <div class="key-page">
+      <h1><span>利用規約</span></h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="content-page">
+        <h2 class="ttl-common">スタジオゼブラ 利用規約</h2>
+        <div class="policy-content">
+          <p>スタジオゼブラをご利用いただくにあたり、以下の利用規約をご確認ください。</p>
+          <p class="note-text">詳細は<a href="/reservation">お問い合わせ</a>ください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-all.policy {
+    height: 150px;
+  }
+
+  .policy .key-page {
+    top: 55%;
+  }
+
+  .policy .key-page h1 span {
+    background: none;
+    color: #000;
+    font-size: 26px;
+  }
+
+  .content-page {
+    padding: 60px 0;
+  }
+
+  .policy-content {
+    max-width: 800px;
+    margin: 40px auto;
+    line-height: 1.8;
+  }
+
+  .policy-content p {
+    margin: 20px 0;
+  }
+
+  .note-text a {
+    color: #82C2A9;
+    text-decoration: underline;
+  }
+</style>

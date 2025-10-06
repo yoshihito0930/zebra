@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="レンタル機材 | スタジオゼブラ">
+  <div id="head-top" class="page-all rental">
+    <div class="key-page">
+      <h1><span>レンタル機材</span></h1>
+      <h2 class="ttl-key-page"><span>スタジオ利用料に含まれる機材一覧</span></h2>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="content-page">
+        <h2 class="ttl-common">貸出機材</h2>
+        <p>スタジオ内のすべての機材が使い放題です。</p>
+        <p>（有料の消耗品・LEDライトを除く）</p>
+        <p class="note-text">※詳細は<a href="/reservation">お問い合わせ</a>ください。</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-all.rental {
+    background: url(/img/common/key_rental.jpg) no-repeat center center;
+    background-size: cover;
+  }
+  .content-page {
+    padding: 60px 0;
+    text-align: center;
+  }
+  .ttl-common {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  .content-page p {
+    margin: 15px 0;
+    font-size: 16px;
+  }
+  .note-text a {
+    color: #82C2A9;
+    text-decoration: underline;
+  }
+</style>

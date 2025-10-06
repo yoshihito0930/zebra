@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="ご予約・お問い合わせ | スタジオゼブラ"
+  showReservationBanner={false}
+  showFixedReservationButton={false}
+>
+  <div id="head-top" class="page-all reservation">
+    <div class="key-page">
+      <h1><span>ご予約・お問い合わせ</span></h1>
+      <h2 class="ttl-key-page">
+        <span class="h-span">
+          予約状況は<a href="https://studiozebra.net/calendar/" target="_blank" rel="noopener noreferrer">こちら</a>からご確認ください。
+        </span>
+      </h2>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="content-page">
+        <h2 class="ttl-common">ご予約・お問い合わせ</h2>
+
+        <div class="reservation-info">
+          <p class="tel-info">
+            <span>お電話でのご予約</span><br>
+            TEL: <a href="tel:09067070936">090-6707-0936</a>
+          </p>
+
+          <p class="calendar-link">
+            <a href="https://studiozebra.net/calendar/" target="_blank" rel="noopener noreferrer" class="btn-hover">
+              予約カレンダーを確認する
+            </a>
+          </p>
+
+          <div class="contact-note">
+            <p>※メールでのお問い合わせは準備中です。</p>
+            <p>お急ぎの方はお電話にてお問い合わせください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-all.reservation {
+    background: #f5f5f5;
+  }
+
+  .ttl-key-page .h-span {
+    background: #D5D5D5;
+    padding: 19px 10px;
+    display: inline-block;
+    margin-top: 20px;
+    border-bottom: none;
+  }
+
+  .ttl-key-page a {
+    color: #FF463C;
+    border-bottom: 1px solid #000;
+  }
+
+  .content-page {
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .reservation-info {
+    max-width: 600px;
+    margin: 40px auto;
+  }
+
+  .tel-info {
+    font-size: 18px;
+    margin: 30px 0;
+    line-height: 2;
+  }
+
+  .tel-info span {
+    font-weight: bold;
+  }
+
+  .tel-info a {
+    color: inherit;
+    font-size: 24px;
+  }
+
+  .calendar-link {
+    margin: 40px 0;
+  }
+
+  .calendar-link a {
+    display: inline-block;
+    background: #82C2A9;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .contact-note {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .contact-note p {
+    margin: 10px 0;
+  }
+</style>

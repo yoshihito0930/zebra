@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="よくある質問 | スタジオゼブラ">
+  <div id="head-top" class="page-all faq">
+    <div class="key-page">
+      <h1><span>よくある質問</span></h1>
+      <h2 class="ttl-key-page"><span>FAQ</span></h2>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="content-page">
+        <h2 class="ttl-common">よくある質問</h2>
+        <p>ご不明な点は<a href="/reservation">お問い合わせフォーム</a>よりお気軽にお問い合わせください。</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-all.faq {
+    background: #f5f5f5;
+  }
+  .content-page {
+    padding: 60px 0;
+    text-align: center;
+  }
+  .content-page a {
+    color: #82C2A9;
+    text-decoration: underline;
+  }
+</style>

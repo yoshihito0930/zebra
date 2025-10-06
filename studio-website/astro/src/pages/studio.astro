@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="スタジオ案内 | スタジオゼブラ">
+  <div id="head-top" class="page-all studio">
+    <div class="key-page">
+      <h1><span>スタジオ案内</span></h1>
+      <h2 class="ttl-key-page">
+        <span>天高3m超・引き9mの白ホリスタジオ。</span><br>
+        <span>あなたのスタジオワークをもっと自由に、快適に。</span>
+      </h2>
+    </div>
+  </div>
+
+  <section>
+    <div id="lead-studio">
+      <div class="wrap">
+        <h2 class="ttl-common">
+          <img src="/img/index/studio.svg" width="784" alt="ABOUT OUR STUDIO STUDIOZEBRA!">
+        </h2>
+
+        <div class="studio-box">
+          <p class="photo">
+            <img src="/img/common/img_studio.png" alt="スタジオ写真">
+          </p>
+          <dl>
+            <dt><span>ゆったり！</span></dt>
+            <dd>
+              複数箇所から狙えるホリゾントが特徴。<br>
+              ３mを超える天井高と９mの引きがありモデルの全身撮影にも適しています。
+            </dd>
+          </dl>
+        </div>
+
+        <h3>
+          <img src="/img/common/title_details.png" alt="平面図">
+        </h3>
+
+        <div class="studio-detail">
+          <div class="detail-map">
+            <p class="map">
+              <img src="/img/common/map.png" alt="MAP">
+            </p>
+          </div>
+        </div>
+
+        <p class="note">
+          ※スタジオの詳細は<a href="/reservation">お問い合わせ</a>ください。
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-all.studio {
+    background: url(/img/common/key_studio.jpg) no-repeat center center;
+    background-size: cover;
+    height: 455px;
+    position: relative;
+  }
+
+  .key-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .key-page h1 span {
+    color: #FFF;
+    background: #000;
+    min-width: 260px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    padding: 15px 25px;
+    font-size: 30px;
+  }
+
+  .ttl-key-page span {
+    border-bottom: 2px solid;
+    font-size: 24px;
+    line-height: 48px;
+    font-weight: bold;
+  }
+
+  #lead-studio {
+    padding: 60px 0;
+  }
+
+  .ttl-common {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .studio-box {
+    display: flex;
+    gap: 40px;
+    margin: 40px 0;
+    align-items: center;
+  }
+
+  .studio-box .photo {
+    flex: 1;
+  }
+
+  .studio-box dl {
+    flex: 1;
+  }
+
+  .studio-box dt {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .studio-box dt span {
+    color: #82C2A9;
+  }
+
+  .studio-box dd {
+    line-height: 1.8;
+  }
+
+  .note {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+  }
+
+  .note a {
+    color: #82C2A9;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 767px) {
+    .page-all.studio {
+      height: 305px;
+    }
+
+    .key-page h1 span {
+      font-size: 5.5vw;
+      padding: 10px 15px;
+    }
+
+    .ttl-key-page span {
+      font-size: 3.7vw;
+      line-height: 38px;
+    }
+
+    .studio-box {
+      flex-direction: column;
+    }
+  }
+</style>
