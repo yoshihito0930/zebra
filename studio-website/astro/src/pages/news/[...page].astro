@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import NewsCategoryList from '../../components/NewsCategoryList.astro';
+import Pagination from '../../components/Pagination.astro';
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const allNews = await getCollection('news');
+  const sortedNews = allNews.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  // 1ページあたり6記事表示
+  return paginate(sortedNews, { pageSize: 6 });
+};
+
+const { page } = Astro.props;
+const allNews = await getCollection('news');
+
+// カテゴリ一覧を取得
+const categories = [...new Set(allNews.map(news => news.data.category))];
+---
+
+<BaseLayout title="NEWS | スタジオゼブラ">
+  <div class="news-header">
+    <div class="wrap">
+      <h1>NEWS</h1>
+      <p>スタジオゼブラからのお知らせです</p>
+    </div>
+  </div>
+
+  <section class="news-container">
+    <div class="wrap">
+      <div class="news-layout">
+        <aside class="sidebar">
+          <NewsCategoryList categories={categories} />
+        </aside>
+
+        <main class="news-main">
+          <div class="news-grid">
+            {page.data.map((news) => (
+              <NewsCard
+                title={news.data.title}
+                description={news.data.description}
+                pubDate={news.data.pubDate}
+                category={news.data.category}
+                slug={news.slug}
+                image={news.data.image}
+              />
+            ))}
+          </div>
+
+          {page.lastPage > 1 && (
+            <Pagination
+              currentPage={page.currentPage}
+              totalPages={page.lastPage}
+              baseUrl="/news"
+            />
+          )}
+        </main>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .news-header {
+    background: linear-gradient(135deg, #82C2A9 0%, #6BA896 100%);
+    color: #fff;
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .news-header h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+
+  .news-header p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .news-container {
+    padding: 60px 0;
+  }
+
+  .news-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 40px;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .news-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      order: 2;
+    }
+
+    .news-main {
+      order: 1;
+    }
+
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .news-header h1 {
+      font-size: 28px;
+    }
+  }
+</style>

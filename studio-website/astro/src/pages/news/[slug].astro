@@ -1,0 +1,206 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const newsItems = await getCollection('news');
+  return newsItems.map(news => ({
+    params: { slug: news.slug },
+    props: { news },
+  }));
+}
+
+interface Props {
+  news: CollectionEntry<'news'>;
+}
+
+const { news } = Astro.props;
+const { Content } = await news.render();
+
+const formattedDate = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(news.data.pubDate);
+---
+
+<BaseLayout title={`${news.data.title} | NEWS | スタジオゼブラ`} description={news.data.description}>
+  <article class="news-post">
+    <div class="wrap">
+      <header class="post-header">
+        {news.data.image && (
+          <div class="post-image">
+            <img src={news.data.image} alt={news.data.title}>
+          </div>
+        )}
+        <div class="post-meta">
+          <span class="category">{news.data.category}</span>
+          <time datetime={news.data.pubDate.toISOString()}>{formattedDate}</time>
+        </div>
+        <h1>{news.data.title}</h1>
+        <p class="post-description">{news.data.description}</p>
+      </header>
+
+      <div class="post-content">
+        <Content />
+      </div>
+
+      <footer class="post-footer">
+        <a href="/news" class="back-link">← NEWS一覧に戻る</a>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .news-post {
+    padding: 60px 0;
+  }
+
+  .post-image {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border-radius: 8px;
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-header {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .category {
+    background: #82C2A9;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  time {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .post-header h1 {
+    font-size: 32px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+  }
+
+  .post-description {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .post-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  .post-content :global(h1),
+  .post-content :global(h2),
+  .post-content :global(h3) {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .post-content :global(h1) {
+    font-size: 28px;
+  }
+
+  .post-content :global(h2) {
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #82C2A9;
+  }
+
+  .post-content :global(h3) {
+    font-size: 20px;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 20px;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin-left: 25px;
+    margin-bottom: 20px;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 10px;
+  }
+
+  .post-content :global(a) {
+    color: #82C2A9;
+    text-decoration: underline;
+  }
+
+  .post-content :global(strong) {
+    font-weight: bold;
+  }
+
+  .post-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+
+  .post-footer {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 2px solid #e0e0e0;
+  }
+
+  .back-link {
+    color: #82C2A9;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .post-image {
+      max-height: 250px;
+    }
+
+    .post-header h1 {
+      font-size: 24px;
+    }
+
+    .post-description {
+      font-size: 16px;
+    }
+
+    .post-content {
+      font-size: 15px;
+    }
+  }
+</style>

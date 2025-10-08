@@ -1,0 +1,134 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  slug: string;
+  image?: string;
+}
+
+const { title, description, pubDate, category, slug, image } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(pubDate);
+
+// デフォルト画像
+const newsImage = image || '/img/index/demo.jpg';
+---
+
+<article class="news-card">
+  <a href={`/news/${slug}`}>
+    <div class="news-image">
+      <img src={newsImage} alt={title} loading="lazy">
+    </div>
+    <div class="news-content">
+      <div class="news-meta">
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+        <span class="category">{category}</span>
+      </div>
+      <h3 class="news-title">{title}</h3>
+      <p class="news-description">{description}</p>
+      <span class="read-more">...［すべて表示］</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .news-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    background: #fff;
+  }
+
+  .news-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .news-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .news-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .news-card:hover .news-image img {
+    transform: scale(1.05);
+  }
+
+  .news-content {
+    padding: 20px;
+  }
+
+  .news-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  time {
+    color: #666;
+  }
+
+  .category {
+    background: #82C2A9;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .news-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .news-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  .read-more {
+    color: #82C2A9;
+    font-size: 14px;
+  }
+
+  .news-card:hover .read-more {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .news-image {
+      height: 180px;
+    }
+
+    .news-title {
+      font-size: 16px;
+    }
+  }
+</style>
