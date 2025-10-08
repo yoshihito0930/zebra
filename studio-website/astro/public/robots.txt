@@ -1,0 +1,8 @@
+# スタジオゼブラ - robots.txt
+
+User-agent: *
+Allow: /
+
+# サイトマップの場所
+Sitemap: https://studio-zebra.com/sitemap-index.xml
+Sitemap: https://studio-zebra.com/sitemap-0.xml

@@ -17,17 +17,17 @@ const isActive = (path: string) => currentPath === path;
 const isHome = currentPath === '/';
 ---
 
-<header class="header-box">
+<header class="header-box" role="banner">
   <p class="logo sp">
-    <a href="/">
+    <a href="/" aria-label="トップページへ戻る">
       <img src="/img/shared/logo.png" alt="スタジオゼブラ ロゴ">
     </a>
   </p>
 
-  <div class="nav-header">
+  <nav class="nav-header" role="navigation" aria-label="メインナビゲーション">
     <div class="inner">
       <p class="logo-fix pc">
-        <a href="/">
+        <a href="/" aria-label="トップページへ戻る">
           <img src="/img/shared/logo_fix.png" alt="スタジオゼブラ ロゴ">
         </a>
       </p>
@@ -49,17 +49,17 @@ const isHome = currentPath === '/';
         ))}
 
         <li>
-          <a href="https://twitter.com/studiozebra1st" target="_blank" rel="noopener noreferrer">
+          <a href="https://twitter.com/studiozebra1st" target="_blank" rel="noopener noreferrer" aria-label="Twitter（外部サイト）">
             <img src="/img/shared/gnavi_tw.png" alt="Twitter">
           </a>
         </li>
       </ul>
     </div>
-  </div>
+  </nav>
 
-  <div class="hamberger-btn">
+  <button class="hamberger-btn" aria-label="メニューを開く" aria-expanded="false">
     <span></span>
-  </div>
+  </button>
 </header>
 
 <style>

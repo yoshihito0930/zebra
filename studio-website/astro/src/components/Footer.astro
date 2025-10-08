@@ -58,28 +58,28 @@ const navItemsSP = [
   </div>
 )}
 
-<footer>
+<footer role="contentinfo">
   <div class="wrap">
     <p id="to-head">
-      <span class="to-top">
+      <button class="to-top" aria-label="ページトップへ戻る">
         <img src="/img/shared/arrow_top.png" alt="PAGE TOP">
-      </span>
+      </button>
     </p>
 
     <p class="logo-ft">
-      <a href="/">
+      <a href="/" aria-label="トップページへ戻る">
         <img src="/img/shared/logo_ft.png" alt="スタジオゼブラ ロゴ">
       </a>
     </p>
 
-    <p class="text">
+    <address class="text">
       <span>スタジオゼブラ</span>
-      TEL: <a href="tel:09067070936" class="telhref">090-6707-0936</a><br>
+      TEL: <a href="tel:09067070936" class="telhref" aria-label="電話番号: 090-6707-0936">090-6707-0936</a><br>
       〒151-0051　東京都渋谷区千駄ヶ谷5丁目28-10ドルミ第２御苑B101
-    </p>
+    </address>
 
     <!-- PC用ナビゲーション -->
-    <div class="nav-ft pc">
+    <nav class="nav-ft pc" role="navigation" aria-label="フッターナビゲーション（PC）">
       <ul>
         {navItemsPC.map((item) => (
           <li>
@@ -92,7 +92,7 @@ const navItemsSP = [
     </div>
 
     <!-- SP用ナビゲーション -->
-    <div class="nav-ft sp">
+    <nav class="nav-ft sp" role="navigation" aria-label="フッターナビゲーション（SP）">
       <ul>
         {navItemsSP.map((item) => (
           <li>
