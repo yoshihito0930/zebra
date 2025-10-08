@@ -1,0 +1,184 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+// ページ番号の配列を生成（最大7個表示）
+const getPageNumbers = () => {
+  const pages: (number | string)[] = [];
+
+  if (totalPages <= 7) {
+    // 7ページ以下なら全て表示
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+  } else {
+    // 7ページ以上の場合
+    pages.push(1);
+
+    if (currentPage > 3) {
+      pages.push('...');
+    }
+
+    // 現在のページ周辺を表示
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (currentPage < totalPages - 2) {
+      pages.push('...');
+    }
+
+    pages.push(totalPages);
+  }
+
+  return pages;
+};
+
+const pageNumbers = getPageNumbers();
+---
+
+<nav class="pagination" aria-label="ページネーション">
+  <ul class="pagination-list">
+    {/* 前へボタン */}
+    {currentPage > 1 ? (
+      <li>
+        <a
+          href={currentPage === 2 ? baseUrl : `${baseUrl}/${currentPage - 1}`}
+          class="pagination-link prev"
+          aria-label="前のページ"
+        >
+          ← 前へ
+        </a>
+      </li>
+    ) : (
+      <li>
+        <span class="pagination-link prev disabled">← 前へ</span>
+      </li>
+    )}
+
+    {/* ページ番号 */}
+    {pageNumbers.map((page) => (
+      page === '...' ? (
+        <li>
+          <span class="pagination-ellipsis">...</span>
+        </li>
+      ) : (
+        <li>
+          {page === currentPage ? (
+            <span class="pagination-link current" aria-current="page">
+              {page}
+            </span>
+          ) : (
+            <a
+              href={page === 1 ? baseUrl : `${baseUrl}/${page}`}
+              class="pagination-link"
+            >
+              {page}
+            </a>
+          )}
+        </li>
+      )
+    ))}
+
+    {/* 次へボタン */}
+    {currentPage < totalPages ? (
+      <li>
+        <a
+          href={`${baseUrl}/${currentPage + 1}`}
+          class="pagination-link next"
+          aria-label="次のページ"
+        >
+          次へ →
+        </a>
+      </li>
+    ) : (
+      <li>
+        <span class="pagination-link next disabled">次へ →</span>
+      </li>
+    )}
+  </ul>
+</nav>
+
+<style>
+  .pagination {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination-list {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination-link,
+  .pagination-ellipsis {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.3s;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .pagination-link:hover:not(.disabled):not(.current) {
+    background: #82C2A9;
+    color: #fff;
+    border-color: #82C2A9;
+  }
+
+  .pagination-link.current {
+    background: #82C2A9;
+    color: #fff;
+    border-color: #82C2A9;
+    font-weight: bold;
+    cursor: default;
+  }
+
+  .pagination-link.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+  }
+
+  .pagination-link.prev,
+  .pagination-link.next {
+    font-weight: bold;
+  }
+
+  .pagination-ellipsis {
+    border: none;
+    cursor: default;
+    padding: 8px 4px;
+  }
+
+  @media (max-width: 768px) {
+    .pagination-link,
+    .pagination-ellipsis {
+      padding: 6px 10px;
+      font-size: 13px;
+      min-width: 36px;
+    }
+
+    .pagination-list {
+      gap: 4px;
+    }
+  }
+</style>

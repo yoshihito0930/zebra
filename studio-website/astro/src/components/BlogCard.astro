@@ -1,0 +1,93 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  slug: string;
+}
+
+const { title, description, pubDate, category, slug } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(pubDate);
+---
+
+<article class="blog-card">
+  <a href={`/blog/${slug}`}>
+    <div class="card-header">
+      <span class="category">{category}</span>
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+    </div>
+    <h3 class="card-title">{title}</h3>
+    <p class="card-description">{description}</p>
+    <span class="read-more">続きを読む →</span>
+  </a>
+</article>
+
+<style>
+  .blog-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    background: #fff;
+  }
+
+  .blog-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .blog-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  .category {
+    background: #82C2A9;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  time {
+    color: #666;
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .card-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .read-more {
+    color: #82C2A9;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .blog-card:hover .read-more {
+    text-decoration: underline;
+  }
+</style>

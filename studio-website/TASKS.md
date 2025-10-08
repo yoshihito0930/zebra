@@ -130,35 +130,36 @@
 
 ## フェーズ5: ブログ機能構築（新規）
 
-- [ ] 20. **Content Collectionsセットアップ**
-  - `src/content/config.ts` でブログスキーマ定義
-  - フィールド: title, description, date, category, image等
-  - `src/content/blog/` ディレクトリ作成
+- [x] 20. **Content Collectionsセットアップ**
+  - `src/content/config.ts` でブログスキーマ定義 ✓
+  - フィールド: title, description, pubDate, category, image等 ✓
+  - `src/content/blog/` ディレクトリ作成 ✓
 
-- [ ] 21. **ブログ一覧ページ**
-  - `src/pages/blog/index.astro`
-  - 記事一覧表示
-  - カテゴリフィルタ
-  - ページネーション実装
+- [x] 21. **ブログ一覧ページ**
+  - `src/pages/blog/[...page].astro` ✓
+  - 記事一覧表示 ✓
+  - カテゴリフィルタ ✓
+  - ページネーション実装（1ページ6記事） ✓
 
-- [ ] 22. **ブログ詳細ページ**
-  - `src/pages/blog/[slug].astro`
-  - 動的ルーティング
-  - Markdownレンダリング
-  - 記事メタ情報表示
+- [x] 22. **ブログ詳細ページ**
+  - `src/pages/blog/[slug].astro` ✓
+  - 動的ルーティング ✓
+  - Markdownレンダリング ✓
+  - 記事メタ情報表示（カテゴリ、日付、タグ） ✓
 
-- [ ] 23. **カテゴリページ**
-  - `src/pages/blog/category/[category].astro`
-  - カテゴリ別記事一覧
+- [x] 23. **カテゴリページ**
+  - `src/pages/blog/category/[category]/[...page].astro` ✓
+  - カテゴリ別記事一覧 ✓
+  - ページネーション対応 ✓
 
-- [ ] 24. **ブログコンポーネント**
-  - `src/components/BlogCard.astro` - 記事カード
-  - `src/components/Pagination.astro` - ページネーション
-  - `src/components/CategoryList.astro` - カテゴリ一覧
+- [x] 24. **ブログコンポーネント**
+  - `src/components/BlogCard.astro` - 記事カード ✓
+  - `src/components/Pagination.astro` - ページネーション ✓
+  - `src/components/CategoryList.astro` - カテゴリ一覧 ✓
 
-- [ ] 25. **サンプル記事作成**
-  - `src/content/blog/` にMarkdownでサンプル投稿3〜5記事
-  - 異なるカテゴリで作成
+- [x] 25. **サンプル記事作成**
+  - `src/content/blog/` にMarkdownでサンプル投稿5記事 ✓
+  - 異なるカテゴリで作成（お知らせ、撮影テクニック、機材情報、キャンペーン、活用事例） ✓
 
 ---
 
@@ -239,8 +240,8 @@
 
 - **開始日**: 2025-10-05
 - **目標完了日**: 未定
-- **現在のフェーズ**: フェーズ4完了 → フェーズ5（ブログ機能）/ フェーズ6（ニュース機能）
-- **完了タスク数**: 19 / 37 (51%)
+- **現在のフェーズ**: フェーズ5完了 → フェーズ6（ニュース機能）/ フェーズ7（最終調整）
+- **完了タスク数**: 25 / 37 (68%)
 
 ---
 
