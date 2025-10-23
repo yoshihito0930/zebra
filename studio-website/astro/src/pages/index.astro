@@ -1,32 +1,207 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { getCollection } from 'astro:content';
+
+// ニュース記事を取得（最新8件）
+const newsEntries = await getCollection('news');
+const sortedNews = newsEntries
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 8);
 ---
 
 <BaseLayout
   title="スタジオゼブラ | 新宿・代々木エリアの白ホリゾント撮影スタジオ"
   showReservationBanner={false}
 >
-  <div class="content">
-    <h1>スタジオゼブラ</h1>
-    <p>新宿・代々木エリアの白ホリゾント撮影スタジオ</p>
-    <p>天高3m超・引き9mの白ホリスタジオ。あなたのスタジオワークをもっと自由に、快適に。</p>
+  <div id="head-top">
+    <div class="head-info">
+      <h1 class="logo pc">
+        <a href="/"><img src="/img/shared/logo.png" alt="新宿エリアのリーズナブルなレンタル撮影スタジオ"></a>
+      </h1>
+      <ul class="nav-h">
+        <li><a href="/studio/"><img src="/img/shared/gnav01.png" alt="スタジオ案内"></a></li>
+        <li><a href="/price/"><img src="/img/shared/gnav02.png" alt="料金案内"></a></li>
+        <li><a href="/rental/"><img src="/img/shared/gnav03.png" alt="レンタル機材"></a></li>
+        <li><a href="/access/"><img src="/img/shared/gnav04.png" alt="アクセス"></a></li>
+        <li><a href="/faq/"><img src="/img/shared/gnav_a1.png" alt="よくある質問"></a></li>
+        <li><a href="/horizon/"><img src="/img/shared/gnav_a2.png" alt="ホリゾントルール"></a></li>
+        <li><a href="/reservation/"><img src="/img/shared/gnav05.png" alt="ご予約・お問い合わせ"></a></li>
+        <li><a href="/news/"><img src="/img/shared/gnavi_news.png" alt="news"></a></li>
+        <li><a href="/blog/"><img src="/img/shared/gnavi_blog.png" alt="ブログ"></a></li>
+        <li><a href="https://twitter.com/studiozebra1st" target="_blank"><img src="/img/shared/gnavi_tw.png" alt="twitter"></a></li>
+      </ul>
+    </div>
   </div>
+
+  <section>
+    <!-- 料金案内セクション -->
+    <div id="lead" class="sec-scroll">
+      <div class="wrap">
+        <h2 class="ttl-common"><span>新宿・代々木エリアの<br class="sp">白ホリゾント撮影スタジオ</span></h2>
+
+        <ul class="lead-banner">
+          <li><img src="/img/index/zebra_240825_item_01.webp" alt="料金プラン" loading="lazy"></li>
+        </ul>
+
+        <p class="note">
+          <span>＊最低利用時間／2時間<br>
+          ＊深夜帯（23時〜翌8時）は、通常料金の50%UP<br>
+          ＊深夜帯を含む場合の最低利用時間／4時間<br>
+          ＊6人以上でのワークショップでご利用・・・合計のご利用料に＋2,200円（税込）<br>
+          ＊ラメ、グリッターを多用した衣装・小道具をご使用・・・合計のご利用料に＋2,200円（税込）</span>
+        </p>
+
+        <p class="btn"><a class="btn-hover" href="/price/"><img src="/img/index/lead_btn.png" alt="料金案内はこちら" loading="lazy"></a></p>
+      </div>
+    </div>
+
+    <!-- スタジオ紹介セクション -->
+    <div id="about">
+      <div class="wrap">
+        <p class="ttl-ab">
+          <img class="pc" src="/img/index/title_about.png" alt="ABOUT OUR STUDIO" loading="lazy">
+          <span class="sp ttl-common"><img src="/img/index/about_h2_sp.svg" alt="ABOUT OUR STUDIO" loading="lazy"></span>
+        </p>
+        <div class="list">
+          <div class="item">
+            <div class="text">
+              <p class="ttl-number"><span class="ft-add">01</span>エキチカ！</p>
+              <h3 class="txt">
+                <span>代々木駅東口より徒歩３分</span><br>
+                <span>新宿駅新南口より徒歩７分の好アクセス</span>
+              </h3>
+              <p class="btn"><a href="/access/"><img src="/img/index/zebra_240704_item02.png" alt="アクセス" loading="lazy"></a></p>
+            </div>
+            <p class="photo"><img src="/img/index/img_about1.webp" alt="エキチカ！" loading="lazy"></p>
+          </div>
+
+          <div class="item">
+            <div class="text">
+              <p class="ttl-number"><span class="ft-add">02</span>ゆったり！</p>
+              <h3 class="txt">
+                <span>低価格でもゆとりのある室内</span><br>
+                <span>全身撮影にも適した白ホリスタジオ</span>
+              </h3>
+              <p class="btn"><a href="/studio/"><img src="/img/index/zebra_240704_item03.png" alt="スタジオ案内" loading="lazy"></a></p>
+            </div>
+            <p class="photo"><img src="/img/index/img_about2.webp" alt="ゆったり！" loading="lazy"></p>
+          </div>
+
+          <div class="item">
+            <div class="text">
+              <p class="ttl-number"><span class="ft-add">03</span>思いのまま！</p>
+              <h3 class="txt">
+                <span>豊富な機材を無料でお貸し出し</span><br>
+                <span>ライティングも思いのままに</span>
+              </h3>
+              <p class="btn"><a href="/rental/"><img src="/img/index/zebra_240704_item04.png" alt="スタジオ機材" loading="lazy"></a></p>
+            </div>
+            <p class="photo"><img src="/img/index/img_about3.webp" alt="思いのまま！" loading="lazy"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 予約バナー -->
+    <div id="banner-pdf">
+      <div class="wrap">
+        <h2><img src="/img/index/banner_ttl.png" alt="RESERVATION" loading="lazy"></h2>
+        <p class="btn"><a class="btn-hover" href="/reservation/"><img src="/img/index/banner_btn.png" alt="予約状況のご確認・お問い合わせ・ご予約はこちら" loading="lazy"></a></p>
+      </div>
+    </div>
+
+    <!-- ニュースセクション -->
+    <div id="news">
+      <div class="wrap">
+        <h2><img src="/img/index/news_title.png" alt="NEWS" loading="lazy"></h2>
+        <div class="news-box">
+          <div class="news-grid">
+            {sortedNews.map((news) => (
+              <NewsCard
+                title={news.data.title}
+                description={news.data.description}
+                pubDate={news.data.pubDate}
+                category={news.data.category}
+                slug={news.slug}
+                image={news.data.image}
+              />
+            ))}
+          </div>
+        </div>
+        <p class="btn"><a href="/news/"><img src="/img/index/btn_news.jpg" alt="すべて見る" loading="lazy"></a></p>
+      </div>
+    </div>
+
+    <!-- アクセスセクション -->
+    <div id="map-google">
+      <div class="info-access">
+        <h2><img src="/img/index/access_ttl.png" alt="ACCESS" loading="lazy"></h2>
+        <p class="txt">
+          〒151-0051<br>
+          東京都渋谷区千駄ヶ谷5丁目28-10<br>
+          ドルミ第2御苑B101
+        </p>
+        <p class="btn"><a href="/access/"><img src="/img/index/more.png" alt="もっと詳しく" loading="lazy"></a></p>
+      </div>
+      <div class="box">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12962.70066365035!2d139.7039247!3d35.6849996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe2a619233d3d372f!2z44K544K_44K444Kq44K844OW44Op!5e0!3m2!1sja!2s!4v1602220734771!5m2!1sja!2s"
+          width="600"
+          height="450"
+          frameborder="0"
+          style="border:0;"
+          allowfullscreen=""
+          aria-hidden="false"
+          tabindex="0"
+          loading="lazy"
+          title="スタジオゼブラの地図"
+        ></iframe>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
-<style>
-  .content {
-    min-height: 50vh;
-    padding: 80px 20px;
+<style is:global>
+  /* Astro独自の調整スタイル */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+  }
+
+  /* ロゴの追加スタイル */
+  #head-top {
     text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #82C2A9 0%, #6ba890 100%);
   }
 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+  #head-top .head-info .logo img {
+    max-width: 300px;
+    height: auto;
   }
 
-  p {
-    font-size: 1.2rem;
-    margin: 10px 0;
+  /* ニュースセクションのボタン調整 */
+  #news .btn {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  #news .btn img {
+    max-width: 300px;
+    height: auto;
+  }
+
+  @media (max-width: 767px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    #head-top .head-info .logo img {
+      max-width: 200px;
+    }
   }
 </style>
