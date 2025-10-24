@@ -5,8 +5,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="料金案内 | スタジオゼブラ">
   <div id="head-top" class="page-all price">
     <div class="key-page">
-      <h1><span>料金案内</span></h1>
-      <h2 class="ttl-key-page">
+      <h1 class="wow fadeInUp"><span>料金案内</span></h1>
+      <h2 class="ttl-key-page wow fadeInUp">
         <span>新宿エリアの安くてきれいなレンタル撮影スタジオ。</span><br>
         <span>シンプルな料金設定です。</span>
       </h2>
@@ -16,18 +16,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section>
     <div id="lead">
       <div class="wrap">
-        <h3 class="ttl-common title-price">
-          <span>スタジオ利用料</span>
+        <!-- タイトル -->
+        <h3 class="ttl-common wow fadeInUp title-price b-none">
+          <span><font size="6">スタジオ利用料</font></span>
         </h3>
 
-        <div class="lead-banner is-price">
+        <!-- メインプラン -->
+        <div class="lead-banner is-price mt">
           <div class="list-price">
-            <div class="item">
+            <div class="item wow fadeInLeft">
               <p class="photo_price">
-                <img src="/img/index/zebra_240825_item_02_add.png" alt="料金プラン">
+                <img src="/img/index/zebra_240825_item_02_add.png" alt="4,500">
               </p>
             </div>
-            <div class="item is-item">
+            <div class="item is-item wow fadeInRight">
               <div class="box">
                 <p class="text1">最低利⽤時間／2時間</p>
                 <p class="text">
@@ -35,11 +37,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   （有料の消耗品・LEDライトを除く）
                 </p>
                 <p class="btn1">
-                  <a href="/rental">
+                  <a href="/rental/">
                     <img src="/img/index/zebra_240704_item04.png" alt="貸出機材の詳細はこちら">
                   </a>
                 </p>
-                <p class="price-add">
+                <p class="price-add-1807">
                   ＊深夜帯（23時〜翌8時）は、通常料⾦の50%UP<br>
                   ＊深夜帯を含む場合の最低利⽤時間／4時間<br>
                   ＊6⼈以上でのワークショップでご利⽤<br>
@@ -50,17 +52,87 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
             </div>
           </div>
+
+          <!-- 機材保険セクション -->
+          <div class="list-price price-old">
+            <div class="item wow fadeInLeft">
+              <p class="photo_price">
+                <img src="/img/index/bnr_price6.png" alt="">
+              </p>
+            </div>
+            <div class="item is-item wow fadeInRight">
+              <div class="box">
+                <p class="text">
+                  お客様の不注意による機材の破損を保証します。<br>
+                  （免責&yen;10,000、1機材に限ります）<br>
+                  但し、ホリゾントを破損・汚損した場合の<br class="pc">
+                  修繕費用と休業補償は含みません。
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <p class="note-bottom">
-          ※詳しい料金については<a href="/reservation">お問い合わせ</a>ください。
-        </p>
+        <!-- 注意事項リスト -->
+        <ul class="text-list-note wow fadeInUp">
+          <li><span>●</span> 深夜帯（23時〜翌8時）は通常のご利用料金の<span>50%UP</span></li>
+          <li><span>●</span> ゴミの回収は45リットルのゴミ袋1袋につき¥330(税込)にて回収いたします。分別できていないごみと粗⼤ごみ、⽣花⽤のオアシスは回収できません</li>
+          <li><span>●</span> 機材の持ち込み料は原則かかりません。</li>
+          <li><span>●</span> HMIをお持ち込みの場合は、1台あたり¥1,100(税込)/1hの持ち込み料をお支払いいただきます。<br>お持ち込み可能なHMIの電力量は1台1.2kw以下、総電力量は2.5kwまでです。</li>
+        </ul>
+
+        <!-- キャンセル料セクション PC版 -->
+        <div class="price-note-edit pc">
+          <h3 class="ttl-common wow fadeInUp">
+            キャンセル料について
+            <span>※本予約確定後は、ご利⽤⽇までの⽇数に応じてキャンセル料が発⽣します。</span>
+          </h3>
+          <div class="list wow fadeInUp">
+            <dl>
+              <dt>ご利⽤⽇の6⽇以前〜4⽇前</dt>
+              <dd>ご予約時間分の利用料の50%</dd>
+            </dl>
+            <dl>
+              <dt>ご利用日の3日前〜前日</dt>
+              <dd>ご予約時間分の利用料の80%</dd>
+            </dl>
+            <dl>
+              <dt>ご利用日当日</dt>
+              <dd>ご予約時間分の利用料の100%</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- キャンセル料セクション SP版 -->
+    <div class="price-note-edit sp">
+      <div class="wrap">
+        <h3 class="ttl-common wow fadeInUp">
+          キャンセル料について
+          <span>※本予約確定後は、ご利⽤⽇までの⽇数に応じてキャンセル料が発⽣します。</span>
+        </h3>
+        <div class="list wow fadeInUp">
+          <dl>
+            <dt>ご利⽤⽇の6⽇以前〜4⽇前</dt>
+            <dd>ご予約時間分の利用料の50%</dd>
+          </dl>
+          <dl>
+            <dt>ご利用日の3日前〜前日</dt>
+            <dd>ご予約時間分の利用料の80%</dd>
+          </dl>
+          <dl>
+            <dt>ご利用日当日</dt>
+            <dd>ご予約時間分の利用料の100%</dd>
+          </dl>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<style>
+<style is:global>
+  /* ページヘッダー */
   .page-all.price {
     background: url(/img/common/key_price.jpg) no-repeat center center;
     background-size: cover;
@@ -72,7 +144,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -20%);
+    transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
     z-index: 10;
@@ -96,61 +168,167 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: bold;
   }
 
+  /* メインセクション */
   #lead {
     padding: 60px 0;
   }
 
-  .title-price {
+  .ttl-common {
     text-align: center;
-    font-size: 36px;
     margin-bottom: 40px;
+  }
+
+  .title-price {
+    font-size: 36px;
+  }
+
+  .title-price.b-none {
+    border-bottom: none;
+  }
+
+  .title-price font {
+    font-size: inherit;
+  }
+
+  /* レイアウト調整 */
+  .is-price.mt {
+    margin-top: 40px;
+  }
+
+  .lead-banner {
+    margin: 40px 0;
   }
 
   .list-price {
     display: flex;
     gap: 40px;
-    margin: 40px 0;
+    margin-bottom: 40px;
   }
 
-  .item {
+  .list-price .item {
     flex: 1;
   }
 
-  .box {
+  .list-price .photo_price img {
+    width: 100%;
+    height: auto;
+  }
+
+  .list-price .box {
     background: #f5f5f5;
     padding: 30px 20px;
     border-radius: 8px;
   }
 
-  .text1 {
+  .list-price .text1 {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 15px;
   }
 
-  .text {
+  .list-price .text {
     line-height: 1.8;
     margin-bottom: 20px;
   }
 
-  .price-add {
+  .list-price .btn1 {
+    margin-bottom: 20px;
+  }
+
+  .list-price .btn1 img {
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
+  }
+
+  .list-price .btn1 a:hover img {
+    opacity: 0.8;
+  }
+
+  .price-add-1807 {
     font-size: 12px;
     line-height: 1.6;
-    margin-top: 20px;
     color: #666;
   }
 
-  .note-bottom {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 14px;
+  /* 機材保険セクション */
+  .price-old {
+    padding-top: 40px;
+    border-top: 1px solid #e0e0e0;
   }
 
-  .note-bottom a {
+  /* 注意事項リスト */
+  .text-list-note {
+    list-style: none;
+    padding: 40px 0;
+    margin: 0;
+  }
+
+  .text-list-note li {
+    margin-bottom: 15px;
+    line-height: 1.8;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .text-list-note li > span:first-child {
+    position: absolute;
+    left: 0;
     color: #82C2A9;
-    text-decoration: underline;
   }
 
+  .text-list-note li span {
+    font-weight: bold;
+  }
+
+  /* キャンセル料セクション */
+  .price-note-edit {
+    padding: 60px 0;
+    background: #f9f9f9;
+  }
+
+  .price-note-edit h3 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .price-note-edit h3 span {
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 10px;
+    color: #666;
+  }
+
+  .price-note-edit .list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .price-note-edit dl {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .price-note-edit dl:last-child {
+    border-bottom: none;
+  }
+
+  .price-note-edit dt {
+    font-weight: bold;
+    flex: 1;
+  }
+
+  .price-note-edit dd {
+    flex: 1;
+    text-align: right;
+    color: #82C2A9;
+    font-weight: bold;
+  }
+
+  /* レスポンシブ */
   @media (max-width: 767px) {
     .page-all.price {
       height: 305px;
@@ -168,6 +346,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .list-price {
       flex-direction: column;
+      gap: 30px;
+    }
+
+    .price-note-edit dl {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .price-note-edit dd {
+      text-align: left;
     }
   }
 </style>
