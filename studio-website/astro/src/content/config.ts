@@ -50,4 +50,14 @@ const studio = defineCollection({
   }),
 });
 
-export const collections = { blog, news, studio };
+const rental = defineCollection({
+  type: 'data',
+  schema: z.object({
+    items: z.array(z.object({
+      image: z.string(),
+      text: z.string(),
+    })),
+  }),
+});
+
+export const collections = { blog, news, studio, rental };

@@ -1,46 +1,310 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+// レンタル機材データを取得
+const rentalData = await getEntry('rental', 'equipment');
+const { items } = rentalData.data;
 ---
 
 <BaseLayout title="レンタル機材 | スタジオゼブラ">
   <div id="head-top" class="page-all rental">
     <div class="key-page">
-      <h1><span>レンタル機材</span></h1>
-      <h2 class="ttl-key-page"><span>スタジオ利用料に含まれる機材一覧</span></h2>
+      <h1 class="wow fadeInUp"><span>レンタル機材</span></h1>
+      <h2 class="ttl-key-page wow fadeInUp">
+        <span>スタジオゼブラの貸し出し機材は<br class="sp">充実のラインナップ。</span><br>
+        <span>ライティングの可能性が広がります。</span>
+      </h2>
     </div>
   </div>
 
   <section>
-    <div class="wrap">
-      <div class="content-page">
-        <h2 class="ttl-common">貸出機材</h2>
-        <p>スタジオ内のすべての機材が使い放題です。</p>
-        <p>（有料の消耗品・LEDライトを除く）</p>
-        <p class="note-text">※詳細は<a href="/reservation">お問い合わせ</a>ください。</p>
+    <!-- レンタル機材一覧 -->
+    <div id="lead-rental">
+      <div class="wrap">
+        <h2 class="ttl-common wow fadeInUp">レンタル機材一覧</h2>
+        <div class="list">
+          {items.map((item) => (
+            <div class="item wow fadeInUp">
+              <p class="photo"><img src={item.image} alt={item.text}></p>
+              <p class="text">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- ダウンロードセクション -->
+    <div id="download-flie">
+      <div class="wrap">
+        <p class="btn wow fadeInUp">
+          <a href="/pdf/equipment-list.pdf" target="_blank" download>
+            <img src="/img/common/btn_dowload.png" alt="機材一覧をダウンロード">
+          </a>
+        </p>
+        <p class="file-size wow fadeInUp">PDF <span>1.2MB</span></p>
+      </div>
+    </div>
+
+    <!-- 消耗品（有料） -->
+    <div id="sec01-rental">
+      <div class="wrap">
+        <h2 class="ttl-common wow fadeInUp">消耗品（有料）</h2>
+        <dl class="wow fadeInUp">
+          <dt><span>●</span> 背景紙（2.72m）</dt>
+          <dd class="right-t">¥2,300（税込¥2,530）/1m</dd>
+        </dl>
+        <p class="txt wow fadeInUp">
+          常設カラー・・・<br>
+          ブラック、ダブグレー、ペールブルー、ウィート、アップルグリーン、カナリー、<br>レッド、ピンク
+        </p>
+        <p class="photo wow fadeInUp">
+          <img src="/img/common/img_color.png" alt="消耗品（有料）">
+        </p>
+        <dl class="wow fadeInUp">
+          <dt><span>●</span> トレーシングペーパー1100</dt>
+          <dd>¥200(税込¥220)/1m</dd>
+        </dl>
+        <dl class="wow fadeInUp">
+          <dt><span>●</span> トレーシングペーパー2200</dt>
+          <dd>¥700(税込¥770)/1m</dd>
+        </dl>
+        <dl class="wow fadeInUp">
+          <dt><span>●</span> ユポ2200</dt>
+          <dd>¥2,000(税込¥2,200)/1m</dd>
+        </dl>
+        <dl class="wow fadeInUp">
+          <dt><span>●</span> タフニール1830</dt>
+          <dd>¥700(税込¥770)/1m</dd>
+        </dl>
+        <dl class="wow fadeInUp">
+          <dt><span>●</span> ケント紙（四六判）白・黒・グレー</dt>
+          <dd>¥300(税込¥330)/1枚</dd>
+        </dl>
+        <p class="note wow fadeInUp">
+          レンタル機材や備品は、状況により内容が変更される場合がございますので事前にご確認ください
+        </p>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<style>
+<style is:global>
+  /* ページヘッダー */
   .page-all.rental {
     background: url(/img/common/key_rental.jpg) no-repeat center center;
     background-size: cover;
+    height: 455px;
+    position: relative;
   }
-  .content-page {
+
+  .key-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .key-page h1 span {
+    color: #FFF;
+    background: #000;
+    min-width: 260px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    padding: 15px 25px;
+    font-size: 30px;
+  }
+
+  .ttl-key-page span {
+    border-bottom: 2px solid;
+    font-size: 24px;
+    line-height: 48px;
+    font-weight: bold;
+  }
+
+  /* レンタル機材一覧セクション */
+  #lead-rental {
     padding: 60px 0;
+  }
+
+  .ttl-common {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 36px;
+  }
+
+  #lead-rental .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 0 auto;
+  }
+
+  #lead-rental .item {
     text-align: center;
   }
-  .ttl-common {
-    font-size: 32px;
-    margin-bottom: 30px;
+
+  #lead-rental .item .photo {
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 8px;
   }
-  .content-page p {
-    margin: 15px 0;
-    font-size: 16px;
+
+  #lead-rental .item .photo img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
   }
-  .note-text a {
+
+  #lead-rental .item:hover .photo img {
+    transform: scale(1.05);
+  }
+
+  #lead-rental .item .text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* ダウンロードセクション */
+  #download-flie {
+    background: #f9f9f9;
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  #download-flie .btn {
+    margin-bottom: 15px;
+  }
+
+  #download-flie .btn img {
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
+  }
+
+  #download-flie .btn a:hover img {
+    opacity: 0.8;
+  }
+
+  #download-flie .file-size {
+    font-size: 14px;
+    color: #666;
+  }
+
+  #download-flie .file-size span {
+    font-weight: bold;
     color: #82C2A9;
-    text-decoration: underline;
+  }
+
+  /* 消耗品セクション */
+  #sec01-rental {
+    padding: 60px 0;
+  }
+
+  #sec01-rental .ttl-common {
+    margin-bottom: 40px;
+  }
+
+  #sec01-rental dl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+  }
+
+  #sec01-rental dl dt {
+    flex: 1;
+    font-weight: normal;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  #sec01-rental dl dt span {
+    position: absolute;
+    left: 0;
+    color: #82C2A9;
+    font-weight: bold;
+  }
+
+  #sec01-rental dl dd {
+    flex: 0 0 auto;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+  }
+
+  #sec01-rental dl dd.right-t {
+    color: #82C2A9;
+  }
+
+  #sec01-rental .txt {
+    margin: 30px 0;
+    line-height: 1.8;
+    color: #666;
+  }
+
+  #sec01-rental .photo {
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  #sec01-rental .photo img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #sec01-rental .note {
+    margin-top: 40px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-left: 4px solid #82C2A9;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #666;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    .page-all.rental {
+      height: 305px;
+    }
+
+    .key-page h1 span {
+      font-size: 5.5vw;
+      padding: 10px 15px;
+    }
+
+    .ttl-key-page span {
+      font-size: 3.7vw;
+      line-height: 38px;
+    }
+
+    #lead-rental .list {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    #lead-rental .item .photo img {
+      height: 150px;
+    }
+
+    #sec01-rental dl {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    #sec01-rental dl dd {
+      text-align: left;
+      padding-left: 20px;
+    }
   }
 </style>
