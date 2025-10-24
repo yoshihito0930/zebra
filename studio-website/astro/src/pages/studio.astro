@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+// スタジオデータを取得
+const studioData = await getEntry('studio', 'main');
+const { detailImages, popups, gallery } = studioData.data;
 ---
 
 <BaseLayout title="スタジオ案内 | スタジオゼブラ">
@@ -14,6 +19,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </div>
 
   <section>
+    <!-- スタジオ紹介セクション -->
     <div id="lead-studio">
       <div class="wrap">
         <h2 class="ttl-common">
@@ -38,22 +44,106 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </h3>
 
         <div class="studio-detail">
+          <!-- スタジオ詳細画像（PC版） -->
+          <div class="photo pc">
+            <div class="show-box">
+              {detailImages.map((img) => (
+                <p><img src={img.src} alt={img.alt}></p>
+              ))}
+            </div>
+            {popups.map((popup) => (
+              <div class={`show-box vt-${popup.id}`}>
+                {popup.images.map((img) => (
+                  <p><img src={img.src} alt={img.alt}></p>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <!-- 平面図マップ -->
           <div class="detail-map">
             <p class="map">
               <img src="/img/common/map.png" alt="MAP">
             </p>
+            <button class="unit-a btn unsmooth" data-popup="A">Button</button>
+            <button class="unit-b btn unsmooth" data-popup="B">Button</button>
+            <button class="unit-c btn unsmooth" data-popup="C">Button</button>
+            <button class="unit-d btn unsmooth" data-popup="D">Button</button>
+            <button class="unit-e btn unsmooth" data-popup="E">Button</button>
+            <button class="unit-f btn unsmooth" data-popup="F">Button</button>
+          </div>
+
+          <!-- ポップアップダイアログ -->
+          {popups.map((popup) => (
+            <dialog id={`popup-${popup.id}`} class="studio-popup">
+              <div class="popup-content">
+                <button class="popup-close" aria-label="閉じる">×</button>
+                <div class="pp-box-st">
+                  <dl>
+                    <dt>
+                      {popup.images.map((img) => (
+                        <span><img src={img.src} alt={img.alt}></span>
+                      ))}
+                    </dt>
+                    <dd>{popup.text}</dd>
+                  </dl>
+                </div>
+              </div>
+            </dialog>
+          ))}
+        </div>
+
+        <dl class="note">
+          <dt>平面図のアイコン<span class="ft-add">A</span> 〜 <span class="ft-add">F</span>をクリックすると画像が表示されます</dt>
+          <dd>※写真・間取り図と現況が相違する場合は、現況が優先されますので予めご了承下さい。</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- フォトギャラリーセクション -->
+    <div id="gallery-box">
+      <div class="wrap">
+        <h2 class="ft-add">
+          <img src="/img/index/photo_galery.svg" width="507" alt="PHOTO GALLERY">
+        </h2>
+        <h3 class="ttl-common">フォトギャラリー</h3>
+
+        <div class="slide-box">
+          <!-- メインスライダー -->
+          <div class="swiper gallery-main">
+            <div class="swiper-wrapper">
+              {gallery.map((item) => (
+                <div class="swiper-slide">
+                  <img src={item.main} alt={item.alt}>
+                </div>
+              ))}
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
           </div>
         </div>
 
-        <p class="note">
-          ※スタジオの詳細は<a href="/reservation">お問い合わせ</a>ください。
-        </p>
+        <!-- サムネイルスライダー -->
+        <div class="th-box">
+          <div class="swiper gallery-thumbs">
+            <div class="swiper-wrapper">
+              {gallery.map((item) => (
+                <div class="swiper-slide">
+                  <img src={item.thumbnail} alt={item.alt}>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style is:global>
+  /* ページヘッダー */
   .page-all.studio {
     background: url(/img/common/key_studio.jpg) no-repeat center center;
     background-size: cover;
@@ -65,7 +155,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -20%);
+    transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
     z-index: 10;
@@ -89,6 +179,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: bold;
   }
 
+  /* スタジオ紹介セクション */
   #lead-studio {
     padding: 60px 0;
   }
@@ -109,6 +200,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     flex: 1;
   }
 
+  .studio-box .photo img {
+    width: 100%;
+    height: auto;
+  }
+
   .studio-box dl {
     flex: 1;
   }
@@ -127,17 +223,205 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     line-height: 1.8;
   }
 
+  /* スタジオ詳細 */
+  .studio-detail {
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .studio-detail .photo {
+    margin-bottom: 30px;
+  }
+
+  .studio-detail .show-box {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .studio-detail .show-box p {
+    flex: 1;
+  }
+
+  .studio-detail .show-box img {
+    width: 100%;
+    height: auto;
+  }
+
+  .detail-map {
+    position: relative;
+  }
+
+  .detail-map .map img {
+    width: 100%;
+    height: auto;
+  }
+
+  .detail-map button {
+    position: absolute;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+  }
+
+  .detail-map button:hover {
+    background: rgba(130, 194, 169, 0.3);
+  }
+
+  /* ボタン位置（実際の平面図に合わせて調整） */
+  .detail-map .unit-a { top: 20%; left: 15%; }
+  .detail-map .unit-b { top: 20%; right: 15%; }
+  .detail-map .unit-c { top: 50%; left: 15%; }
+  .detail-map .unit-d { top: 50%; right: 15%; }
+  .detail-map .unit-e { bottom: 20%; left: 15%; }
+  .detail-map .unit-f { bottom: 20%; right: 15%; }
+
+  /* ポップアップスタイル */
+  .studio-popup {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow: auto;
+  }
+
+  .studio-popup::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .popup-content {
+    position: relative;
+    padding: 40px;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #000;
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.3s ease;
+  }
+
+  .popup-close:hover {
+    background: #333;
+  }
+
+  .pp-box-st dl {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+  }
+
+  .pp-box-st dt {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .pp-box-st dt img {
+    width: 100%;
+    height: auto;
+  }
+
+  .pp-box-st dd {
+    flex: 1;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  /* 注釈 */
   .note {
-    text-align: center;
     margin-top: 40px;
-    font-size: 14px;
+    text-align: center;
   }
 
-  .note a {
+  .note dt {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .note .ft-add {
     color: #82C2A9;
-    text-decoration: underline;
+    font-weight: bold;
   }
 
+  .note dd {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* フォトギャラリー */
+  #gallery-box {
+    background: #f5f5f5;
+    padding: 60px 0;
+  }
+
+  #gallery-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #gallery-box h3 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .slide-box {
+    margin-bottom: 20px;
+  }
+
+  .gallery-main {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .gallery-main .swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .gallery-main .swiper-button-prev,
+  .gallery-main .swiper-button-next {
+    color: #82C2A9;
+  }
+
+  .gallery-thumbs {
+    width: 100%;
+  }
+
+  .gallery-thumbs .swiper-slide {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .gallery-thumbs .swiper-slide-thumb-active {
+    opacity: 1;
+  }
+
+  .gallery-thumbs .swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* レスポンシブ */
   @media (max-width: 767px) {
     .page-all.studio {
       height: 305px;
@@ -156,5 +440,92 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .studio-box {
       flex-direction: column;
     }
+
+    .studio-detail .show-box {
+      flex-direction: column;
+    }
+
+    .pp-box-st dl {
+      flex-direction: column;
+    }
+
+    .popup-content {
+      padding: 20px;
+    }
   }
 </style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Thumbs } from 'swiper/modules';
+
+  // ポップアップ機能
+  const popupButtons = document.querySelectorAll('[data-popup]');
+  popupButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const popupId = button.getAttribute('data-popup');
+      const dialog = document.getElementById(`popup-${popupId}`) as HTMLDialogElement;
+      if (dialog) {
+        dialog.showModal();
+      }
+    });
+  });
+
+  // ポップアップを閉じる
+  const closeButtons = document.querySelectorAll('.popup-close');
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const dialog = button.closest('dialog') as HTMLDialogElement;
+      if (dialog) {
+        dialog.close();
+      }
+    });
+  });
+
+  // バックドロップクリックで閉じる
+  const dialogs = document.querySelectorAll('.studio-popup');
+  dialogs.forEach((dialog) => {
+    (dialog as HTMLDialogElement).addEventListener('click', (e) => {
+      const rect = (dialog as HTMLDialogElement).getBoundingClientRect();
+      if (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      ) {
+        (dialog as HTMLDialogElement).close();
+      }
+    });
+  });
+
+  // Swiperギャラリー
+  const galleryThumbs = new Swiper('.gallery-thumbs', {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+    breakpoints: {
+      320: {
+        slidesPerView: 3,
+      },
+      768: {
+        slidesPerView: 4,
+      },
+      1024: {
+        slidesPerView: 6,
+      },
+    },
+  });
+
+  const galleryMain = new Swiper('.gallery-main', {
+    modules: [Navigation, Thumbs],
+    spaceBetween: 10,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    thumbs: {
+      swiper: galleryThumbs,
+    },
+  });
+</script>
