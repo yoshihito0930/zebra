@@ -40,18 +40,104 @@ const isHome = currentPath === '/';
 </header>
 
 <style is:global>
-  /* Astro独自の最小限の調整のみ - メインスタイルはWordPressのCSSに依存 */
+  /* PC版: ナビゲーションを常に表示（スクロール不要） */
+  @media only screen and (min-width: 768px) {
+    .nav-header {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
+  /* スマホ版: ハンバーガーボタンをCSSで描画 */
+  @media only screen and (max-width: 767px) {
+    .hamberger-btn {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      z-index: 201;
+      cursor: pointer;
+      background: #82C2A9;
+      transition: all 0.3s ease;
+    }
+
+    .hamberger-btn span {
+      display: block !important;
+      width: 30px;
+      height: 2px;
+      background: #fff;
+      position: relative !important;
+      transition: all 0.3s ease;
+      margin: 0;
+      padding: 0;
+      top: auto !important;
+      left: auto !important;
+    }
+
+    .hamberger-btn span::before,
+    .hamberger-btn span::after {
+      content: '';
+      display: block !important;
+      width: 30px;
+      height: 2px;
+      background: #fff;
+      position: absolute;
+      left: 0;
+      transition: all 0.3s ease;
+    }
+
+    .hamberger-btn span::before {
+      top: -10px;
+    }
+
+    .hamberger-btn span::after {
+      top: 10px;
+    }
+
+    /* メニューオープン時はXマークに変形 */
+    .menu-open .hamberger-btn span {
+      background: transparent !important;
+      opacity: 1 !important;
+    }
+
+    .menu-open .hamberger-btn span::before {
+      top: 0 !important;
+      transform: rotate(45deg) !important;
+    }
+
+    .menu-open .hamberger-btn span::after {
+      top: 0 !important;
+      transform: rotate(-45deg) !important;
+    }
+  }
 </style>
 
 <script>
   // ハンバーガーメニュートグル
   const hambergerBtn = document.querySelector('.hamberger-btn');
-  const navHeader = document.querySelector('.nav-header');
+  const body = document.body;
+  let scrollY = 0;
 
-  if (hambergerBtn && navHeader) {
+  if (hambergerBtn) {
     hambergerBtn.addEventListener('click', () => {
-      navHeader.classList.toggle('active');
-      hambergerBtn.classList.toggle('active');
+      if (body.classList.contains('menu-open')) {
+        // メニューを閉じる
+        body.classList.remove('menu-open');
+        body.style.position = '';
+        body.style.top = '';
+        window.scrollTo(0, scrollY);
+      } else {
+        // メニューを開く
+        scrollY = window.pageYOffset;
+        body.classList.add('menu-open');
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollY}px`;
+        body.style.width = '100%';
+      }
     });
   }
 </script>
