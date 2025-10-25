@@ -60,4 +60,17 @@ const rental = defineCollection({
   }),
 });
 
-export const collections = { blog, news, studio, rental };
+const faq = defineCollection({
+  type: 'data',
+  schema: z.object({
+    categories: z.array(z.object({
+      title: z.string(),
+      questions: z.array(z.object({
+        question: z.string(),
+        answer: z.string(),
+      })),
+    })),
+  }),
+});
+
+export const collections = { blog, news, studio, rental, faq };

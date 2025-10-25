@@ -1,35 +1,317 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+// FAQデータを取得
+const faqData = await getEntry('faq', 'questions');
+const { categories } = faqData.data;
 ---
 
 <BaseLayout title="よくある質問 | スタジオゼブラ">
-  <div id="head-top" class="page-all faq">
+  <div id="head-top" class="page-all reservation">
     <div class="key-page">
-      <h1><span>よくある質問</span></h1>
-      <h2 class="ttl-key-page"><span>FAQ</span></h2>
+      <h1 class="wow fadeInUp"><span>よくある質問</span></h1>
+      <p class="ttl-key-page wow fadeInUp">
+        <span class="h-span">よくお問い合わせいただくご質問と、<br class="sp">その回答をご紹介します。</span>
+      </p>
     </div>
   </div>
 
   <section>
-    <div class="wrap">
-      <div class="content-page">
-        <h2 class="ttl-common">よくある質問</h2>
-        <p>ご不明な点は<a href="/reservation">お問い合わせフォーム</a>よりお気軽にお問い合わせください。</p>
+    <div id="lead-reservation">
+      <div class="wrap">
+        <h2 class="wow fadeInUp ttl-c">
+          <img src="/img/common/zebra_230730_item_05.png" alt="FAQ">
+        </h2>
+        <div id="faq-block">
+          <div class="list">
+            {categories.map((category, catIndex) => (
+              <div class="item-faq toggle wow fadeInUp" data-category={catIndex}>
+                <h3 class="toggle-link">{category.title}</h3>
+                <div class="toggle-main">
+                  {category.questions.map((qa) => (
+                    <dl>
+                      <dt>{qa.question}</dt>
+                      <dd set:html={qa.answer}></dd>
+                    </dl>
+                  ))}
+                  <p class="close-all">
+                    <img src="/img/shared/close.jpg" alt="close">
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<style>
-  .page-all.faq {
-    background: #f5f5f5;
+<style is:global>
+  /* ページヘッダー */
+  .page-all.reservation {
+    background: url(/img/common/key_reservation.jpg) no-repeat center center;
+    background-size: cover;
+    height: 455px;
+    position: relative;
   }
-  .content-page {
-    padding: 60px 0;
+
+  .key-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    width: 100%;
+    z-index: 10;
   }
-  .content-page a {
+
+  .key-page h1 span {
+    color: #FFF;
+    background: #000;
+    min-width: 260px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    padding: 15px 25px;
+    font-size: 30px;
+  }
+
+  .ttl-key-page .h-span {
+    border-bottom: 2px solid;
+    font-size: 24px;
+    line-height: 48px;
+    font-weight: bold;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+
+  /* FAQセクション */
+  #lead-reservation {
+    padding: 100px 0 60px;
+    background: #82C2A9;
+  }
+
+  .ttl-c {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .ttl-c img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* FAQブロック */
+  #faq-block {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  #faq-block .list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* アコーディオンアイテム */
+  .item-faq {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .item-faq:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* アコーディオンヘッダー */
+  .toggle-link {
+    padding: 20px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    background: #fff;
+    position: relative;
+    margin: 0;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+
+  .toggle-link:hover {
+    background: #fff;
+  }
+
+  .toggle-link::before,
+  .toggle-link::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* アコーディオンコンテンツ */
+  .toggle-main {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .item-faq.active .toggle-main {
+    max-height: 5000px;
+  }
+
+  .toggle-main dl {
+    padding: 20px 25px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .toggle-main dl:last-of-type {
+    border-bottom: none;
+  }
+
+  .toggle-main dt {
+    font-weight: bold;
+    color: #82C2A9;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .toggle-main dt::before {
+    content: 'Q.';
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .toggle-main dd {
+    color: #666;
+    line-height: 1.8;
+    font-size: 14px;
+    margin-left: 20px;
+    position: relative;
+  }
+
+  .toggle-main dd::before {
+    content: 'A.';
+    position: absolute;
+    left: -20px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .toggle-main dd a {
     color: #82C2A9;
     text-decoration: underline;
+    transition: opacity 0.3s ease;
+  }
+
+  .toggle-main dd a:hover {
+    opacity: 0.7;
+  }
+
+  /* 閉じるボタン */
+  .close-all {
+    text-align: center;
+    padding: 20px 0 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .close-all:hover {
+    opacity: 0.7;
+  }
+
+  .close-all img {
+    max-width: 150px;
+    height: auto;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    .page-all.reservation {
+      height: 305px;
+    }
+
+    .key-page h1 span {
+      font-size: 5.5vw;
+      padding: 10px 15px;
+      min-width: 200px;
+    }
+
+    .ttl-key-page .h-span {
+      font-size: 3.7vw;
+      line-height: 38px;
+    }
+
+    #lead-reservation {
+      padding: 40px 0;
+    }
+
+    .ttl-c {
+      margin-bottom: 30px;
+    }
+
+    #faq-block .list {
+      gap: 15px;
+    }
+
+    .toggle-link {
+      padding: 15px 20px;
+      font-size: 16px;
+      padding-right: 50px;
+    }
+
+    .toggle-link::after {
+      right: 20px;
+    }
+
+    .toggle-main dl {
+      padding: 15px 20px;
+    }
+
+    .toggle-main dt {
+      font-size: 15px;
+    }
+
+    .toggle-main dd {
+      font-size: 13px;
+    }
+
+    .close-all img {
+      max-width: 120px;
+    }
   }
 </style>
+
+<script>
+  // アコーディオン機能
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleItems = document.querySelectorAll('.item-faq.toggle');
+
+    toggleItems.forEach((item) => {
+      const toggleLink = item.querySelector('.toggle-link');
+      const closeBtn = item.querySelector('.close-all');
+
+      // タイトルクリックで開閉
+      if (toggleLink) {
+        toggleLink.addEventListener('click', () => {
+          item.classList.toggle('active');
+        });
+      }
+
+      // 閉じるボタンで閉じる
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          item.classList.remove('active');
+        });
+      }
+    });
+  });
+</script>
