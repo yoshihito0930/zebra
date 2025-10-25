@@ -22,10 +22,13 @@ const categories = [...new Set(allPosts.map(post => post.data.category))];
 ---
 
 <BaseLayout title="ブログ | スタジオゼブラ">
-  <div class="blog-header">
-    <div class="wrap">
-      <h1>スタジオゼブラ ブログ</h1>
-      <p>スタジオの最新情報やお得なキャンペーン、撮影テクニックをお届けします</p>
+  <div id="head-top" class="page-all blog">
+    <div class="key-page">
+      <h1 class="wow fadeInUp"><span>BLOG</span></h1>
+      <h2 class="ttl-key-page wow fadeInUp">
+        <span>スタジオの最新情報やお得なキャンペーン、</span><br>
+        <span>撮影テクニックをお届けします。</span>
+      </h2>
     </div>
   </div>
 
@@ -62,24 +65,44 @@ const categories = [...new Set(allPosts.map(post => post.data.category))];
   </section>
 </BaseLayout>
 
-<style>
-  .blog-header {
-    background: linear-gradient(135deg, #82C2A9 0%, #6BA896 100%);
-    color: #fff;
-    padding: 60px 0;
+<style is:global>
+  /* ページヘッダー */
+  .page-all.blog {
+    background: url(/img/common/key_blog.jpg) no-repeat center center;
+    background-size: cover;
+    height: 455px;
+    position: relative;
+  }
+
+  .key-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    width: 100%;
+    z-index: 10;
   }
 
-  .blog-header h1 {
-    font-size: 36px;
-    margin-bottom: 15px;
+  .key-page h1 span {
+    color: #FFF;
+    background: #000;
+    min-width: 260px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    padding: 15px 25px;
+    font-size: 30px;
   }
 
-  .blog-header p {
-    font-size: 16px;
-    opacity: 0.9;
+  .ttl-key-page span {
+    border-bottom: 2px solid;
+    font-size: 24px;
+    line-height: 48px;
+    font-weight: bold;
   }
 
+  /* ブログコンテナ */
   .blog-container {
     padding: 60px 0;
   }
@@ -96,7 +119,22 @@ const categories = [...new Set(allPosts.map(post => post.data.category))];
     gap: 30px;
   }
 
-  @media (max-width: 768px) {
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    .page-all.blog {
+      height: 305px;
+    }
+
+    .key-page h1 span {
+      font-size: 5.5vw;
+      padding: 10px 15px;
+    }
+
+    .ttl-key-page span {
+      font-size: 3.7vw;
+      line-height: 38px;
+    }
+
     .blog-layout {
       grid-template-columns: 1fr;
     }
@@ -111,10 +149,6 @@ const categories = [...new Set(allPosts.map(post => post.data.category))];
 
     .blog-grid {
       grid-template-columns: 1fr;
-    }
-
-    .blog-header h1 {
-      font-size: 28px;
     }
   }
 </style>

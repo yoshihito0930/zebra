@@ -22,10 +22,12 @@ const categories = [...new Set(allNews.map(news => news.data.category))];
 ---
 
 <BaseLayout title="NEWS | スタジオゼブラ">
-  <div class="news-header">
-    <div class="wrap">
-      <h1>NEWS</h1>
-      <p>スタジオゼブラからのお知らせです</p>
+  <div id="head-top" class="page-all news">
+    <div class="key-page">
+      <h1 class="wow fadeInUp"><span>NEWS</span></h1>
+      <h2 class="ttl-key-page wow fadeInUp">
+        <span>スタジオゼブラからのお知らせです。</span>
+      </h2>
     </div>
   </div>
 
@@ -63,24 +65,44 @@ const categories = [...new Set(allNews.map(news => news.data.category))];
   </section>
 </BaseLayout>
 
-<style>
-  .news-header {
-    background: linear-gradient(135deg, #82C2A9 0%, #6BA896 100%);
-    color: #fff;
-    padding: 60px 0;
+<style is:global>
+  /* ページヘッダー */
+  .page-all.news {
+    background: url(/img/common/key_news.jpg) no-repeat center center;
+    background-size: cover;
+    height: 455px;
+    position: relative;
+  }
+
+  .key-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    width: 100%;
+    z-index: 10;
   }
 
-  .news-header h1 {
-    font-size: 36px;
-    margin-bottom: 15px;
+  .key-page h1 span {
+    color: #FFF;
+    background: #000;
+    min-width: 260px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    padding: 15px 25px;
+    font-size: 30px;
   }
 
-  .news-header p {
-    font-size: 16px;
-    opacity: 0.9;
+  .ttl-key-page span {
+    border-bottom: 2px solid;
+    font-size: 24px;
+    line-height: 48px;
+    font-weight: bold;
   }
 
+  /* ニュースコンテナ */
   .news-container {
     padding: 60px 0;
   }
@@ -97,7 +119,22 @@ const categories = [...new Set(allNews.map(news => news.data.category))];
     gap: 30px;
   }
 
-  @media (max-width: 768px) {
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    .page-all.news {
+      height: 305px;
+    }
+
+    .key-page h1 span {
+      font-size: 5.5vw;
+      padding: 10px 15px;
+    }
+
+    .ttl-key-page span {
+      font-size: 3.7vw;
+      line-height: 38px;
+    }
+
     .news-layout {
       grid-template-columns: 1fr;
     }
@@ -112,10 +149,6 @@ const categories = [...new Set(allNews.map(news => news.data.category))];
 
     .news-grid {
       grid-template-columns: 1fr;
-    }
-
-    .news-header h1 {
-      font-size: 28px;
     }
   }
 </style>
