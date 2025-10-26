@@ -4,6 +4,9 @@ import { getEntry } from 'astro:content';
 
 // FAQデータを取得
 const faqData = await getEntry('faq', 'questions');
+if (!faqData) {
+  throw new Error('FAQ data not found');
+}
 const { categories } = faqData.data;
 ---
 
