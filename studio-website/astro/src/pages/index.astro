@@ -1,19 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsCard from '../components/NewsCard.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 // ニュース記事を取得（最新8件）
 const newsEntries = await getCollection('news');
 const sortedNews = newsEntries
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 8);
+
+// スライドデータを取得
+const slidesData = await getEntry('slides', 'home');
 ---
 
 <BaseLayout
   title="スタジオゼブラ | 新宿・代々木エリアの白ホリゾント撮影スタジオ"
   showReservationBanner={false}
 >
+  <div id="head-top">
+    {slidesData && (
+      <div id="key-box">
+        <div class="swiper key-slide">
+          <div class="swiper-wrapper">
+            {slidesData.data.slides.map((slide) => (
+              <div class="swiper-slide">
+                <img class="pc" src={slide.imagePC} fetchpriority="high" loading="eager">
+                <img class="sp" src={slide.imageSP} >
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+    <div class="head-info">
+      <h1 class="logo pc"><a href="/"><img src="/img/shared/logo.png" alt="新宿エリアのリーズナブルなレンタル撮影スタジオ"></a></h1>
+      <div class="box-key">
+        <div class="box">
+          <p class="text">
+            天井高3m、引き9mのホリゾント。<br>
+            リーズナブルな料金で思いのままに。
+          </p>
+          <p class="btn"><a class="btn-hover" href="/reservation#cal-box-add"><img src="/img/index/btn_box.png" alt="予約ボタン"></a></p>
+        </div>
+        <p class="ttl_key"><img src="/img/index/ttl_key.png" alt="タイトル画像"></p>
+      </div>
+      <ul class="nav-h">
+        <li><a href="/studio/"><img src="/img/shared/gnav01.png" alt="スタジオ案内"></a></li>
+        <li><a href="/price/"><img src="/img/shared/gnav02.png" alt="料金案内"></a></li>
+        <li><a href="/rental/"><img src="/img/shared/gnav03.png" alt="レンタル機材"></a></li>
+        <li><a href="/access/"><img src="/img/shared/gnav04.png" alt="アクセス"></a></li>
+        <li><a href="/faq/"><img src="/img/shared/gnav_a1.png" alt="よくある質問"></a></li>
+        <li><a href="/horizon/"><img src="/img/shared/gnav_a2.png" alt="ホリゾントルール"></a></li>
+        <li><a href="/reservation/"><img src="/img/shared/gnav05.png" alt="ご予約・お問い合わせ"></a></li>
+        <li><a href="/news/"><img src="/img/shared/gnavi_news.png" alt="news"></a></li>
+        <li><a href="https://twitter.com/studiozebra1st" target="_blank"><img src="/img/shared/gnavi_tw.png" alt="twitter"></a></li>
+      </ul>
+    </div>
+  </div>
   <section>
     <!-- 料金案内セクション -->
     <div id="lead" class="sec-scroll">
@@ -142,6 +185,8 @@ const sortedNews = newsEntries
   </section>
 </BaseLayout>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 <style is:global>
   /* Astro独自の調整スタイル */
   .news-grid {
@@ -151,11 +196,48 @@ const sortedNews = newsEntries
     margin: 30px 0;
   }
 
-  /* ロゴの追加スタイル */
+  /* key-boxスライダー */
+  #key-box {
+    position: relative;
+    width: 100%;
+  }
+
+  .key-slide {
+    width: 100%;
+  }
+
+  .key-slide .swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* PC用画像を表示、SP用画像を非表示 */
+  .key-slide .swiper-slide img.pc {
+    display: block;
+  }
+
+  .key-slide .swiper-slide img.sp {
+    display: none;
+  }
+
+  /* レスポンシブ対応 - WordPressと同じ幅調整 */
+  @media only screen and (max-width: 1199px) {
+    .key-slide .swiper-slide img {
+      width: 120%;
+    }
+  }
+
+  @media only screen and (max-width: 1025px) {
+    .key-slide .swiper-slide img {
+      width: 130%;
+    }
+  }
+
+
+  /* head-topの調整 */
   #head-top {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #82C2A9 0%, #6ba890 100%);
+    position: relative;
   }
 
   #head-top .head-info .logo img {
@@ -183,5 +265,38 @@ const sortedNews = newsEntries
     #head-top .head-info .logo img {
       max-width: 200px;
     }
+
+    /* SP版では画像の幅を100%に戻す */
+    .key-slide .swiper-slide img {
+      width: 100%;
+    }
+
+    /* SP版では画像を切り替え */
+    .key-slide .swiper-slide img.pc {
+      display: none;
+    }
+
+    .key-slide .swiper-slide img.sp {
+      display: block;
+    }
   }
 </style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Autoplay } from 'swiper/modules';
+
+  // キースライダーの初期化
+  new Swiper('.key-slide', {
+    modules: [Autoplay],
+    // 自動再生
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    // ループ
+    loop: true,
+    // スライド速度
+    speed: 800,
+  });
+</script>

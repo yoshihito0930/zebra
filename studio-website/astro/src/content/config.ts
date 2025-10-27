@@ -73,4 +73,15 @@ const faq = defineCollection({
   }),
 });
 
-export const collections = { blog, news, studio, rental, faq };
+const slides = defineCollection({
+  type: 'data',
+  schema: z.object({
+    slides: z.array(z.object({
+      imagePC: z.string(),
+      imageSP: z.string(),
+      alt: z.string(),
+    })),
+  }),
+});
+
+export const collections = { blog, news, studio, rental, faq, slides };
