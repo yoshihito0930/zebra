@@ -8,6 +8,7 @@ export interface Props {
   image?: string;
   showReservationBanner?: boolean;
   showFixedReservationButton?: boolean;
+  pageClass?: string;
 }
 
 const {
@@ -15,7 +16,8 @@ const {
   description = '新宿・代々木エリアの白ホリゾント撮影スタジオ。天高3m超・引き9mの白ホリスタジオ。あなたのスタジオワークをもっと自由に、快適に。',
   image = '/img/shared/logo.png',
   showReservationBanner = true,
-  showFixedReservationButton = true
+  showFixedReservationButton = true,
+  pageClass = ''
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -86,7 +88,7 @@ const socialImageURL = new URL(image, Astro.site);
   <link rel="stylesheet" href="/styles/index.css">
 </head>
 
-<body class="ie-smoothscroll">
+<body class={`ie-smoothscroll ${pageClass}`}>
   <main>
     <Header />
     <slot />

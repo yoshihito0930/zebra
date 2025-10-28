@@ -40,9 +40,9 @@ const isHome = currentPath === '/';
 </header>
 
 <style is:global>
-  /* PC版: ナビゲーションを常に表示（スクロール不要） */
+  /* PC版: ナビゲーションを常に表示（index.astro以外） */
   @media only screen and (min-width: 768px) {
-    .nav-header {
+    body:not(.page-home) .nav-header {
       opacity: 1 !important;
       visibility: visible !important;
     }

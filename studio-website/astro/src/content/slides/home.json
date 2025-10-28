@@ -1,24 +1,19 @@
 {
   "slides": [
     {
-      "imagePC": "/img/index/slide01_pc.webp",
-      "imageSP": "/img/index/slide01_sp.webp",
+      "imagePC": "/img/index/slide01_pc_resize.jpg",
+      "imageSP": "/img/index/slide01_sp_resize.jpg",
       "alt": "スタジオゼブラ メインビジュアル1"
     },
     {
-      "imagePC": "/img/index/slide02_pc.webp",
-      "imageSP": "/img/index/slide02_sp.webp",
+      "imagePC": "/img/index/slide02_pc_resize.jpg",
+      "imageSP": "/img/index/slide02_sp_resize.jpg",
       "alt": "スタジオゼブラ メインビジュアル2"
     },
     {
-      "imagePC": "/img/index/slide03_pc.webp",
-      "imageSP": "/img/index/slide03_sp.webp",
+      "imagePC": "/img/index/slide03_pc_resize.jpg",
+      "imageSP": "/img/index/slide03_sp_resize.jpg",
       "alt": "スタジオゼブラ メインビジュアル3"
-    },
-    {
-      "imagePC": "/img/index/slide04_pc.webp",
-      "imageSP": "/img/index/slide04_sp.webp",
-      "alt": "スタジオゼブラ メインビジュアル4"
     }
   ]
 }
