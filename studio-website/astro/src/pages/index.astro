@@ -252,6 +252,15 @@ const slidesData = await getEntry('slides', 'home');
       background-size: auto 100%;
       bottom: 20px;
     }
+
+    /* スタジオ紹介セクション - レスポンシブ */
+    #about .item .text {
+      width: 48%;
+    }
+
+    #about .item .photo {
+      width: 48%;
+    }
   }
 
   @media only screen and (max-width: 1025px) {
@@ -415,6 +424,54 @@ const slidesData = await getEntry('slides', 'home');
     opacity: 0.8;
   }
 
+  /* スタジオ紹介セクション - item内のtextとphotoを横並び */
+  #about .wrap {
+    max-width: 1100px;
+  }
+
+  #about .ttl-ab {
+    margin-left: 20px;
+  }
+
+  #about .list {
+    padding-left: 60px;
+  }
+
+  #about .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #DFDFDF;
+  }
+
+  #about .item:last-child {
+    border-bottom: none;
+    margin-bottom: 10px;
+  }
+
+  #about .item .text {
+    width: 48%;
+    max-width: 395px;
+    background: #FFF;
+    flex-shrink: 0;
+  }
+
+  #about .item .photo {
+    width: 48%;
+    max-width: 396px;
+    flex-shrink: 0;
+  }
+
+  #about .item .photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 3px 3px 0 #000;
+  }
+
   /* ニュースセクションのボタン調整 */
   #news .btn {
     text-align: center;
@@ -451,15 +508,15 @@ const slidesData = await getEntry('slides', 'home');
     }
 
     .box-key .box {
-      width: 55%;
+      width: 48%;
       max-width: 100%;
-      padding: 12px 10px 20px;
+      padding: 10px 8px 15px;
       border: 3px solid #333;
-      bottom: -5%;
+      bottom: 5%;
     }
 
     .box-key .box .text {
-      font-size: 4.1vw;
+      font-size: 3.6vw;
       line-height: 1.8;
       text-align: center;
     }
@@ -481,6 +538,35 @@ const slidesData = await getEntry('slides', 'home');
     /* SP版のナビゲーション調整 - モバイルでは非表示 */
     .head-info ul {
       display: none;
+    }
+
+    /* SP版のスタジオ紹介セクション - 縦並び */
+    #about .ttl-ab {
+      margin-left: 15px;
+    }
+
+    #about .list {
+      padding-left: 15px;
+    }
+
+    #about .item {
+      flex-direction: column;
+    }
+
+    #about .item .text {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    #about .item .photo {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    /* 料金セクション - 画像を中央揃え */
+    .lead-banner li img {
+      width: 100%;
+      margin-left: 0;
     }
   }
 </style>
