@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content';
 
 // スタジオデータを取得
 const studioData = await getEntry('studio', 'main');
-const { detailImages, popups, gallery } = studioData.data;
+const { popups, gallery } = studioData.data;
 ---
 
 <BaseLayout title="スタジオ案内 | スタジオゼブラ">
@@ -23,12 +23,12 @@ const { detailImages, popups, gallery } = studioData.data;
     <div id="lead-studio">
       <div class="wrap">
         <h2 class="ttl-common">
-          <img src="/img/index/studio.svg" width="784" alt="ABOUT OUR STUDIO STUDIOZEBRA!">
+          <img src="/img/studio/studio.svg" width="784" alt="ABOUT OUR STUDIO STUDIOZEBRA!">
         </h2>
 
         <div class="studio-box">
           <p class="photo">
-            <img src="/img/common/img_studio.png" alt="スタジオ写真">
+            <img src="/img/studio/img_studio.png" alt="スタジオ写真">
           </p>
           <dl>
             <dt><span>ゆったり！</span></dt>
@@ -40,22 +40,19 @@ const { detailImages, popups, gallery } = studioData.data;
         </div>
 
         <h3>
-          <img src="/img/common/title_details.png" alt="平面図">
+          <img src="/img/studio/title_details.png" alt="平面図">
         </h3>
 
         <div class="studio-detail">
-          <!-- スタジオ詳細画像（PC版） -->
-          <div class="photo pc">
-            <div class="show-box">
-              {detailImages.map((img) => (
-                <p><img src={img.src} alt={img.alt}></p>
-              ))}
-            </div>
+          <!-- PC版: 左側のポップアップ表示エリア -->
+          <div class="popup-display pc">
             {popups.map((popup) => (
-              <div class={`show-box vt-${popup.id}`}>
-                {popup.images.map((img) => (
-                  <p><img src={img.src} alt={img.alt}></p>
-                ))}
+              <div id={`display-${popup.id}`} class={`popup-content-static ${popup.id === 'A' ? 'active' : ''}`} data-popup-id={popup.id}>
+                <div class="pp-box-st">
+                  {popup.images.map((img) => (
+                    <span><img src={img.src} alt={img.alt}></span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -63,7 +60,7 @@ const { detailImages, popups, gallery } = studioData.data;
           <!-- 平面図マップ -->
           <div class="detail-map">
             <p class="map">
-              <img src="/img/common/map.png" alt="MAP">
+              <img src="/img/studio/map.png" alt="MAP">
             </p>
             <button class="unit-a btn unsmooth" data-popup="A">Button</button>
             <button class="unit-b btn unsmooth" data-popup="B">Button</button>
@@ -73,9 +70,9 @@ const { detailImages, popups, gallery } = studioData.data;
             <button class="unit-f btn unsmooth" data-popup="F">Button</button>
           </div>
 
-          <!-- ポップアップダイアログ -->
+          <!-- モバイル版: ポップアップダイアログ -->
           {popups.map((popup) => (
-            <dialog id={`popup-${popup.id}`} class="studio-popup">
+            <dialog id={`popup-${popup.id}`} class="studio-popup sp">
               <div class="popup-content">
                 <button class="popup-close" aria-label="閉じる">×</button>
                 <div class="pp-box-st">
@@ -85,7 +82,6 @@ const { detailImages, popups, gallery } = studioData.data;
                         <span><img src={img.src} alt={img.alt}></span>
                       ))}
                     </dt>
-                    <dd>{popup.text}</dd>
                   </dl>
                 </div>
               </div>
@@ -104,7 +100,7 @@ const { detailImages, popups, gallery } = studioData.data;
     <div id="gallery-box">
       <div class="wrap">
         <h2 class="ft-add">
-          <img src="/img/index/photo_galery.svg" width="507" alt="PHOTO GALLERY">
+          <img src="/img/studio/photo_galery.svg" width="507" alt="PHOTO GALLERY">
         </h2>
         <h3 class="ttl-common">フォトギャラリー</h3>
 
@@ -118,13 +114,12 @@ const { detailImages, popups, gallery } = studioData.data;
                 </div>
               ))}
             </div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
           </div>
         </div>
 
         <!-- サムネイルスライダー -->
         <div class="th-box">
+          <div class="swiper-button-prev"></div>
           <div class="swiper gallery-thumbs">
             <div class="swiper-wrapper">
               {gallery.map((item) => (
@@ -134,6 +129,7 @@ const { detailImages, popups, gallery } = studioData.data;
               ))}
             </div>
           </div>
+          <div class="swiper-button-next"></div>
         </div>
       </div>
     </div>
@@ -145,7 +141,7 @@ const { detailImages, popups, gallery } = studioData.data;
 <style is:global>
   /* ページヘッダー */
   .page-all.studio {
-    background: url(/img/common/key_studio.jpg) no-repeat center center;
+    background: url(/img/studio/key_studio.png) no-repeat center center;
     background-size: cover;
     height: 455px;
     position: relative;
@@ -225,12 +221,78 @@ const { detailImages, popups, gallery } = studioData.data;
 
   /* スタジオ詳細 */
   .studio-detail {
-    margin: 40px 0;
     position: relative;
   }
 
   .studio-detail .photo {
     margin-bottom: 30px;
+  }
+
+  /* PC版: 左右レイアウト */
+  @media only screen and (min-width: 768px) {
+    .studio-detail {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      gap: 40px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .studio-detail .photo {
+      display: none !important;
+      order: 0;
+    }
+
+    .popup-display {
+      width: 50% !important;
+      flex-shrink: 0;
+      order: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 500px;
+    }
+
+    .detail-map {
+      width: 50% !important;
+      flex-shrink: 0;
+      order: 2;
+      margin-top: 0 !important;
+    }
+
+    .popup-content-static {
+      display: none;
+    }
+
+    .popup-content-static.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .popup-content-static .pp-box-st {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .popup-display .pp-box-st span {
+      display: block;
+    }
+
+    .popup-display .pp-box-st img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .studio-popup.sp {
+      display: none !important;
+    }
   }
 
   .studio-detail .show-box {
@@ -274,11 +336,11 @@ const { detailImages, popups, gallery } = studioData.data;
   }
 
   /* ボタン位置（実際の平面図に合わせて調整） */
-  .detail-map .unit-a { top: 20%; left: 15%; }
-  .detail-map .unit-b { top: 20%; right: 15%; }
-  .detail-map .unit-c { top: 50%; left: 15%; }
-  .detail-map .unit-d { top: 50%; right: 15%; }
-  .detail-map .unit-e { bottom: 20%; left: 15%; }
+  .detail-map .unit-a { top: 13%; left: 4%; }
+  .detail-map .unit-b { top: 34%; right: 20%; }
+  .detail-map .unit-c { bottom: 35%; right: 37%; }
+  .detail-map .unit-d { bottom: 40%; right: 22%; }
+  .detail-map .unit-e { bottom: 21%; right: 45%; }
   .detail-map .unit-f { bottom: 20%; right: 15%; }
 
   /* ポップアップスタイル */
@@ -356,7 +418,6 @@ const { detailImages, popups, gallery } = studioData.data;
   }
 
   .note .ft-add {
-    color: #82C2A9;
     font-weight: bold;
   }
 
@@ -367,7 +428,7 @@ const { detailImages, popups, gallery } = studioData.data;
 
   /* フォトギャラリー */
   #gallery-box {
-    background: #f5f5f5;
+    background: #82C2A9;
     padding: 60px 0;
   }
 
@@ -396,9 +457,28 @@ const { detailImages, popups, gallery } = studioData.data;
     display: block;
   }
 
-  .gallery-main .swiper-button-prev,
-  .gallery-main .swiper-button-next {
-    color: #82C2A9;
+  .th-box .swiper-button-prev,
+  .th-box .swiper-button-next {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 0;
+    color: transparent;
+  }
+
+  .th-box .swiper-button-prev {
+    background-image: url(/img/studio/arrow_r.png);
+  }
+
+  .th-box .swiper-button-next {
+    background-image: url(/img/studio/arrow_l.png);
+  }
+
+  .th-box .swiper-button-prev::after,
+  .th-box .swiper-button-next::after {
+    display: none;
   }
 
   .gallery-thumbs {
@@ -432,6 +512,16 @@ const { detailImages, popups, gallery } = studioData.data;
       padding: 10px 15px;
     }
 
+    /* モバイル版: ポップアップ表示エリアを非表示 */
+    .popup-display.pc {
+      display: none;
+    }
+
+    /* モバイル版: dialogを表示 */
+    .studio-popup.sp {
+      display: block;
+    }
+
     .ttl-key-page span {
       font-size: 3.7vw;
       line-height: 38px;
@@ -453,6 +543,7 @@ const { detailImages, popups, gallery } = studioData.data;
       padding: 20px;
     }
   }
+
 </style>
 
 <script>
@@ -464,9 +555,26 @@ const { detailImages, popups, gallery } = studioData.data;
   popupButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const popupId = button.getAttribute('data-popup');
-      const dialog = document.getElementById(`popup-${popupId}`) as HTMLDialogElement;
-      if (dialog) {
-        dialog.showModal();
+
+      // PC版（768px以上）: 左側の表示を切り替え
+      if (window.innerWidth >= 768) {
+        // すべてのポップアップ表示を非表示
+        const allDisplays = document.querySelectorAll('.popup-content-static');
+        allDisplays.forEach((display) => {
+          display.classList.remove('active');
+        });
+
+        // クリックされたエリアの表示を表示
+        const targetDisplay = document.getElementById(`display-${popupId}`);
+        if (targetDisplay) {
+          targetDisplay.classList.add('active');
+        }
+      } else {
+        // モバイル版（767px以下）: モーダル表示
+        const dialog = document.getElementById(`popup-${popupId}`) as HTMLDialogElement;
+        if (dialog) {
+          dialog.showModal();
+        }
       }
     });
   });
@@ -528,4 +636,5 @@ const { detailImages, popups, gallery } = studioData.data;
       swiper: galleryThumbs,
     },
   });
+
 </script>

@@ -30,17 +30,12 @@ const news = defineCollection({
 const studio = defineCollection({
   type: 'data',
   schema: z.object({
-    detailImages: z.array(z.object({
-      src: z.string(),
-      alt: z.string(),
-    })),
     popups: z.array(z.object({
       id: z.string(), // 'A', 'B', 'C', 'D', 'E', 'F'
       images: z.array(z.object({
         src: z.string(),
         alt: z.string(),
-      })),
-      text: z.string(),
+      }))
     })),
     gallery: z.array(z.object({
       main: z.string(),
