@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content';
 
 // スタジオデータを取得
 const studioData = await getEntry('studio', 'main');
-const { popups, gallery } = studioData.data;
+const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
 ---
 
 <BaseLayout title="スタジオ案内 | スタジオゼブラ">
