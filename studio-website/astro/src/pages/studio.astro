@@ -72,7 +72,7 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
 
           <!-- モバイル版: ポップアップダイアログ -->
           {popups.map((popup) => (
-            <dialog id={`popup-${popup.id}`} class="studio-popup sp">
+            <dialog id={`popup-${popup.id}`} class="studio-popup">
               <div class="popup-content">
                 <button class="popup-close" aria-label="閉じる">×</button>
                 <div class="pp-box-st">
@@ -288,10 +288,6 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
       width: 100%;
       height: auto;
       display: block;
-    }
-
-    .studio-popup.sp {
-      display: none !important;
     }
   }
 
@@ -512,14 +508,23 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
       padding: 10px 15px;
     }
 
-    /* モバイル版: ポップアップ表示エリアを非表示 */
-    .popup-display.pc {
+    /* モバイル版: PC用のポップアップ表示エリアを完全に非表示 */
+    .popup-display {
+      display: none !important;
+    }
+
+    /* モバイル版: studio-detailのレイアウト */
+    .studio-detail {
+      display: block;
+    }
+
+    .studio-detail .photo {
       display: none;
     }
 
-    /* モバイル版: dialogを表示 */
-    .studio-popup.sp {
-      display: block;
+    .detail-map {
+      width: 100%;
+      margin-top: 0;
     }
 
     .ttl-key-page span {
