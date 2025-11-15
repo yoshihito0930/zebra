@@ -170,7 +170,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* メインセクション */
   #lead {
-    padding: 45px 45px;
+    background: #82C2A9;
+    margin-top: -12px;
+    padding: 40px 45px 45px;
+    position: relative;
+    color: #000;
   }
 
 
@@ -197,7 +201,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .list-price {
     display: flex;
-    gap: 30x;
     margin-bottom: 40px;
   }
 
@@ -217,12 +220,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .list-price .text1 {
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 15px;
   }
 
   .list-price .text {
     line-height: 1.8;
-    margin-bottom: 20px;
   }
 
   .list-price .btn1 {
@@ -327,9 +328,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       line-height: 38px;
     }
 
+    #lead {
+      padding: 30px 15px 30px;
+    }
+
+    #lead .wrap {
+      padding: 40px 10px 50px;
+    }
+
     .list-price {
       flex-direction: column;
-      gap: 30px;
     }
 
     .price-note-edit dl {
@@ -338,7 +346,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     .price-note-edit dd {
-      text-align: left;
+      text-align: center;
     }
   }
 </style>
