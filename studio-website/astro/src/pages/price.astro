@@ -26,7 +26,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="list-price">
             <div class="item wow fadeInLeft">
               <p class="photo_price">
-                <img src="/img/index/zebra_240825_item_02_add.png" alt="4,500">
+                <img src="/img/price/bnr_price_main.png" alt="main plan">
               </p>
             </div>
             <div class="item is-item wow fadeInRight">
@@ -57,7 +57,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="list-price price-old">
             <div class="item wow fadeInLeft">
               <p class="photo_price">
-                <img src="/img/index/bnr_price6.png" alt="">
+                <img src="/img/price/bnr_price_EquipmentInsurance.png" alt="EquipmentInsurance">
               </p>
             </div>
             <div class="item is-item wow fadeInRight">
@@ -134,7 +134,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style is:global>
   /* ページヘッダー */
   .page-all.price {
-    background: url(/img/common/key_price.jpg) no-repeat center center;
+    background: url(/img/price/key_price.jpg) no-repeat center center;
     background-size: cover;
     height: 455px;
     position: relative;
@@ -170,8 +170,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* メインセクション */
   #lead {
-    padding: 60px 0;
+    padding: 45px 45px;
   }
+
 
   .ttl-common {
     text-align: center;
@@ -186,22 +187,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-bottom: none;
   }
 
-  .title-price font {
-    font-size: inherit;
-  }
-
   /* レイアウト調整 */
   .is-price.mt {
     margin-top: 40px;
   }
 
   .lead-banner {
-    margin: 40px 0;
   }
 
   .list-price {
     display: flex;
-    gap: 40px;
+    gap: 30x;
     margin-bottom: 40px;
   }
 
@@ -215,9 +211,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .list-price .box {
-    background: #f5f5f5;
-    padding: 30px 20px;
-    border-radius: 8px;
+    background: #ffffff;
   }
 
   .list-price .text1 {
@@ -248,33 +242,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .price-add-1807 {
     font-size: 12px;
     line-height: 1.6;
-    color: #666;
+    color: #000
   }
 
   /* 機材保険セクション */
   .price-old {
-    padding-top: 40px;
     border-top: 1px solid #e0e0e0;
   }
 
   /* 注意事項リスト */
   .text-list-note {
     list-style: none;
-    padding: 40px 0;
-    margin: 0;
   }
 
   .text-list-note li {
-    margin-bottom: 15px;
     line-height: 1.8;
-    padding-left: 20px;
     position: relative;
+    padding-left: 20px;
+    text-indent: 0px;
   }
 
   .text-list-note li > span:first-child {
     position: absolute;
     left: 0;
-    color: #82C2A9;
+    color: #FF463C;
   }
 
   .text-list-note li span {
@@ -283,21 +274,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* キャンセル料セクション */
   .price-note-edit {
-    padding: 60px 0;
-    background: #f9f9f9;
+    background: #ffffff
   }
 
   .price-note-edit h3 {
     text-align: center;
-    margin-bottom: 40px;
   }
 
   .price-note-edit h3 span {
     display: block;
-    font-size: 14px;
+    font-size: 18x;
     font-weight: normal;
-    margin-top: 10px;
-    color: #666;
+    color: #000
   }
 
   .price-note-edit .list {
@@ -306,10 +294,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .price-note-edit dl {
-    display: flex;
     justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid #e0e0e0;
   }
 
   .price-note-edit dl:last-child {
@@ -323,8 +308,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .price-note-edit dd {
     flex: 1;
-    text-align: right;
-    color: #82C2A9;
     font-weight: bold;
   }
 
