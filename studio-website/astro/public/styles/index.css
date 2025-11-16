@@ -2388,13 +2388,6 @@ max-width: 500px;
   width: calc(100% + 24px);
 }
 
-#lead-rental .list .item {
-  width: calc(33.333334% - 12px);
-  margin: 0 12px;
-  max-width: 284px;
-  position: relative;
-}
-
 #lead-rental .list .item .photo {
   position: relative;
 }

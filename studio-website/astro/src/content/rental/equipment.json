@@ -1,52 +1,96 @@
 {
   "items": [
     {
-      "image": "/img/rental/equipment01.jpg",
-      "text": "ストロボ Profoto D2 1000w×2台"
+      "image": "/img/rental/equipment_generator.webp",
+      "text": "ジェネレーター CS-2400T ( × 1 )\nジェネレーター CM-1200T ( × 1 )\nジェネレーター CSb-1200TⅡ ( × 1 )\nヘッド CB-25H ( × 6 ) CAX-H ( × 1 )\nシンクロコード\nヘッド延長コード"
     },
     {
-      "image": "/img/rental/equipment02.jpg",
-      "text": "ストロボ Profoto D2 500w×2台"
+      "image": "/img/rental/equipment_stand.webp",
+      "text": "東芝ライテックミニスタンド ( × 6 )\nアベンジャースタンド40インチ ( × 3 )\nスーパーブーム ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment03.jpg",
-      "text": "ストロボ Profoto B10×2台"
+      "image": "/img/rental/equipment_pall.webp",
+      "text": "オートポール ( × 6 )\nエクステンションチューブ2m ( × 2 )\nエクステンションチューブ1.5m ( × 2 )"
     },
     {
-      "image": "/img/rental/equipment04.jpg",
-      "text": "ソフトボックス 各種サイズ"
+      "image": "/img/rental/equipment_tripod.webp",
+      "text": "三脚 ( × 1 )\n雲台 ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment05.jpg",
-      "text": "アンブレラ 白・銀・トランス"
+      "image": "/img/rental/equipment_radioslave.webp",
+      "text": "ラジオスレーブ ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment06.jpg",
-      "text": "ビューティーディッシュ 白・銀"
+      "image": "/img/rental/equipment_dice.webp",
+      "text": "サイコロ500mm角 ( × 2 )\nサイコロ250mm角 ( × 7 )\n箱馬 ( × 4 )"
     },
     {
-      "image": "/img/rental/equipment07.jpg",
-      "text": "グリッド 各種サイズ"
+      "image": "/img/rental/equipment_panel.webp",
+      "text": "セットホース ( × 1 )\nフラットパネル 3×6判 ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment08.jpg",
-      "text": "スタンド ライトスタンド×10本"
+      "image": "/img/rental/equipment_umbrella.webp",
+      "text": "アンブレラ 直径60cm ( × 5 )\nアンブレラ 直径180cm ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment09.jpg",
-      "text": "背景紙用ポール 2.7m幅対応"
+      "image": "/img/rental/equipment_grid.webp",
+      "text": "ハニカムグリッド ( × 2 )"
     },
     {
-      "image": "/img/rental/equipment10.jpg",
-      "text": "レフ板 白・銀・金 各種サイズ"
+      "image": "/img/rental/equipment_rect.webp",
+      "text": "ソフトボックス ／レクタ ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment11.jpg",
-      "text": "黒レフ 各種サイズ"
+      "image": "/img/rental/equipment_octa.webp",
+      "text": "ソフトボックス／オクタ φ120 ( × 1 )"
     },
     {
-      "image": "/img/rental/equipment12.jpg",
-      "text": "ミニ三脚・各種クランプ"
+      "image": "/img/rental/equipment_capoc.webp",
+      "text": "白黒カポック 3×6判 ( × 4 )\n白黒Ｌパネル 3×8判 ( × 2 )\nレフ（銀・白） ( × 1 )\nフラッグ（ディフューザ） ( × 1 )/nフラッグ（黒） ( × 1 )"
+    },
+    {
+      "image": "/img/rental/equipment_clamp.webp",
+      "text": "ダブルクランプ ( × 4 )\nエレンクリップ ( × 9 )"
+    },
+    {
+      "image": "/img/rental/equipment_wagon.webp",
+      "text": "ワゴン ( × 1 )"
+    },
+    {
+      "image": "/img/rental/equipment_code.webp",
+      "text": "延長コード ( × 3 )"
+    },
+    {
+      "image": "/img/rental/equipment_blower.webp",
+      "text": "ブロワー ( × 1 )"
+    },
+    {
+      "image": "/img/rental/equipment_weight.webp",
+      "text": "ウエイト10kg ( × 4 )\nウエイト5kg ( × 2 )"
+    },
+    {
+      "image": "/img/rental/equipment_stepladder.webp",
+      "text": "脚立（大） ( × 1 )\n脚立（小） ( × 1 )"
+    },
+    {
+      "image": "/img/rental/equipment_hangerrack_mirror.webp",
+      "text": "ハンガーラック ( × 2 )\n鏡 ( × 1 )"
+    },
+    {
+      "image": "/img/rental/equipment_speaker.webp",
+      "text": "Bluetoothスピーカー ( × 1 )"
+    },
+    {
+      "image": "/img/rental/equipment_minitable.webp",
+      "text": "ミニテーブル ( × 2 )"
+    },
+    {
+      "image": "/img/rental/equipment_chair.webp",
+      "text": "椅子 ( × 6 )"
+    },
+    {
+      "image": "/img/rental/equipment_circlechair.webp",
+      "text": "丸椅子 ( × 4 )"
     }
   ]
 }
