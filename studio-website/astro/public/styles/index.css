@@ -2393,7 +2393,6 @@ max-width: 500px;
 }
 
 #lead-rental .list .item .photo::before {
-  background: url(../img/common/icon_img.png) no-repeat top left;
   background-size: cover;
   width: 40px;
   height: 40px;
