@@ -18,7 +18,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div id="lead-access">
       <div class="wrap">
         <p class="ttl-common wow fadeInUp">スタジオゼブラ</p>
-        <h2 class="text wow fadeInUp">〒151-0051　東京都渋谷区千駄ヶ谷5丁目28-10ドルミ第２御苑B101</h2>
+        <h2 class="text wow fadeInUp">〒151-0051 東京都渋谷区千駄ヶ谷5丁目28-10ドルミ第2御苑B101</h2>
 
         <!-- Googleマップ -->
         <div id="map-access" class="wow fadeInUp">
@@ -36,7 +36,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <!-- アクセス情報（電車・車） -->
         <div class="info-park">
           <div class="list">
-            <div class="item wow fadeInLeft">
+            <div class="list train">
               <h3>電車でお越しの方</h3>
               <p class="txt">
                 JR代々木駅 東口より徒歩3分。<br>
@@ -45,7 +45,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 服部栄養専門学校の向かい、昭和シェル石油の隣の建物です。
               </p>
             </div>
-            <div class="item wow fadeInRight">
+            <div class="list car">
               <h3>お車・バイク・自転車でお越しの方</h3>
               <p class="txt">
                 建物は明治通りに面しています。<br>
@@ -55,7 +55,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 近隣のパーキングの検索はこちらから
                 <span>
                   <a href="https://www.s-park.jp/map?q=〒151-0051%E3%80%80東京都渋谷区千駄ヶ谷5丁目28-10ドルミ第２御苑B101&tab=0&ll=35.684987,139.704181&z=18" target="_blank">
-                    <img src="/img/common/icon_s.png" alt="近隣のパーキングの検索はこちらから">
+                    <img src="/img/access/icon_s.png" alt="近隣のパーキングの検索はこちらから">
                   </a>
                 </span>
               </p>
@@ -76,42 +76,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="list">
           <div class="item wow fadeInUp">
             <p class="photo">
-              <img src="/img/common/access_img1.jpg" alt="エキチカ">
+              <img src="/img/access/access_img1.jpg" alt="エキチカ">
               <span>エキチカ</span>
             </p>
             <h3 class="txt">JR代々木駅東口より徒歩3分。JR新宿駅新南口より徒歩7分。東京メトロ新宿三丁目駅E8出口より徒歩5分。</h3>
           </div>
           <div class="item wow fadeInUp">
             <p class="photo">
-              <img src="/img/common/access_img2.jpg" alt="アクセス抜群">
+              <img src="/img/access/access_img2.jpg" alt="アクセス抜群">
               <span>アクセス抜群</span>
             </p>
             <h3 class="txt">スタジオは明治通り沿いの分かりやすい場所にあります。服部栄養専門学校の向かい側、昭和シェル石油の隣です。</h3>
           </div>
           <div class="item wow fadeInUp">
             <p class="photo">
-              <img src="/img/common/access_img3.jpg" alt="お車でも安心">
+              <img src="/img/access/access_img3.jpg" alt="お車でも安心">
               <span>お車でも安心</span>
             </p>
             <h3 class="txt">スタジオ周辺には最大料金設定のある駐車場や有料のバイク駐車場・駐輪場があります。</h3>
           </div>
           <div class="item wow fadeInUp">
             <p class="photo">
-              <img src="/img/common/access_img4.jpg" alt="よりどりみどり">
+              <img src="/img/access/access_img4.jpg" alt="よりどりみどり">
               <span>よりどりみどり</span>
             </p>
             <h3 class="txt">美味しいランチが楽しめるレストランや、打ち合わせに使えるカフェが充実。近隣にはコンビニや自販機もあり便利です。</h3>
           </div>
           <div class="item wow fadeInUp">
             <p class="photo">
-              <img src="/img/common/access_img5.jpg" alt="買い出しにも便利">
+              <img src="/img/access/access_img5.jpg" alt="買い出しにも便利">
               <span>買い出しにも便利</span>
             </p>
             <h3 class="txt">ホームセンターや家電量販店、文具店、雑貨屋、薬局・・・徒歩10分圏内に便利なお店が数多くあります。</h3>
           </div>
           <div class="item wow fadeInUp">
             <p class="photo">
-              <img src="/img/common/access_img6.jpg" alt="撮影準備もスムーズ">
+              <img src="/img/access/access_img6.jpg" alt="撮影準備もスムーズ">
               <span>撮影準備もスムーズ</span>
             </p>
             <h3 class="txt">新宿・渋谷エリアには撮影機材や小道具、衣装をレンタルできるショップが集まっています。</h3>
@@ -125,7 +125,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style is:global>
   /* ページヘッダー */
   .page-all.access {
-    background: url(/img/common/key_access.jpg) no-repeat center center;
+    background: url(/img/access/key_access.jpg) no-repeat center center;
     background-size: cover;
     height: 455px;
     position: relative;
@@ -168,7 +168,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   #lead-access .ttl-common {
     text-align: center;
     font-size: 36px;
-    margin-bottom: 20px;
     font-weight: bold;
   }
 
@@ -194,58 +193,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   /* 電車・車のアクセス情報 */
-  .info-park {
-    margin-top: 60px;
+  #lead-access .info-park {
+    padding-top: 30px;
   }
 
-  .info-park .list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
-
-  .info-park .item h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #82C2A9;
-    font-weight: bold;
-  }
-
-  .info-park .item .txt {
-    line-height: 1.8;
-    color: #666;
-    margin-bottom: 15px;
-  }
-
-  .info-park .item .note {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #666;
+  #lead-access .info-park .list {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 30px;
   }
 
-  .info-park .item .note span a {
-    display: inline-block;
-    transition: opacity 0.3s ease;
+  #lead-access .info-park .list .train,
+  #lead-access .info-park .list .car {
+    border: 4px solid #82C2A9;
+    box-sizing: border-box;
+    width: calc(50% - 15px);
+    padding: 30px;
   }
 
-  .info-park .item .note span a:hover {
-    opacity: 0.7;
+  #lead-access .info-park .list .train h3,
+  #lead-access .info-park .list .car h3 {
+    font-size: 22px;
+    text-align: center;
+    padding-top: 65px;
+    background: url(/img/access/icon_t.png) no-repeat center top;
+    background-size: 36px auto;
+    margin-bottom: 14px;
   }
 
-  .info-park .item .note img {
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
+  #lead-access .info-park .list .car h3 {
+    background: url(/img/access/icon_c.png) no-repeat center top;
+    background-size: 54px auto;
+  }
+
+  #lead-access .info-park .list .train .txt,
+  #lead-access .info-park .list .car .txt {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  #lead-access .info-park .list .train .note,
+  #lead-access .info-park .list .car .note {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 25px;
+  }
+
+  #lead-access .info-park .list .train .note span,
+  #lead-access .info-park .list .car .note span {
+    width: 234px;
+    display: block;
+    margin: auto;
+  }
+
+  #lead-access .info-park .list .train .note span img,
+  #lead-access .info-park .list .car .note span img {
+    width: 100%;
+    height: auto;
   }
 
   /* 周辺環境セクション */
   #sec01-access {
-    padding: 80px 0;
-    background: #f9f9f9;
+    padding: 30px 0;
   }
 
   #sec01-access h2 {
@@ -353,17 +365,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       height: 300px;
     }
 
-    .info-park .list {
-      grid-template-columns: 1fr;
-      gap: 30px;
+    #lead-access .info-park .list .train,
+    #lead-access .info-park .list .car {
+      border: 4px solid #82C2A9;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 25px 20px;
+      margin-bottom: 30px;
     }
 
-    .info-park .item h3 {
-      font-size: 18px;
+    #lead-access .info-park .list .train h3,
+    #lead-access .info-park .list .car h3 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 65px;
+      background: url(/img/access/icon_t.png) no-repeat center top;
+      background-size: 36px auto;
+      margin-bottom: 14px;
+      letter-spacing: -0.05em;
+    }
+
+    #lead-access .info-park .list .car h3 {
+      background: url(/img/access/icon_c.png) no-repeat center top;
+      background-size: 54px auto;
+    }
+
+    #lead-access .info-park .list .train .txt,
+    #lead-access .info-park .list .car .txt {
+      font-size: 15px;
+    }
+
+    #lead-access .info-park .list .train .note,
+    #lead-access .info-park .list .car .note {
+      font-size: 15px;
+    }
+
+    #lead-access .info-park .list .train .note span,
+    #lead-access .info-park .list .car .note span {
+      width: 234px;
+      display: block;
+      margin: auto;
+    }
+
+    #lead-access .info-park .list .train .note span img,
+    #lead-access .info-park .list .car .note span img {
+      width: 100%;
+      height: auto;
     }
 
     #sec01-access {
-      padding: 60px 0;
+      padding: 0px 0;
     }
 
     #sec01-access h2 span {
