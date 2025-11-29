@@ -2269,21 +2269,6 @@ max-width: 500px;
 }
 
 /*****************page reservation***********************/
-#lead-reservation {
-  background: #82C2A9;
-  padding: 60px 0 55px;
-}
-
-#lead-reservation h2 {
-  width: 526px;
-  margin: auto;
-  padding-bottom: 50px;
-}
-
-#lead-reservation h2 img {
-  width: 100%;
-  height: auto;
-}
 
 #flow-box .box {
   background: #FFF;
@@ -2567,16 +2552,6 @@ max-width: 500px;
   #lead-reservation {
     background: #82C2A9;
     padding: 60px 0 55px;
-  }
-  #lead-reservation h2 {
-    max-width: 526px;
-    width: 100%;
-    margin: auto;
-    padding-bottom: 50px;
-  }
-  #lead-reservation h2 img {
-    width: 100%;
-    height: auto;
   }
   #flow-box .box {
     background: #FFF;
@@ -3184,59 +3159,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #faq-block .item-faq dl dt {
-  display: inline-block;
-  position: relative;
-  padding-left: 25px;
-  margin: 10px 0 2px;
-  cursor: pointer;
-}
-
-#faq-block .item-faq dl dt::before {
   content: "Q.";
   position: absolute;
   top: 0;
   left: 0;
 }
 
-#faq-block .item-faq dl dt::after {
-  content: "";
-  position: absolute;
-  bottom: 5px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #000;
-}
 
-#faq-block .item-faq dl dd {
-  position: relative;
-  padding-left: 25px;
-  margin: 12px 0 10px;
-  cursor: pointer;
-}
-
-#faq-block .item-faq dl dd::before {
-  content: "A.";
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #f62a2d;
-}
-
-#faq-block .item-faq dl dd a {
-  color: #f62a2d;
-  transition: all 0.3s ease;
-}
 
 #faq-block .item-faq dl dd a:hover {
   text-decoration: underline;
 }
 
-#faq-block .toggle-link {
-  font-size: 22px;
-  position: relative;
-  padding: 12px 10px;
-}
 
 #faq-block .toggle-link::before {
   display: block;
@@ -3337,28 +3271,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   }
 }
 
-.ttl-c {
-  margin: -75px auto -90px !important;
-  width: 650px !important;
-}
-
-.ttl-c1 {
-  margin: -55px auto -70px !important;
-  width: 685px !important;
-}
-
 @media only screen and (max-width: 767px) {
   #sec01-rental {
     margin-top: -65px;
     padding-top: 65px;
-  }
-  .ttl-c {
-    margin: -65px 0 -80px -20% !important;
-    width: 140% !important;
-  }
-  .ttl-c1 {
-    margin: -55px 0 -55px -15% !important;
-    width: 130% !important;
   }
 }
 
@@ -3382,24 +3298,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     position: relative;
     padding-left: 25px;
     margin: 10px 0 2px;
-    cursor: pointer;
-    text-decoration: underline;
   }
-  #faq-block .item-faq dl dt::before {
+  #faq-block .item-faq dl dt {
     content: "Q.";
     position: absolute;
     top: 0;
     left: 0;
-  }
-  #faq-block .item-faq dl dt::after {
-    content: "";
-    position: absolute;
-    bottom: inherit;
-    top: 20px;
-    left: 0;
-    width: 20%;
-    height: 1px;
-    background: #000;
   }
   #faq-block .item-faq dl dd {
     position: relative;

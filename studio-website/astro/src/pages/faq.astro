@@ -23,8 +23,8 @@ const { categories } = faqData.data;
   <section>
     <div id="lead-reservation">
       <div class="wrap">
-        <h2 class="wow fadeInUp ttl-c">
-          <img src="/img/common/zebra_230730_item_05.png" alt="FAQ">
+        <h2 class="ttl-c">
+          <img src="/img/faq/faq.png" alt="FAQ">
         </h2>
         <div id="faq-block">
           <div class="list">
@@ -39,7 +39,7 @@ const { categories } = faqData.data;
                     </dl>
                   ))}
                   <p class="close-all">
-                    <img src="/img/shared/close.jpg" alt="close">
+                    <img src="/img/faq/close.jpg" alt="close">
                   </p>
                 </div>
               </div>
@@ -52,14 +52,6 @@ const { categories } = faqData.data;
 </BaseLayout>
 
 <style is:global>
-  /* ページヘッダー */
-  .page-all.reservation {
-    background: url(/img/common/key_reservation.jpg) no-repeat center center;
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
   .key-page {
     position: absolute;
     top: 50%;
@@ -92,13 +84,22 @@ const { categories } = faqData.data;
 
   /* FAQセクション */
   #lead-reservation {
-    padding: 100px 0 60px;
     background: #82C2A9;
+  }
+
+  #lead-reservation h2 {
+    padding-bottom: 50px;
+  }
+
+  #lead-reservation h2 img {
+    width: 100%;
+    height: auto;
   }
 
   .ttl-c {
     text-align: center;
-    margin-bottom: 60px;
+    margin: -75px auto -90px;
+    width: 650px;
   }
 
   .ttl-c img {
@@ -110,31 +111,56 @@ const { categories } = faqData.data;
   #faq-block {
     max-width: 900px;
     margin: 0 auto;
+    position: relative;
+    padding-bottom: 50px;
   }
 
   #faq-block .list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
   }
 
   /* アコーディオンアイテム */
   .item-faq {
+    position: relative;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border-radius: 15px;
     overflow: hidden;
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s ease;
+    margin-bottom: 15px;
+    padding: 5px 20px;
+    font-size: 18px;
+    line-height: 30px;
   }
 
   .item-faq:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
+  #faq-block .item-faq dl dd {
+    position: relative;
+    padding-left: 25px;
+    margin: 12px 0 10px;
+  }
+  #faq-block .item-faq dl dt {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    margin: 10px 0 2px;
+  }
+
+  #faq-block .item-faq dl dd::before {
+    content: "A.";
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #f62a2d;
+}
   /* アコーディオンヘッダー */
   .toggle-link {
-    padding: 20px 25px;
+    padding: 10px 15px;
     font-size: 18px;
     font-weight: bold;
     color: #333;
@@ -144,6 +170,12 @@ const { categories } = faqData.data;
     margin: 0;
     transition: background-color 0.3s ease;
     user-select: none;
+  }
+
+  #faq-block .toggle-link {
+    font-size: 22px;
+    position: relative;
+    padding: 12px 10px;
   }
 
   .toggle-link:hover {
@@ -161,6 +193,7 @@ const { categories } = faqData.data;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease;
+    padding-bottom: 5px;
   }
 
   .item-faq.active .toggle-main {
@@ -194,7 +227,7 @@ const { categories } = faqData.data;
   }
 
   .toggle-main dd {
-    color: #666;
+    color: #000;
     line-height: 1.8;
     font-size: 14px;
     margin-left: 20px;
@@ -210,7 +243,7 @@ const { categories } = faqData.data;
   }
 
   .toggle-main dd a {
-    color: #82C2A9;
+    color: #f62a2d;
     text-decoration: underline;
     transition: opacity 0.3s ease;
   }
@@ -221,8 +254,8 @@ const { categories } = faqData.data;
 
   /* 閉じるボタン */
   .close-all {
-    text-align: center;
-    padding: 20px 0 10px;
+    width: 60px;
+    margin: auto;
     cursor: pointer;
     transition: opacity 0.3s ease;
   }
@@ -232,7 +265,7 @@ const { categories } = faqData.data;
   }
 
   .close-all img {
-    max-width: 150px;
+    width: 100%;
     height: auto;
   }
 
@@ -257,12 +290,19 @@ const { categories } = faqData.data;
       padding: 40px 0;
     }
 
-    .ttl-c {
-      margin-bottom: 30px;
+    #lead-reservation h2 {
+      max-width: 526px;
+      width: 100%;
+    }
+    #lead-reservation h2 img {
+      width: 100%;
+      height: auto;
     }
 
-    #faq-block .list {
-      gap: 15px;
+    .ttl-c {
+      text-align: center;
+      margin: -65px auto -80px;
+      max-width: 90%;
     }
 
     .toggle-link {
