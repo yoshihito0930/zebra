@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div id="head-top" class="page-all reservation">
     <div class="key-page">
       <h1 class="wow fadeInUp"><span>ホリゾントルール</span></h1>
-      <p class="ttl-key-page wow fadeInUp">
+      <p class="ttl-key-page">
         <span class="h-span">ホリゾントの使い方を誤り、結果的に強い汚れや傷が付いてしまった場合には<br>清掃料や塗装料、修繕費をお支払いいただきます。</span>
       </p>
     </div>
@@ -15,16 +15,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section>
     <div id="lead-reservation">
       <div class="wrap">
-        <h2 class="wow fadeInUp ttl-c1">
-          <img src="/img/common/zebra_230730_item_07.png" alt="必ずお守りください！">
+        <h2 class="ttl-c1">
+          <img src="/img/horizon/attention.png" alt="必ずお守りください！">
         </h2>
         <div id="flow-box-faq">
           <!-- ルール1: 土足厳禁 -->
           <div class="box wow fadeInUp">
             <dl>
               <dt>
-                <span><img src="/img/common/zebra_230730_item_08.png" alt="1"></span>
-                土足厳禁！
+                <span class="rule-number">1.</span> 土足厳禁！
               </dt>
               <dd>
                 撮影にお使いになる靴は、 事前に清掃・お手入れをしたお履物や、新品のお履物をご準備いただき、裏面を養生テープで覆うなどしてお使いください。<br>
@@ -37,8 +36,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="box wow fadeInUp">
             <dl>
               <dt>
-                <span><img src="/img/common/zebra_230730_item_09.png" alt="2"></span>
-                デニムなどの色移りするお召し物の着用はお控えください！
+                <span class="rule-number">2.</span> デニムなど色移りするお召し物の着用はお控えください！
               </dt>
               <dd>
                 カメラマンさん、スタイリストさん、ヘアメイクさんなど、ホリゾントに入り作業をする可能性のある方は、デニムなどの色移りするお召し物の着用をお避けください。また、被写体の方の衣装が色移りする素材の場合は、座りのポーズを避ける、敷物の上に座る、などの工夫をお願いします。
@@ -50,8 +48,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="box wow fadeInUp">
             <dl>
               <dt>
-                <span><img src="/img/common/zebra_230730_item_10.png" alt="3"></span>
-                養生用の板の活用をお願いします！
+                <span class="rule-number">3.</span> 養生用の板の活用をお願いします！
               </dt>
               <dd>
                 スタジオゼブラでは、ホリゾントの床面を養生するための白い板を常備しています。画角に入らないところには養生の板を敷き、物を落としてへこませてしまうことを防止したり、必要以上の汚れが付かないようにしてください。スタジオのスタッフにお声がけいただけましたら、養生の板の使い方をご説明いたしますので、お気軽にお申し付けください。
@@ -63,8 +60,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="box wow fadeInUp">
             <dl>
               <dt>
-                <span><img src="/img/common/zebra_230730_item_11.png" alt="4"></span>
-                上記の1～3に加え、ホリゾントの清掃料や塗装料、修繕費がかかる事例
+                <span class="rule-number">4.</span> 上記の1～3に加え、ホリゾントの清掃料や塗装料、修繕費がかかる事例
               </dt>
               <dd>
                 <span>● ソールが厚いブーツなどのお履物による強い汚れ</span>
@@ -86,7 +82,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <!-- 利用規約リンク -->
           <p class="link-h">
             <a href="/policy/" target="_blank">
-              <img src="/img/common/zebra_230730_item_12.png" alt="利用規約はこちら">
+              <img src="/img/horizon/policy.png" alt="利用規約はこちら">
             </a>
           </p>
         </div>
@@ -108,10 +104,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
     z-index: 10;
+    line-height: 48px;
+    transform: translate(-50%, -20%);
   }
 
   .key-page h1 span {
@@ -119,7 +116,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background: #000;
     min-width: 260px;
     display: inline-block;
-    margin-bottom: 20px;
     letter-spacing: 0.2em;
     padding: 15px 25px;
     font-size: 30px;
@@ -132,17 +128,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: bold;
     display: inline-block;
     padding-bottom: 5px;
+    margin-top: 30px
   }
 
   /* ホリゾントルールセクション */
   #lead-reservation {
-    padding: 100px 0 60px;
     background: #82C2A9;
+    padding-bottom: 50px;
   }
 
   .ttl-c1 {
     text-align: center;
-    margin: -55px auto -70px;
+    margin: auto;
     width: 685px;
   }
 
@@ -153,12 +150,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* フローボックス */
   #flow-box-faq {
-    max-width: 900px;
-    margin: 0 auto;
+  background: #FFF;
+  padding: 55px 35px 45px;
+  margin-bottom: 50px;
   }
 
   #flow-box-faq .box {
-    background: #fff;
+    background: #f8fffc;
     border-radius: 8px;
     padding: 30px;
     margin-bottom: 30px;
@@ -170,18 +168,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   #flow-box-faq .box dt {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+    color: #000;
     display: flex;
     align-items: center;
-    gap: 15px;
-    line-height: 1.6;
+    line-height: 1.4;
   }
 
   #flow-box-faq .box dt span {
     flex-shrink: 0;
+  }
+
+  #flow-box-faq .box dt .rule-number {
+    color: #ff0000;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 8px;
   }
 
   #flow-box-faq .box dt img {
@@ -191,15 +194,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   #flow-box-faq .box dd {
-    color: #666;
-    line-height: 1.9;
-    font-size: 15px;
+    color: #000;
+    font-size: 18px;
   }
+
+  #flow-box-faq dl dd {
+    padding: 10px 5px 20px;
+    line-height: 30px;
+  }
+
+  #flow-box-faq dl dt {
+    position: relative;
+    font-size: 24px;
+    padding: 10px 0 20px 45px;
+    line-height: 32px;
+  }
+  #flow-box-faq dl dt span {
+    display: block;
+    width: 65px;
+    position: absolute;
+    left: 1px;
+}
 
   #flow-box-faq .box dd span {
     display: block;
     font-weight: bold;
-    color: #333;
+    color: #000;
     margin-top: 20px;
     margin-bottom: 8px;
   }
@@ -209,22 +229,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   /* 利用規約リンク */
-  .link-h {
-    text-align: center;
-    margin-top: 50px;
+  #flow-box-faq .link-h {
+    display: flex;
+    justify-content: center;
   }
 
-  .link-h a {
-    display: inline-block;
-    transition: opacity 0.3s ease;
+  #flow-box-faq .link-h a {
+    display: block;
+    max-width: 380px;
   }
 
-  .link-h a:hover {
-    opacity: 0.7;
-  }
-
-  .link-h img {
-    max-width: 100%;
+  #flow-box-faq .link-h a img {
+    width: 100%;
     height: auto;
   }
 
@@ -245,14 +261,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       line-height: 38px;
     }
 
-    #lead-reservation {
-      padding: 60px 0 40px;
-    }
-
     .ttl-c1 {
       text-align: center;
-      margin: -55px auto -55px;
+      margin: auto;
       max-width: 90%;
+    }
+
+    #flow-box-faq {
+      background: #FFF;
+      padding: 30px 15px 30px;
+      margin-bottom: 50px;
     }
 
     #flow-box-faq .box {
@@ -265,6 +283,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       gap: 10px;
       flex-direction: column;
       align-items: flex-start;
+    }
+
+    #flow-box-faq .box dt .rule-number {
+      font-size: 24px;
     }
 
     #flow-box-faq .box dt img {

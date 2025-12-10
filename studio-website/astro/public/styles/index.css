@@ -2549,10 +2549,6 @@ max-width: 500px;
 }
 
 @media only screen and (max-width: 767px) {
-  #lead-reservation {
-    background: #82C2A9;
-    padding: 60px 0 55px;
-  }
   #flow-box .box {
     background: #FFF;
     font-weight: bold;
@@ -3207,62 +3203,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   padding-bottom: 5px;
 }
 
-#flow-box-faq {
-  background: #FFF;
-  padding: 55px 35px 45px;
-  margin-bottom: 50px;
-}
 
-#flow-box-faq dl dt {
-  position: relative;
-  font-size: 24px;
-  padding: 10px 0 20px 45px;
-  line-height: 32px;
-}
 
-#flow-box-faq dl dt span {
-  display: block;
-  width: 65px;
-  position: absolute;
-  top: -12px;
-  left: -15px;
-}
 
-#flow-box-faq dl dt span img {
-  width: 100%;
-  height: auto;
-}
-
-#flow-box-faq dl dd {
-  padding: 10px 5px 45px;
-  font-size: 16px;
-  line-height: 30px;
-}
-
-#flow-box-faq dl dd span {
-  display: block;
-  padding-bottom: 8px;
-  margin-top: 30px;
-}
-
-#flow-box-faq dl dd span:first-child {
-  margin-top: 0;
-}
-
-#flow-box-faq .link-h {
-  display: flex;
-  justify-content: center;
-}
-
-#flow-box-faq .link-h a {
-  display: block;
-  max-width: 380px;
-}
-
-#flow-box-faq .link-h a img {
-  width: 100%;
-  height: auto;
-}
 
 @media only screen and (min-width: 767px) {
   #sec01-rental {
@@ -3360,12 +3303,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   }
   #faq-block .toggle-main {
     padding-bottom: 5px;
-  }
-  #flow-box-faq {
-    background: #FFF;
-    padding: 35px 20px 35px;
-    margin-bottom: 30px;
-    margin-top: -30px;
   }
   #flow-box-faq dl dt {
     position: relative;
