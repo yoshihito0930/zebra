@@ -21,11 +21,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div id="lead-reservation">
       <div class="wrap">
         <h2 class="wow fadeInUp">
-          <img src="/img/common/title_reservation.png" alt="RESERVATION">
+          <img src="/img/reservation/title.png" alt="How to Reserve">
         </h2>
         <div id="flow-box">
           <!-- STEP 01 -->
-          <div class="box wow fadeInUp">
+          <div class="box">
             <span class="number ft-add">01</span>
             <p>
               <span>ご予約カレンダー</span>で予約状況をご確認のうえ、<br class="pc">
@@ -33,10 +33,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </p>
             <nav>
               <a href="#cal-box-add">
-                <img src="/img/shared/zebra_img3.png" alt="RESERVATION">
+                <img src="/img/reservation/zebra_reservation_calender.png" alt="RESERVATION CALENDER">
               </a>
               <a href="https://form.run/@studiozebra-1st-reservation" target="_blank">
-                <img src="/img/shared/zebra_img4.png" alt="RESERVATION">
+                <img src="/img/reservation/zebra_reservation_form.png" alt="RESERVATION FORM">
               </a>
             </nav>
           </div>
@@ -97,29 +97,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- お問い合わせセクション -->
     <div id="contact-box">
       <div class="wrap wow fadeInUp">
-        <h2><img src="/img/common/title-contact.png" alt="contact"></h2>
+        <h2><img src="/img/reservation/contact.png" alt="contact"></h2>
         <h3 class="ttl-common">メールフォームでのご予約・お問合わせ</h3>
         <ul class="btn-contact">
           <li>
             <a href="https://form.run/@studiozebra-1st-reservation" target="_blank">
-              <img src="/img/common/btn_c1.png" alt="ご予約フォームはこちら">
+              <img src="/img/reservation/btn_reservation_form.png" alt="ご予約フォームはこちら">
             </a>
           </li>
           <li>
             <a href="https://form.run/@studiozebra-st-inquiry" target="_blank">
-              <img src="/img/common/btn_c2.png" alt="お問い合わせフォームはこちら">
+              <img src="/img/reservation/btn_contact_form.png" alt="お問い合わせフォームはこちら">
             </a>
           </li>
         </ul>
         <ul class="btn-sns">
           <li class="wow fadeInLeft">
             <a href="tel:09067070936" class="telhref" onclick="ga('send', 'event', 'tel', 'click', 'info_phone');">
-              <img src="/img/common/tel.png" alt="090-6707-0936">
+              <img src="/img/reservation/tel.png" alt="090-6707-0936">
             </a>
           </li>
           <li class="wow fadeInRight">
             <a href="https://line.me/R/ti/p/%40190bnuvc" target="_blank">
-              <img src="/img/common/line.png" alt="LINEでのご予約・お問合わせ">
+              <img src="/img/reservation/line.png" alt="LINEでのご予約・お問合わせ">
             </a>
           </li>
         </ul>
@@ -176,7 +176,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style is:global>
   /* ページヘッダー */
   .page-all.reservation {
-    background: url(/img/common/key_reservation.jpg) no-repeat center center;
     background-size: cover;
     height: 455px;
     position: relative;
@@ -186,7 +185,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
     z-index: 10;

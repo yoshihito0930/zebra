@@ -2310,7 +2310,7 @@ max-width: 500px;
 }
 
 #flow-box .box + .box::before {
-  background: url(../img/common/arr_list.png) no-repeat center center;
+  background: url(../img/reservation/arr_list.png) no-repeat center center;
   background-size: 27px auto;
   width: 27px;
   height: 19px;
@@ -2577,7 +2577,7 @@ max-width: 500px;
     box-sizing: border-box;
   }
   #flow-box .box + .box::before {
-    background: url(../img/common/arr_list.png) no-repeat center center;
+    background: url(../img/reservation/arr_list.png) no-repeat center center;
     background-size: 27px auto;
     width: 27px;
     height: 19px;
