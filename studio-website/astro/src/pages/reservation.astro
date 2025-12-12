@@ -75,7 +75,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <p class="text-note">
             ご予約希望日に他の予約が入っている場合は、前後1時間以上あけてのご予約をお願いします。<br>
             （リアルタイム更新ではありません）<br>
-            &nbsp;<br>
             <a href="https://calendar.google.com/calendar/embed?src=studiozebra1st%40gmail.com&ctz=Asia%2FTokyo" target="_blank" style="color: #FF463C; font-size: 120%; text-decoration: underline; text-underline-offset: 3px;">
               ＞＞ページがうまく表示されない場合は、こちらをクリック！
             </a>
@@ -222,8 +221,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   #lead-reservation h2 {
+    width: 526px;
     text-align: center;
-    margin-bottom: 60px;
+    margin: auto;
+    padding-bottom: 50px;
   }
 
   #lead-reservation h2 img {
@@ -239,10 +240,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   #flow-box .box {
     background: #fff;
-    border-radius: 8px;
-    padding: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    font-size: 18px;
+    line-height: 30px;
+    padding: 30px;
     position: relative;
+    border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
@@ -250,40 +253,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     position: absolute;
     top: 20px;
     left: 20px;
-    font-size: 48px;
+    font-size: 60px;
     font-weight: bold;
-    color: #82C2A9;
-    font-family: 'Montserrat', sans-serif;
+    color: #5c5c5c;
   }
 
   #flow-box .box p {
     margin-left: 80px;
-    line-height: 1.9;
-    color: #666;
-    font-size: 15px;
+    color: #000;
+    font-size: 18px;
   }
 
   #flow-box .box p span {
     font-weight: bold;
-    color: #333;
+    color: #FF463C;
   }
 
   #flow-box .box p a {
-    color: #82C2A9;
     text-decoration: underline;
   }
 
   #flow-box .box nav {
-    display: flex;
-    gap: 20px;
-    margin-top: 30px;
-    margin-left: 80px;
+    position: absolute;
+    top: 46%;
+    right: -5%;
+    width: 200px;
+    transform: translateY(-50%);
   }
 
   #flow-box .box nav a {
-    flex: 1;
     display: block;
-    transition: opacity 0.3s ease;
+    margin: -40px 0;
   }
 
   #flow-box .box nav a:hover {
@@ -302,25 +302,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   #flow-box .box ul li {
     margin-bottom: 15px;
     line-height: 1.9;
-    color: #666;
-    font-size: 15px;
+    color: #000;
+    font-size: 18px;
+    position: relative;
+    padding-left: 25px;
+  }
+
+  #flow-box .box ul li::before {
+    content: "●";
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #82C2A9;
   }
 
   #flow-box .box ul li span {
     font-weight: bold;
-    color: #333;
+    color: #FF463C;
+  }
+
+  /* フローボックス間の矢印 */
+  #flow-box .box + .box::before {
+    background: url(/img/reservation/arr_list.png) no-repeat center center;
+    background-size: 27px auto;
+    width: 27px;
+    height: 19px;
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    margin-left: -13px;
   }
 
   /* カレンダーセクション */
   .ttl-common.add-news {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   .ttl-common.add-news span {
     font-size: 28px;
     font-weight: bold;
-    color: #333;
+    color: #3a3a3a;
     padding-bottom: 15px;
     border-bottom: 3px solid #fff;
     display: inline-block;
@@ -334,10 +358,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .box-cal .text-note {
+    font-size: 18px;
     text-align: center;
     margin-bottom: 30px;
     line-height: 1.8;
-    color: #666;
+    color: #000;
   }
 
   .box-cal .block {
@@ -353,12 +378,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   /* お問い合わせセクション */
   #contact-box {
     padding: 80px 0;
-    background: #fff;
+    background: #000;
   }
 
   #contact-box h2 {
-    text-align: center;
-    margin-bottom: 40px;
+    width: 384px;
+    margin: auto;
   }
 
   #contact-box h2 img {
@@ -369,21 +394,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   #contact-box .ttl-common {
     text-align: center;
     font-size: 24px;
-    margin-bottom: 40px;
-    font-weight: bold;
+    padding: 5px 0 20px;
+    color: #FFF;
   }
 
   .btn-contact {
-    display: flex;
     gap: 30px;
-    max-width: 800px;
-    margin: 0 auto 60px;
+    width: 706px;
+    margin: auto;
     list-style: none;
     padding: 0;
   }
 
   .btn-contact li {
-    flex: 1;
+    margin-bottom: 15px;
   }
 
   .btn-contact a {
@@ -405,21 +429,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     gap: 30px;
     max-width: 800px;
     margin: 0 auto;
-    list-style: none;
-    padding: 0;
-  }
-
-  .btn-sns li {
-    flex: 1;
-  }
-
-  .btn-sns a {
-    display: block;
-    transition: opacity 0.3s ease;
-  }
-
-  .btn-sns a:hover {
-    opacity: 0.8;
   }
 
   .btn-sns img {
@@ -430,55 +439,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   /* 注意事項セクション */
   #sec01-reservation {
     padding: 80px 0;
-    background: #f9f9f9;
+    background: #FFF;
   }
 
   #sec01-reservation .ttl-common {
     text-align: center;
     font-size: 32px;
-    margin-bottom: 60px;
-    font-weight: bold;
+    margin-bottom: 30px;
   }
 
   #sec01-reservation h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 50px;
+    font-size: 23px;
+    color: #000;
+    margin-top: 30px;
     margin-bottom: 20px;
     padding-left: 20px;
     border-left: 4px solid #82C2A9;
   }
 
-  #sec01-reservation h3:first-of-type {
-    margin-top: 0;
-  }
-
   #sec01-reservation ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 30px;
   }
 
   #sec01-reservation ul li {
     padding-left: 20px;
-    margin-bottom: 15px;
     position: relative;
     line-height: 1.9;
-    color: #666;
+    color: #000;
   }
 
   #sec01-reservation ul li::before {
-    content: '・';
+    content: '●';
     position: absolute;
     left: 0;
-    color: #82C2A9;
+    color: #8c8c8c;
     font-weight: bold;
   }
 
   #sec01-reservation ul li span {
-    font-weight: bold;
-    color: #333;
+    color: #FF463C;
   }
 
   /* レスポンシブ */
@@ -503,11 +501,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     #lead-reservation h2 {
-      margin-bottom: 40px;
+      max-width: 526px;
+      width: 100%;
+      margin: auto;
+      padding-bottom: 50px
     }
 
     #flow-box .box {
-      padding: 30px 20px;
+      margin-bottom: 40px;
+      font-size: 16px;
+      line-height: 28px;
+      padding: 50px 15px 20px;
+    }
+
+    #flow-box .box nav {
+      position: relative;
+      top: 0;
+      right: 0;
+      width: auto;
+      transform: translateY(0%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #flow-box .box nav a {
+      display: box;
+      margin: 0 -15px;
     }
 
     #flow-box .number {
@@ -518,16 +538,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     #flow-box .box p,
     #flow-box .box nav,
-    #flow-box .box ul {
+    #flow-box .box ul,
+    #flow-box .box ul li {
+      font-size: 16px;
       margin-left: 0;
     }
 
-    #flow-box .box nav {
-      flex-direction: column;
+    #flow-box .box ul li {
+      font-size: 16px;
+      line-height: 1.5;
     }
 
     .box-cal {
       padding: 20px;
+    }
+
+    .box-cal .text-note {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.7;
+      color: #000;
     }
 
     .box-cal iframe {
@@ -536,13 +567,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     #contact-box {
-      padding: 60px 0;
+      padding: 50px 0 45px;
     }
 
-    .btn-contact,
-    .btn-sns {
-      flex-direction: column;
+    #contact-box .ttl-common {
+      font-size: 4.4vw;
+      letter-spacing: 0;
+      padding: 5px 0 20px;
     }
+
+    #contact-box .btn-contact,
+    #contact-box .btn-sns {
+      width: 100%;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    #contact-box .btn-sns {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
 
     #sec01-reservation {
       padding: 60px 0;
