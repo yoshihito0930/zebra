@@ -38,8 +38,6 @@ const formattedDate = new Intl.DateTimeFormat('ja-JP', {
           <span class="category">{news.data.category}</span>
           <time datetime={news.data.pubDate.toISOString()}>{formattedDate}</time>
         </div>
-        <h1>{news.data.title}</h1>
-        <p class="post-description">{news.data.description}</p>
       </header>
 
       <div class="post-content">
@@ -55,14 +53,15 @@ const formattedDate = new Intl.DateTimeFormat('ja-JP', {
 
 <style>
   .news-post {
-    padding: 60px 0;
+    padding: 100px 0;
   }
 
   .post-image {
     width: 100%;
-    max-height: 400px;
+    max-width: 600px;
+    height: 300px;
+    margin: 0 auto 30px;
     overflow: hidden;
-    margin-bottom: 30px;
     border-radius: 8px;
   }
 
@@ -75,7 +74,7 @@ const formattedDate = new Intl.DateTimeFormat('ja-JP', {
   .post-header {
     margin-bottom: 40px;
     padding-bottom: 30px;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid #82C2A9;
   }
 
   .post-meta {
@@ -173,11 +172,12 @@ const formattedDate = new Intl.DateTimeFormat('ja-JP', {
   .post-footer {
     margin-top: 60px;
     padding-top: 30px;
-    border-top: 2px solid #e0e0e0;
+    border-top: 2px solid #82C2A9;
+    background: transparent;
   }
 
   .back-link {
-    color: #82C2A9;
+    color: #FF463C;
     text-decoration: none;
     font-weight: bold;
   }

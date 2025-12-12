@@ -67,8 +67,10 @@ const newsImage = image || '/img/index/demo.jpg';
   .news-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s;
+    background: #e9fcf4;
+
   }
 
   .news-card:hover .news-image img {
