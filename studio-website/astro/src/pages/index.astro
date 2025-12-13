@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PriceSection from '../components/sections/index/PriceSection.astro';
 import AboutSection from '../components/sections/index/AboutSection.astro';
 import NewsSection from '../components/sections/index/NewsSection.astro';
+import MapSection from '../components/sections/index/MapSection.astro';
 import { getEntry } from 'astro:content';
 
 // スライドデータを取得
@@ -73,31 +74,7 @@ const slidesData = await getEntry('slides', 'home');
     <NewsSection />
 
     <!-- アクセスセクション -->
-    <div id="map-google">
-      <div class="info-access">
-        <h2><img src="/img/index/access_ttl.png" alt="ACCESS" loading="lazy"></h2>
-        <p class="txt">
-          〒151-0051<br>
-          東京都渋谷区千駄ヶ谷5丁目28-10<br>
-          ドルミ第2御苑B101
-        </p>
-        <p class="btn"><a href="/access/"><img src="/img/index/more.png" alt="もっと詳しく" loading="lazy"></a></p>
-      </div>
-      <div class="box">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12962.70066365035!2d139.7039247!3d35.6849996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe2a619233d3d372f!2z44K544K_44K444Kq44K844OW44Op!5e0!3m2!1sja!2s!4v1602220734771!5m2!1sja!2s"
-          width="600"
-          height="450"
-          frameborder="0"
-          style="border:0;"
-          allowfullscreen=""
-          aria-hidden="false"
-          tabindex="0"
-          loading="lazy"
-          title="スタジオゼブラの地図"
-        ></iframe>
-      </div>
-    </div>
+    <MapSection />
   </section>
 </BaseLayout>
 
