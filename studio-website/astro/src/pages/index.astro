@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsCard from '../components/NewsCard.astro';
 import PriceSection from '../components/sections/index/PriceSection.astro';
+import AboutSection from '../components/sections/index/AboutSection.astro';
 import { getCollection, getEntry } from 'astro:content';
 
 // ニュース記事を取得（最新8件）
@@ -64,51 +65,7 @@ const slidesData = await getEntry('slides', 'home');
     <PriceSection />
 
     <!-- スタジオ紹介セクション -->
-    <div id="about">
-      <div class="wrap">
-        <p class="ttl-ab">
-          <img class="pc" src="/img/index/title_about.png" alt="ABOUT OUR STUDIO" loading="lazy">
-          <span class="sp ttl-common"><img src="/img/index/about_h2_sp.svg" alt="ABOUT OUR STUDIO" loading="lazy"></span>
-        </p>
-        <div class="list">
-          <div class="item">
-            <div class="text">
-              <p class="ttl-number"><span class="ft-add">01</span>エキチカ！</p>
-              <h3 class="txt">
-                <span>代々木駅東口より徒歩３分</span><br>
-                <span>新宿駅新南口より徒歩７分の好アクセス</span>
-              </h3>
-              <p class="btn"><a href="/access/"><img src="/img/index/zebra_240704_item02.png" alt="アクセス" loading="lazy"></a></p>
-            </div>
-            <p class="photo"><img src="/img/index/img_about1.webp" alt="エキチカ！" loading="lazy"></p>
-          </div>
-
-          <div class="item">
-            <div class="text">
-              <p class="ttl-number"><span class="ft-add">02</span>ゆったり！</p>
-              <h3 class="txt">
-                <span>低価格でもゆとりのある室内</span><br>
-                <span>全身撮影にも適した白ホリスタジオ</span>
-              </h3>
-              <p class="btn"><a href="/studio/"><img src="/img/index/zebra_240704_item03.png" alt="スタジオ案内" loading="lazy"></a></p>
-            </div>
-            <p class="photo"><img src="/img/index/img_about2.webp" alt="ゆったり！" loading="lazy"></p>
-          </div>
-
-          <div class="item">
-            <div class="text">
-              <p class="ttl-number"><span class="ft-add">03</span>思いのまま！</p>
-              <h3 class="txt">
-                <span>豊富な機材を無料でお貸し出し</span><br>
-                <span>ライティングも思いのままに</span>
-              </h3>
-              <p class="btn"><a href="/rental/"><img src="/img/index/zebra_240704_item04.png" alt="スタジオ機材" loading="lazy"></a></p>
-            </div>
-            <p class="photo"><img src="/img/index/img_about3.webp" alt="思いのまま！" loading="lazy"></p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AboutSection />
 
     <!-- 予約バナー -->
     <div id="banner-pdf">
@@ -236,14 +193,6 @@ const slidesData = await getEntry('slides', 'home');
       bottom: 20px;
     }
 
-    /* スタジオ紹介セクション - レスポンシブ */
-    #about .item .text {
-      width: 48%;
-    }
-
-    #about .item .photo {
-      width: 48%;
-    }
   }
 
   @media only screen and (max-width: 1025px) {
@@ -406,103 +355,6 @@ const slidesData = await getEntry('slides', 'home');
     opacity: 0.8;
   }
 
-  /* スタジオ紹介セクション - item内のtextとphotoを横並び */
-  #about {
-    padding: 40px 0 1px;
-  }
-
-  #about .wrap {
-    max-width: 1100px;
-  }
-
-  #about .ttl-ab {
-    margin-left: 20px;
-    width: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  #about .ttl-ab img {
-    width: 100%;
-    height: auto;
-  }
-
-  #about .list {
-    padding-left: 70px;
-  }
-
-  #about .item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid #DFDFDF;
-    overflow: hidden;
-  }
-
-  #about .item .text {
-    width: 48%;
-    max-width: 395px;
-    background: #FFF;
-    flex-shrink: 0;
-  }
-
-  #about .item .text .ttl-number {
-    font-size: 48px;
-    margin-bottom: 30px;
-    padding-top: 15px;
-  }
-
-  #about .item .text .ttl-number span {
-    font-size: 60px;
-    font-weight: bold;
-    color: #82C2A9;
-    text-shadow: #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px;
-    margin-right: 25px;
-    line-height: 60px;
-  }
-
-  #about .item .text .txt {
-    font-size: 21px;
-    line-height: 48px;
-    margin-bottom: 28px;
-    margin-right: -30px;
-  }
-
-  #about .item .text .txt span {
-    border-bottom: 2px solid;
-    display: inline-block;
-    line-height: 40px;
-  }
-
-  #about .item .text .btn {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  #about .item .text .btn a {
-    display: block;
-    width: 270px;
-  margin-top: -20px;
-  }
-
-  #about .item .photo {
-    width: 48%;
-    max-width: 396px;
-    flex-shrink: 0;
-  }
-
-  #about .item .photo img {
-    width: 100%;
-    height: auto;
-    display: block;
-    box-shadow: 3px 3px 0 #000;
-  }
-
   /* ニュースセクションのボタン調整 */
   #news {
     padding: 50px 0 45px;
@@ -577,31 +429,6 @@ const slidesData = await getEntry('slides', 'home');
     /* SP版のナビゲーション調整 - モバイルでは非表示 */
     .head-info ul {
       display: none;
-    }
-
-    /* SP版のスタジオ紹介セクション - 縦並び */
-    #about .ttl-ab {
-      margin-left: 20px;
-      width: 100%;
-      position: static;
-    }
-
-    #about .list {
-      padding-left: 15px;
-    }
-
-    #about .item {
-      flex-direction: column;
-    }
-
-    #about .item .text {
-      width: 100%;
-      margin-bottom: 30px;
-    }
-
-    #about .item .photo {
-      max-width: 100%;
-      width: 100%;
     }
 
     /* 料金セクション - 画像を中央揃え */
