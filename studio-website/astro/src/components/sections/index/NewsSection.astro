@@ -1,0 +1,75 @@
+---
+/**
+ * NewsSection - ニュースセクション
+ * トップページのニュース一覧セクション（#news）
+ */
+import NewsCard from '../../NewsCard.astro';
+import { getCollection } from 'astro:content';
+
+// ニュース記事を取得（最新8件）
+const newsEntries = await getCollection('news');
+const sortedNews = newsEntries
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 8);
+---
+
+<div id="news">
+  <div class="wrap">
+    <h2><img src="/img/index/news_title.png" alt="NEWS" loading="lazy"></h2>
+    <div class="news-box">
+      <div class="news-grid">
+        {sortedNews.map((news) => (
+          <NewsCard
+            title={news.data.title}
+            description={news.data.description}
+            pubDate={news.data.pubDate}
+            category={news.data.category}
+            slug={news.slug}
+            image={news.data.image}
+          />
+        ))}
+      </div>
+    </div>
+    <p class="btn"><a href="/news/"><img src="/img/index/btn_news.jpg" alt="すべて見る" loading="lazy"></a></p>
+  </div>
+</div>
+
+<style>
+  /* ニュースセクション */
+  #news {
+    padding: 50px 0 45px;
+  }
+
+  #news h2 {
+    width: 155px;
+  }
+
+  #news .btn {
+    text-align: center;
+    margin: 30px;
+  }
+
+  #news .btn img {
+    max-width: 300px;
+    height: auto;
+  }
+
+  /* news-grid レイアウト */
+  .news-box {
+    margin: 30px 0;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 767px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+</style>

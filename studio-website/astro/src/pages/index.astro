@@ -1,15 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import NewsCard from '../components/NewsCard.astro';
 import PriceSection from '../components/sections/index/PriceSection.astro';
 import AboutSection from '../components/sections/index/AboutSection.astro';
-import { getCollection, getEntry } from 'astro:content';
-
-// ニュース記事を取得（最新8件）
-const newsEntries = await getCollection('news');
-const sortedNews = newsEntries
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 8);
+import NewsSection from '../components/sections/index/NewsSection.astro';
+import { getEntry } from 'astro:content';
 
 // スライドデータを取得
 const slidesData = await getEntry('slides', 'home');
@@ -76,26 +70,7 @@ const slidesData = await getEntry('slides', 'home');
     </div>
 
     <!-- ニュースセクション -->
-    <div id="news">
-      <div class="wrap">
-        <h2><img src="/img/index/news_title.png" alt="NEWS" loading="lazy"></h2>
-        <div class="news-box">
-          <div class="news-grid">
-            {sortedNews.map((news) => (
-              <NewsCard
-                title={news.data.title}
-                description={news.data.description}
-                pubDate={news.data.pubDate}
-                category={news.data.category}
-                slug={news.slug}
-                image={news.data.image}
-              />
-            ))}
-          </div>
-        </div>
-        <p class="btn"><a href="/news/"><img src="/img/index/btn_news.jpg" alt="すべて見る" loading="lazy"></a></p>
-      </div>
-    </div>
+    <NewsSection />
 
     <!-- アクセスセクション -->
     <div id="map-google">
@@ -129,13 +104,6 @@ const slidesData = await getEntry('slides', 'home');
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style is:global>
-  /* Astro独自の調整スタイル */
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    margin: 30px 0;
-  }
 
   /* key-boxスライダー */
   #key-box {
@@ -355,31 +323,7 @@ const slidesData = await getEntry('slides', 'home');
     opacity: 0.8;
   }
 
-  /* ニュースセクションのボタン調整 */
-  #news {
-    padding: 50px 0 45px;
-  }
-
-  #news h2 {
-    width: 155px;
-  }
-
-  #news .btn {
-    text-align: center;
-    margin: 30px;
-  }
-
-  #news .btn img {
-    max-width: 300px;
-    height: auto;
-  }
-
   @media (max-width: 767px) {
-    .news-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
     /* SP版のhead-top調整 */
     #head-top {
       padding-top: 10px;
