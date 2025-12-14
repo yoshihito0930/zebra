@@ -1,0 +1,39 @@
+---
+/**
+ * LeadReservationSection - 予約・FAQ・ホリゾントルール共通セクション
+ * reservation.astro, faq.astro, horizon.astro で使用される共通レイアウト
+ */
+---
+
+<section>
+  <div id="lead-reservation">
+    <div class="wrap">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* lead-reservation 共通スタイル */
+  #lead-reservation {
+    position: relative;
+    padding: 75px 0 65px;
+  }
+
+  #lead-reservation .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 45px;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    #lead-reservation {
+      padding: 45px 0 45px;
+    }
+
+    #lead-reservation .wrap {
+      padding: 0 20px;
+    }
+  }
+</style>

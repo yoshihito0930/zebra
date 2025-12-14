@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/common/PageHeader.astro';
 import { getEntry } from 'astro:content';
 
 // スタジオデータを取得
@@ -8,15 +9,11 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
 ---
 
 <BaseLayout title="スタジオ案内 | スタジオゼブラ">
-  <div id="head-top" class="page-all studio">
-    <div class="key-page">
-      <h1><span>スタジオ案内</span></h1>
-      <h2 class="ttl-key-page">
-        <span>天高3m超・引き9mの白ホリスタジオ。</span><br>
-        <span>あなたのスタジオワークをもっと自由に、快適に。</span>
-      </h2>
-    </div>
-  </div>
+  <PageHeader
+    title="スタジオ案内"
+    subtitle="天高3m超・引き9mの白ホリスタジオ。<br>あなたのスタジオワークをもっと自由に、快適に。"
+    pageClass="studio"
+  />
 
   <section>
     <!-- スタジオ紹介セクション -->
@@ -145,34 +142,6 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     background-size: cover;
     height: 455px;
     position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
   }
 
   /* スタジオ紹介セクション */
@@ -503,11 +472,6 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
       height: 305px;
     }
 
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-    }
-
     /* モバイル版: PC用のポップアップ表示エリアを完全に非表示 */
     .popup-display {
       display: none !important;
@@ -525,11 +489,6 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     .detail-map {
       width: 100%;
       margin-top: 0;
-    }
-
-    .ttl-key-page span {
-      font-size: 3.7vw;
-      line-height: 38px;
     }
 
     .studio-box {

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/common/PageHeader.astro';
 import { getEntry } from 'astro:content';
 
 // レンタル機材データを取得
@@ -8,15 +9,11 @@ const { items } = rentalData?.data ?? { items: [] };
 ---
 
 <BaseLayout title="レンタル機材 | スタジオゼブラ">
-  <div id="head-top" class="page-all rental">
-    <div class="key-page">
-      <h1 class="wow fadeInUp"><span>レンタル機材</span></h1>
-      <h2 class="ttl-key-page wow fadeInUp">
-        <span>スタジオゼブラの貸し出し機材は<br class="sp">充実のラインナップ。</span><br>
-        <span>ライティングの可能性が広がります。</span>
-      </h2>
-    </div>
-  </div>
+  <PageHeader
+    title="レンタル機材"
+    subtitle="スタジオゼブラの貸し出し機材は充実のラインナップ。<br>ライティングの可能性が広がります。"
+    pageClass="rental"
+  />
 
   <section>
     <!-- レンタル機材一覧 -->
@@ -96,33 +93,6 @@ const { items } = rentalData?.data ?? { items: [] };
     background-size: cover;
     height: 455px;
     position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
   }
 
   /* レンタル機材一覧セクション */
@@ -269,16 +239,6 @@ const { items } = rentalData?.data ?? { items: [] };
   @media (max-width: 767px) {
     .page-all.rental {
       height: 305px;
-    }
-
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-    }
-
-    .ttl-key-page span {
-      font-size: 3.7vw;
-      line-height: 38px;
     }
 
     #lead-rental .list {

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/common/PageHeader.astro';
+import LeadReservationSection from '../components/sections/shared/LeadReservationSection.astro';
 ---
 
 <BaseLayout
@@ -7,20 +9,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   showReservationBanner={false}
   showFixedReservationButton={false}
 >
-  <div id="head-top" class="page-all reservation">
-    <div class="key-page">
-      <h1 class="wow fadeInUp"><span>ご予約・お問い合わせ</span></h1>
-      <p class="ttl-key-page wow fadeInUp">
-        <span>「<b><a href="/policy/" target="_blank">利用規約</a></b>」の内容をご確認のうえ、<br class="sp">ご予約をお願いいたします。</span>
-      </p>
-    </div>
-  </div>
+  <PageHeader
+    title="ご予約・お問い合わせ"
+    pageClass="reservation"
+  >
+    <p class="ttl-key-page wow fadeInUp" slot="subtitle">
+      <span>「<b><a href="/policy/" target="_blank">利用規約</a></b>」の内容をご確認のうえ、<br class="sp">ご予約をお願いいたします。</span>
+    </p>
+  </PageHeader>
 
-  <section>
-    <!-- 予約フローセクション -->
-    <div id="lead-reservation">
-      <div class="wrap">
-        <h2 class="wow fadeInUp">
+  <LeadReservationSection>
+    <h2 class="wow fadeInUp">
           <img src="/img/reservation/title.png" alt="How to Reserve">
         </h2>
         <div id="flow-box">
@@ -168,8 +167,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>ロケハンのご予約日に撮影のお申し込みがあった場合、ロケハン日時を変更していただくことがございますのであらかじめご了承ください。</li>
         </ul>
       </div>
-    </div>
-  </section>
+  </LeadReservationSection>
 </BaseLayout>
 
 <style is:global>
@@ -178,35 +176,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     background-size: cover;
     height: 455px;
     position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
-    display: inline-block;
-    padding-bottom: 5px;
   }
 
   .ttl-key-page a {
@@ -483,17 +452,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (max-width: 767px) {
     .page-all.reservation {
       height: 305px;
-    }
-
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-      min-width: 200px;
-    }
-
-    .ttl-key-page span {
-      font-size: 3.7vw;
-      line-height: 38px;
     }
 
     #lead-reservation {

@@ -1,5 +1,6 @@
 ---
 // policy.astro - HeaderとFooterなしのシンプルな利用規約ページ
+import PageHeader from '../components/common/PageHeader.astro';
 ---
 
 <!DOCTYPE html>
@@ -10,22 +11,21 @@
   <title>利用規約 | スタジオゼブラ</title>
 </head>
 <body>
-  <div id="head-top" class="page-all policy">
-    <div class="key-page">
-      <h1 class="wow fadeInUp"><span>利用規約</span></h1>
-    </div>
-  </div>
+  <PageHeader
+    title="利用規約"
+    pageClass="policy"
+  />
 
   <section>
     <!-- アイコンセクション -->
     <div id="lead-policy">
       <div class="wrap">
         <ul class="wow fadeInUp">
-          <li><img src="/img/common/policy1.png" alt="身分証明をご持参ください"></li>
-          <li><img src="/img/common/policy2.png" alt="ホリゾント破損汚れ注意"></li>
-          <li><img src="/img/common/policy3.png" alt="スタジオマン不在"></li>
-          <li><img src="/img/common/policy4.png" alt="ゴミ回収有料"></li>
-          <li><img src="/img/common/policy5.png" alt="スタジオ内禁煙・火気厳禁"></li>
+          <li><img src="/img/policy/policy1.png" alt="身分証明をご持参ください"></li>
+          <li><img src="/img/policy/policy2.png" alt="ホリゾント破損汚れ注意"></li>
+          <li><img src="/img/policy/policy3.png" alt="スタジオマン不在"></li>
+          <li><img src="/img/policy/policy4.png" alt="ゴミ回収有料"></li>
+          <li><img src="/img/policy/policy5.png" alt="スタジオ内禁煙・火気厳禁"></li>
         </ul>
       </div>
     </div>
@@ -156,29 +156,13 @@
     position: relative;
   }
 
-  .policy .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-  }
-
-  .policy .key-page h1 span {
+  /* policy固有のPageHeaderスタイル上書き */
+  .page-all.policy .key-page h1 span {
     background: none;
     color: #333;
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: 0.1em;
   }
 
   /* アイコンセクション */
-  #lead-policy {
-    padding: 60px 0;
-    background: #f9f9f9;
-  }
-
   #lead-policy ul {
     display: flex;
     justify-content: center;
@@ -241,7 +225,7 @@
     margin-bottom: 15px;
     position: relative;
     line-height: 1.9;
-    color: #666;
+    color: #000;
     font-size: 15px;
   }
 
@@ -257,10 +241,6 @@
   @media (max-width: 767px) {
     .page-all.policy {
       height: 150px;
-    }
-
-    .policy .key-page h1 span {
-      font-size: 28px;
     }
 
     #lead-policy {

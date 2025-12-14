@@ -1,21 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/common/PageHeader.astro';
+import LeadReservationSection from '../components/sections/shared/LeadReservationSection.astro';
 ---
 
 <BaseLayout title="ホリゾントルール | スタジオゼブラ">
-  <div id="head-top" class="page-all reservation">
-    <div class="key-page">
-      <h1 class="wow fadeInUp"><span>ホリゾントルール</span></h1>
-      <p class="ttl-key-page">
-        <span class="h-span">ホリゾントの使い方を誤り、結果的に強い汚れや傷が付いてしまった場合には<br>清掃料や塗装料、修繕費をお支払いいただきます。</span>
-      </p>
-    </div>
-  </div>
+  <PageHeader
+    title="ホリゾントルール"
+    pageClass="reservation"
+  >
+    <p class="ttl-key-page" slot="subtitle">
+      <span class="h-span">ホリゾントの使い方を誤り、結果的に強い汚れや傷が付いてしまった場合には<br>清掃料や塗装料、修繕費をお支払いいただきます。</span>
+    </p>
+  </PageHeader>
 
-  <section>
-    <div id="lead-reservation">
-      <div class="wrap">
-        <h2 class="ttl-c1">
+  <LeadReservationSection>
+    <h2 class="ttl-c1">
           <img src="/img/horizon/attention.png" alt="必ずお守りください！">
         </h2>
         <div id="flow-box-faq">
@@ -86,9 +86,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </a>
           </p>
         </div>
-      </div>
-    </div>
-  </section>
+  </LeadReservationSection>
 </BaseLayout>
 
 <style is:global>
@@ -96,39 +94,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .page-all.reservation {
     background: url(/img/common/key_reservation.jpg) no-repeat center center;
     background-size: cover;
-    height: 455px;
     position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-    line-height: 48px;
-    transform: translate(-50%, -20%);
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page .h-span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-top: 30px
   }
 
   /* ホリゾントルールセクション */
@@ -248,17 +214,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (max-width: 767px) {
     .page-all.reservation {
       height: 305px;
-    }
-
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-      min-width: 200px;
-    }
-
-    .ttl-key-page .h-span {
-      font-size: 3.7vw;
-      line-height: 38px;
     }
 
     .ttl-c1 {

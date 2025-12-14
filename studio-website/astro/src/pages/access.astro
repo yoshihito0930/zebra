@@ -1,17 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/common/PageHeader.astro';
 ---
 
 <BaseLayout title="アクセス | スタジオゼブラ">
-  <div id="head-top" class="page-all access">
-    <div class="key-page">
-      <h1 class="wow fadeInUp"><span>アクセス</span></h1>
-      <h2 class="ttl-key-page wow fadeInUp">
-        <span>代々木駅徒歩3分、新宿駅徒歩7分の好アクセス。</span><br>
-        <span>利便性と落ち着きを兼ね備えた<br class="sp">魅力的なエリアに位置しています。</span>
-      </h2>
-    </div>
-  </div>
+  <PageHeader
+    title="アクセス"
+    subtitle="代々木駅徒歩3分、新宿駅徒歩7分の好アクセス。<br>利便性と落ち着きを兼ね備えた<br class=&quot;sp&quot;>魅力的なエリアに位置しています。"
+    pageClass="access"
+  />
 
   <section>
     <!-- アクセス情報セクション -->
@@ -127,36 +124,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .page-all.access {
     background: url(/img/access/key_access.jpg) no-repeat center center;
     background-size: cover;
-    height: 455px;
     position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
   }
 
   /* アクセス情報セクション */
@@ -338,17 +306,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* レスポンシブ */
   @media (max-width: 767px) {
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-      min-width: 200px;
-    }
-
-    .ttl-key-page span {
-      font-size: 3.7vw;
-      line-height: 38px;
-    }
-
     #lead-access .ttl-common {
       font-size: 28px;
     }

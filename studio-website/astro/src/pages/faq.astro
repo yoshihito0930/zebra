@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/common/PageHeader.astro';
+import LeadReservationSection from '../components/sections/shared/LeadReservationSection.astro';
 import { getEntry } from 'astro:content';
 
 // FAQデータを取得
@@ -11,19 +13,17 @@ const { categories } = faqData.data;
 ---
 
 <BaseLayout title="よくある質問 | スタジオゼブラ">
-  <div id="head-top" class="page-all reservation">
-    <div class="key-page">
-      <h1 class="wow fadeInUp"><span>よくある質問</span></h1>
-      <p class="ttl-key-page wow fadeInUp">
-        <span class="h-span">よくお問い合わせいただくご質問と、<br class="sp">その回答をご紹介します。</span>
-      </p>
-    </div>
-  </div>
+  <PageHeader
+    title="よくある質問"
+    pageClass="reservation"
+  >
+    <p class="ttl-key-page wow fadeInUp" slot="subtitle">
+      <span class="h-span">よくお問い合わせいただくご質問と、<br class="sp">その回答をご紹介します。</span>
+    </p>
+  </PageHeader>
 
-  <section>
-    <div id="lead-reservation">
-      <div class="wrap">
-        <h2 class="ttl-c">
+  <LeadReservationSection>
+    <h2 class="ttl-c">
           <img src="/img/faq/faq.png" alt="FAQ">
         </h2>
         <div id="faq-block">
@@ -46,42 +46,10 @@ const { categories } = faqData.data;
             ))}
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+  </LeadReservationSection>
 </BaseLayout>
 
 <style is:global>
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page .h-span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
-    display: inline-block;
-    padding-bottom: 5px;
-  }
-
   /* FAQセクション */
   #lead-reservation {
     background: #82C2A9;
@@ -273,17 +241,6 @@ const { categories } = faqData.data;
   @media (max-width: 767px) {
     .page-all.reservation {
       height: 305px;
-    }
-
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-      min-width: 200px;
-    }
-
-    .ttl-key-page .h-span {
-      font-size: 3.7vw;
-      line-height: 38px;
     }
 
     #lead-reservation {

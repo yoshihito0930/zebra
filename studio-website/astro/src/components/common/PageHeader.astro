@@ -1,0 +1,80 @@
+---
+/**
+ * PageHeader - ページヘッダーコンポーネント
+ * 全ページで使用される共通ヘッダー
+ */
+export interface Props {
+  title: string;
+  subtitle?: string;
+  pageClass: string;
+}
+
+const { title, subtitle, pageClass } = Astro.props;
+---
+
+<div id="head-top" class={`page-all ${pageClass}`}>
+  <div class="key-page">
+    <h1 class="wow fadeInUp"><span>{title}</span></h1>
+    {subtitle && (
+      <h2 class="ttl-key-page wow fadeInUp">
+        <span set:html={subtitle}></span>
+      </h2>
+    )}
+    {!subtitle && (
+      <slot name="subtitle" />
+    )}
+  </div>
+</div>
+
+<style>
+  /* ページヘッダー共通スタイル */
+  #head-top {
+    position: relative;
+  }
+
+  .key-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .key-page h1 span {
+    color: var(--color-white);
+    background: var(--color-black);
+    min-width: 260px;
+    display: inline-block;
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    padding: 15px 25px;
+    font-size: 30px;
+  }
+
+  .ttl-key-page {
+    color: var(--color-black);
+  }
+
+  .ttl-key-page span {
+    border-bottom: 2px solid;
+    font-size: 24px;
+    line-height: 48px;
+    font-weight: bold;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 767px) {
+    .key-page h1 span {
+      font-size: 5.5vw;
+      padding: 10px 15px;
+      min-width: auto;
+    }
+
+    .ttl-key-page span {
+      font-size: 3.7vw;
+      line-height: 38px;
+    }
+  }
+</style>
