@@ -11,10 +11,15 @@
   --color-accent: #FF463C;
   --color-gray: #8C8C8C;
   --color-gray-light: #D5D5D5;
+  --color-gray-dark: #333;
   --color-black: #000;
   --color-white: #FFF;
   --color-text: #231815;
   --color-border: #DFDFDF;
+
+  /* 背景色 */
+  --color-bg-light: #f9f9f9;
+  --color-bg-mint: #f8fffc;
 
   /* ========================================
      スペーシング
@@ -25,6 +30,14 @@
   --spacing-lg: 45px;
   --spacing-xl: 75px;
   --spacing-2xl: 100px;
+
+  /* ========================================
+     コンテンツ幅
+     ======================================== */
+  --width-container-sm: 800px;
+  --width-container-md: 900px;
+  --width-container-lg: 1100px;
+  --width-container-xl: 1200px;
 
   /* ========================================
      フォントサイズ
@@ -66,6 +79,16 @@
      ======================================== */
   --shadow-box: 3px 3px 0 #000;
   --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* ========================================
+     ボーダー
+     ======================================== */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 15px;
 
   /* ========================================
      z-index（階層管理）
