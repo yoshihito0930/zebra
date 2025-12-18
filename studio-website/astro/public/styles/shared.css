@@ -564,13 +564,6 @@ bottom: 20%;
     right: 60px;
 	}
 
-	.nav-header ul li:nth-child(10) {
-		position: absolute;
-    width: 40px;
-    top: 50px;
-    right: 15px;
-	}
-
 	.page-all .head-info ul li:nth-child(8) {
 		position: absolute;
     width: 80px;
@@ -861,16 +854,15 @@ bottom: -5%;
 	}
 
 	.nav-header .nav li:nth-child(9) {
-		width: 57%;
-		padding-top: 20px;
+		width: 63%;
 		display: flex;
 		justify-content: flex-end;
 		position: static;
 	}
 
 	.nav-header .nav li:nth-child(10) {
-		padding-left: 60%;
-		margin-top: -58px;
+		padding-left: 58%;
+		margin-top: -69px;
 		display: flex;
 		justify-content: flex-start;
 		position: static;

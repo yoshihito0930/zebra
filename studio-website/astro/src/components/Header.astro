@@ -10,7 +10,6 @@ const navItems = [
   { href: '/horizon/', label: 'ホリゾントルール', imgSrc: '/img/shared/gnav_a2.png', page: 'horizon' },
   { href: '/reservation/', label: 'ご予約・お問い合わせ', imgSrc: '/img/shared/gnav05.png', page: 'reservation' },
   { href: '/news/', label: 'NEWS', imgSrc: '/img/shared/gnavi_news.png', page: 'news' },
-  { href: '/blog/', label: 'ブログ', imgSrc: '/img/shared/gnavi_blog.png', page: 'blog' },
 ];
 
 const isActive = (page: string) => currentPath.includes(`/${page}`);
@@ -28,7 +27,11 @@ const isHome = currentPath === '/';
           <li class={isActive(item.page) ? 'active' : ''}>
             <a class="nav-main" href={item.href}>
               <img src={item.imgSrc} alt={item.label} class="non-over pc">
-              <span class="sp">{item.label}</span>
+              {item.page === 'news' ? (
+                <img src={item.imgSrc} alt={item.label} class="sp">
+              ) : (
+                <span class="sp">{item.label}</span>
+              )}
             </a>
           </li>
         ))}
@@ -112,28 +115,6 @@ const isHome = currentPath === '/';
     .menu-open .hamberger-btn span::after {
       top: 0 !important;
       transform: rotate(-45deg) !important;
-    }
-
-    /* NEWSとブログを縦並びに */
-    .nav-header .nav li:nth-child(9),
-    .nav-header .nav li:nth-child(10) {
-      width: 100% !important;
-      padding-top: 10px !important;
-      padding-left: 0 !important;
-      margin-top: 0 !important;
-      display: flex !important;
-      justify-content: center !important;
-      position: static !important;
-    }
-
-    .nav-header .nav li:nth-child(9) {
-      padding-top: 20px !important;
-    }
-
-    .nav-header .nav li:nth-child(9) img,
-    .nav-header .nav li:nth-child(10) img {
-      width: 122px !important;
-      height: auto !important;
     }
   }
 </style>
