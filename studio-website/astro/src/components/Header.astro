@@ -2,14 +2,14 @@
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { href: '/studio/', label: 'スタジオ案内', imgSrc: '/img/shared/gnav01.png', page: 'studio' },
-  { href: '/price/', label: '料金案内', imgSrc: '/img/shared/gnav02.png', page: 'price' },
-  { href: '/rental/', label: 'レンタル機材', imgSrc: '/img/shared/gnav03.png', page: 'rental' },
-  { href: '/access/', label: 'アクセス', imgSrc: '/img/shared/gnav04.png', page: 'access' },
-  { href: '/faq/', label: 'よくある質問', imgSrc: '/img/shared/gnav_a1.png', page: 'faq' },
-  { href: '/horizon/', label: 'ホリゾントルール', imgSrc: '/img/shared/gnav_a2.png', page: 'horizon' },
-  { href: '/reservation/', label: 'ご予約・お問い合わせ', imgSrc: '/img/shared/gnav05.png', page: 'reservation' },
-  { href: '/news/', label: 'NEWS', imgSrc: '/img/shared/gnavi_news.png', page: 'news' },
+  { href: '/studio/', label: 'スタジオ案内', imgSrc: '/img/shared/gnav01.webp', page: 'studio' },
+  { href: '/price/', label: '料金案内', imgSrc: '/img/shared/gnav02.webp', page: 'price' },
+  { href: '/rental/', label: 'レンタル機材', imgSrc: '/img/shared/gnav03.webp', page: 'rental' },
+  { href: '/access/', label: 'アクセス', imgSrc: '/img/shared/gnav04.webp', page: 'access' },
+  { href: '/faq/', label: 'よくある質問', imgSrc: '/img/shared/gnav_a1.webp', page: 'faq' },
+  { href: '/horizon/', label: 'ホリゾントルール', imgSrc: '/img/shared/gnav_a2.webp', page: 'horizon' },
+  { href: '/reservation/', label: 'ご予約・お問い合わせ', imgSrc: '/img/shared/gnav05.webp', page: 'reservation' },
+  { href: '/news/', label: 'NEWS', imgSrc: '/img/shared/gnavi_news.webp', page: 'news' },
 ];
 
 const isActive = (page: string) => currentPath.includes(`/${page}`);
@@ -17,10 +17,10 @@ const isHome = currentPath === '/';
 ---
 
 <header class="header-box">
-  <p class="logo sp"><a href="/"><img src="/img/shared/logo.png" alt="ロゴ"></a></p>
+  <p class="logo sp"><a href="/"><img src="/img/shared/logo.webp" alt="ロゴ"></a></p>
   <div class="nav-header">
     <div class="inner">
-      <p class="logo-fix pc"><a href="/"><img src="/img/shared/logo_fix.png" alt="ロゴ"></a></p>
+      <p class="logo-fix pc"><a href="/"><img src="/img/shared/logo_fix.webp" alt="ロゴ"></a></p>
       <ul class="nav">
         <li class={`sp ${isHome ? 'active' : ''}`}><a class="nav-main" href="/"><span class="sp">トップページ</span></a></li>
         {navItems.map((item) => (
@@ -35,7 +35,7 @@ const isHome = currentPath === '/';
             </a>
           </li>
         ))}
-        <li><a href="https://twitter.com/studiozebra1st" target="_blank"><img src="/img/shared/gnavi_tw.png" alt="twitter"></a></li>
+        <li><a href="https://twitter.com/studiozebra1st" target="_blank"><img src="/img/shared/gnavi_tw.webp" alt="twitter"></a></li>
       </ul>
     </div>
   </div>

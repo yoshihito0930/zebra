@@ -49,7 +49,7 @@ td#timezone {
 }
 
 #banner-pdf .wrap {
-  background: url(../img/index/banner_bg.jpg) repeat-y top center #8C8C8C;
+  background: url(../img/index/banner_bg.webp) repeat-y top center #8C8C8C;
   background-size: 700px auto;
   border-left: 20px solid #FF463C;
   border-right: 20px solid #FF463C;
@@ -74,7 +74,7 @@ td#timezone {
 
 @media only screen and (max-width: 767px) {
   #banner-pdf .wrap {
-    background: url(../img/index/banner_bg.jpg) repeat-y top center #8C8C8C;
+    background: url(../img/index/banner_bg.webp) repeat-y top center #8C8C8C;
     background-size: 700px auto;
     border-left: 10px solid #FF463C;
     border-right: 10px solid #FF463C;
@@ -401,7 +401,7 @@ max-width: 500px;
   top: 55px;
   width: 17px;
   height: 30px;
-  background: url(../img/common/arrow_l.png) no-repeat center;
+  background: url(../img/common/arrow_l.webp) no-repeat center;
   background-size: cover;
   border: none !important;
   text-indent: -9999px;
@@ -411,7 +411,7 @@ max-width: 500px;
 
 #gallery-box .slick-arrow.slick-prev {
   left: 0%;
-  background: url(../img/common/arrow_r.png) no-repeat center;
+  background: url(../img/common/arrow_r.webp) no-repeat center;
   background-size: cover;
 }
 
@@ -614,7 +614,7 @@ max-width: 500px;
     top: 55px;
     width: 17px;
     height: 30px;
-    background: url(../img/common/arrow_l.png) no-repeat center;
+    background: url(../img/common/arrow_l.webp) no-repeat center;
     background-size: cover;
     border: none !important;
     text-indent: -9999px;
@@ -623,7 +623,7 @@ max-width: 500px;
   }
   #gallery-box .slick-arrow.slick-prev {
     left: 0%;
-    background: url(../img/common/arrow_r.png) no-repeat center;
+    background: url(../img/common/arrow_r.webp) no-repeat center;
     background-size: cover;
   }
   #gallery-box .slick-arrow.slick-next {
@@ -801,7 +801,7 @@ max-width: 500px;
     top: 40px;
     width: 17px;
     height: 30px;
-    background: url(../img/common/arrow_l.png) no-repeat center;
+    background: url(../img/common/arrow_l.webp) no-repeat center;
     background-size: cover;
     border: none !important;
     text-indent: -9999px;
@@ -810,7 +810,7 @@ max-width: 500px;
   }
   #gallery-box .slick-arrow.slick-prev {
     left: 0%;
-    background: url(../img/common/arrow_r.png) no-repeat center;
+    background: url(../img/common/arrow_r.webp) no-repeat center;
     background-size: cover;
   }
   #gallery-box .slick-arrow.slick-next {

@@ -144,7 +144,7 @@ position: absolute;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 170px;
+	background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 170px;
 	background-size: auto 100%;
 	position: absolute;
 	bottom: 35px;
@@ -234,14 +234,14 @@ header h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: url(../img/shared/bg_av.png) no-repeat center left;
+	background: url(../img/shared/bg_av.webp) no-repeat center left;
 	background-size: 575px auto; */
 	width: 904px;
   height: 56px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 170px;
+	background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 170px;
 	background-size: auto 100%;
 }
 
@@ -363,33 +363,33 @@ header h1 {
 
 
 .price {
-	background: url(../img/common/key_price.jpg) no-repeat center center;
+	background: url(../img/common/key_price.webp) no-repeat center center;
 	background-size: cover;
 }
 
 .studio {
-	background: url(../img/common/key_studio.jpg) no-repeat center center;
+	background: url(../img/common/key_studio.webp) no-repeat center center;
 	background-size: cover;
 }
 
 .access {
-	background: url(../img/common/key_access.jpg) no-repeat center center;
+	background: url(../img/common/key_access.webp) no-repeat center center;
 	background-size: cover;
 }
 
 .rental {
-	background: url(../img/common/key_rental.jpg) no-repeat center center;
+	background: url(../img/common/key_rental.webp) no-repeat center center;
 	background-size: cover;
 }
 
 .news {
-	background: url(../img/common/key_news.jpg) no-repeat center bottom;
+	background: url(../img/common/key_news.webp) no-repeat center bottom;
 	background-size: cover;
 }
 
 @media only screen and (max-width: 1550px) {
 	.news {
-        background: url(../img/common/key_news1.jpg) no-repeat center bottom;
+        background: url(../img/common/key_news1.webp) no-repeat center bottom;
         background-size: cover;
     }
 }
@@ -456,7 +456,7 @@ bottom: 20%;
 
 	.head-info ul {
 		width: 750px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 140px;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 140px;
     background-size: auto 100%;
 		background-size: auto 100%;
 		height: 46px;
@@ -477,7 +477,7 @@ bottom: 20%;
 @media only screen and (max-width: 1279px) {
 	.nav-header ul {
 		width: 750px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 140px;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 140px;
     background-size: auto 100%;
 		background-size: auto 100%;
 		height: 46px;
@@ -500,7 +500,7 @@ bottom: 20%;
 
 	.page-all .head-info ul {
     width: 750px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 140px;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 140px;
     background-size: auto 100%;
 		background-size: auto 100%;
 		height: 46px;
@@ -529,7 +529,7 @@ bottom: 20%;
 
 	.head-info ul {
 		width: 635px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 117px;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 117px;
     background-size: auto 100%;
 		right: 15px;
 		height: 40px;
@@ -537,7 +537,7 @@ bottom: 20%;
 
 	.page-all .head-info ul {
     width: 570px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 0;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 0;
     background-size: auto 100%;
 		height: 43px;
 		right: 15px;
@@ -545,13 +545,13 @@ bottom: 20%;
 
 	.nav-header ul {
 		/* width: 635px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 117px;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 117px;
     background-size: auto 100%;
 		background-size: auto 100%;
 		height: 40px;
 		right: 15px; */
 		width: 570px;
-		background: url(../img/shared/bg_av_left.png) no-repeat center left,url(../img/shared/bg_av.png) no-repeat center right 0;
+		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 0;
     background-size: auto 100%;
 		height: 43px;
 		right: 15px;
@@ -590,7 +590,7 @@ bottom: 20%;
 	}
 
     .news {
-        background: url(http://fcv.foodconnection.tokyo/zebra/wp-content/themes/zebra/frontend/shared/css/../img/common/key_news.jpg) no-repeat left 36% bottom 2%;
+        background: url(http://fcv.foodconnection.tokyo/zebra/wp-content/themes/zebra/frontend/shared/css/../img/common/key_news.webp) no-repeat left 36% bottom 2%;
     background-size: 330%;
     }
 
@@ -717,7 +717,7 @@ bottom: -5%;
 		z-index: 201;
 		transition: all 0.4s ease;
 		overflow: hidden;
-		background: url(../img/shared/btn_h.jpg) no-repeat;
+		background: url(../img/shared/btn_h.webp) no-repeat;
 		background-size: cover;
 	}
 	.hamberger-btn span {
@@ -755,7 +755,7 @@ bottom: -5%;
 	}
 
 	.menu-open .hamberger-btn {
-		background: url(../img/shared/close.jpg) no-repeat center center;
+		background: url(../img/shared/close.webp) no-repeat center center;
 		background-size: 60px auto;
 		transform: rotate(360deg);
 	}

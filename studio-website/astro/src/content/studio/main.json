@@ -4,7 +4,7 @@
       "id": "A",
       "images": [
         {
-          "src": "/img/studio/popup-a-1.png",
+          "src": "/img/studio/popup-a-1.webp",
           "alt": "エリアA 画像1"
         }
       ]
@@ -13,11 +13,11 @@
       "id": "B",
       "images": [
         {
-          "src": "/img/studio/popup-b-1.png",
+          "src": "/img/studio/popup-b-1.webp",
           "alt": "エリアB 画像1"
         },
         {
-          "src": "/img/studio/popup-b-2.png",
+          "src": "/img/studio/popup-b-2.webp",
           "alt": "エリアB 画像2"
         }
       ]
@@ -26,7 +26,7 @@
       "id": "C",
       "images": [
         {
-          "src": "/img/studio/popup-c-1.png",
+          "src": "/img/studio/popup-c-1.webp",
           "alt": "エリアC 画像1"
         }
       ]
@@ -35,7 +35,7 @@
       "id": "D",
       "images": [
         {
-          "src": "/img/studio/popup-d-1.png",
+          "src": "/img/studio/popup-d-1.webp",
           "alt": "エリアD 画像1"
         }
       ]
@@ -44,7 +44,7 @@
       "id": "E",
       "images": [
         {
-          "src": "/img/studio/popup-e-1.png",
+          "src": "/img/studio/popup-e-1.webp",
           "alt": "エリアE 画像1"
         }
       ]
@@ -53,11 +53,11 @@
       "id": "F",
       "images": [
         {
-          "src": "/img/studio/popup-f-1.png",
+          "src": "/img/studio/popup-f-1.webp",
           "alt": "エリアF 画像1"
         },
         {
-          "src": "/img/studio/popup-f-2.png",
+          "src": "/img/studio/popup-f-2.webp",
           "alt": "エリアF 画像2"
         }
       ]
@@ -65,38 +65,38 @@
   ],
   "gallery": [
     {
-      "main": "/img/studio/popup-a-1.png",
-      "thumbnail": "/img/studio/popup-a-1.png",
+      "main": "/img/studio/popup-a-1.webp",
+      "thumbnail": "/img/studio/popup-a-1.webp",
       "alt": "スタジオギャラリー画像1"
     },
     {
-      "main": "/img/studio/popup-b-1.png",
-      "thumbnail": "/img/studio/popup-b-1.png",
+      "main": "/img/studio/popup-b-1.webp",
+      "thumbnail": "/img/studio/popup-b-1.webp",
       "alt": "スタジオギャラリー画像2"
     },
     {
-      "main": "/img/studio/popup-c-1.png",
-      "thumbnail": "/img/studio/popup-c-1.png",
+      "main": "/img/studio/popup-c-1.webp",
+      "thumbnail": "/img/studio/popup-c-1.webp",
       "alt": "スタジオギャラリー画像3"
     },
     {
-      "main": "/img/studio/popup-d-1.png",
-      "thumbnail": "/img/studio/popup-d-1.png",
+      "main": "/img/studio/popup-d-1.webp",
+      "thumbnail": "/img/studio/popup-d-1.webp",
       "alt": "スタジオギャラリー画像4"
     },
     {
-      "main": "/img/studio/popup-e-1.png",
-      "thumbnail": "/img/studio/popup-e-1.png",
+      "main": "/img/studio/popup-e-1.webp",
+      "thumbnail": "/img/studio/popup-e-1.webp",
       "alt": "スタジオギャラリー画像5"
     },
     {
-      "main": "/img/studio/popup-f-1.png",
-      "thumbnail": "/img/studio/popup-f-1.png",
+      "main": "/img/studio/popup-f-1.webp",
+      "thumbnail": "/img/studio/popup-f-1.webp",
       "alt": "スタジオギャラリー画像6"
     },
     {
-      "main": "/img/studio/popup-g-1.png",
-      "thumbnail": "/img/studio/popup-g-1.png",
+      "main": "/img/studio/popup-g-1.webp",
+      "thumbnail": "/img/studio/popup-g-1.webp",
       "alt": "スタジオギャラリー画像7"
     }
   ]
