@@ -92,12 +92,28 @@ const navItemsSP = [
 </style>
 
 <script>
-  // Twitter Widget読み込み
-  const script = document.createElement('script');
-  script.src = 'https://platform.twitter.com/widgets.js';
-  script.charset = 'utf-8';
-  script.async = true;
-  document.body.appendChild(script);
+  // Twitter Widget遅延読み込み（フッターが表示されたら読み込む）
+  function loadTwitterWidget() {
+    const script = document.createElement('script');
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.charset = 'utf-8';
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  // Intersection Observerでフッター表示時に読み込み
+  const footer = document.querySelector('footer');
+  if (footer) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadTwitterWidget();
+          observer.disconnect();
+        }
+      });
+    }, { rootMargin: '200px' });
+    observer.observe(footer);
+  }
 
   // ページトップボタン
   const pageTopBtn = document.getElementById('pagetop');
