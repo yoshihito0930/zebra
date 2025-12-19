@@ -23,7 +23,7 @@ const slidesData = await getEntry('slides', 'home');
             {slidesData.data.slides.map((slide) => (
               <div class="swiper-slide">
                 <img class="pc" src={slide.imagePC} fetchpriority="high" loading="eager" alt={slide.alt}>
-                <img class="sp" src={slide.imageSP} alt={slide.alt}>
+                <img class="sp" src={slide.imageSP} fetchpriority="high" loading="eager" alt={slide.alt}>
               </div>
             ))}
           </div>
