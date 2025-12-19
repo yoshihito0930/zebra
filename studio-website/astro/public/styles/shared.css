@@ -41,7 +41,7 @@ body {
 @font-face {
 	font-family: yufothicB;
 	src: url(../font/yugothib.ttf);
-
+	font-display: swap;
 }
 
 
