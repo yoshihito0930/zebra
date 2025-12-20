@@ -3,12 +3,20 @@
  * AboutSection - スタジオ紹介セクション
  * トップページのスタジオ紹介セクション（#about）
  */
+import { Image } from 'astro:assets';
+import titleAbout from '/public/img/index/title_about.webp';
+import imgAbout1 from '/public/img/index/img_about1.webp';
+import imgAbout2 from '/public/img/index/img_about2.webp';
+import imgAbout3 from '/public/img/index/img_about3.webp';
+import btnItem02 from '/public/img/index/zebra_240704_item02.webp';
+import btnItem03 from '/public/img/index/zebra_240704_item03.webp';
+import btnItem04 from '/public/img/index/zebra_240704_item04.webp';
 ---
 
 <div id="about">
   <div class="wrap">
     <p class="ttl-ab">
-      <img class="pc" src="/img/index/title_about.webp" alt="ABOUT OUR STUDIO" loading="lazy">
+      <Image class="pc" src={titleAbout} alt="ABOUT OUR STUDIO" loading="lazy" width={600} height={2000} />
       <span class="sp ttl-common"><img src="/img/index/about_h2_sp.svg" alt="ABOUT OUR STUDIO" loading="lazy"></span>
     </p>
     <div class="list">
@@ -19,9 +27,9 @@
             <span>代々木駅東口より徒歩３分</span><br>
             <span>新宿駅新南口より徒歩７分の好アクセス</span>
           </h3>
-          <p class="btn"><a href="/access/"><img src="/img/index/zebra_240704_item02.webp" alt="アクセス" loading="lazy"></a></p>
+          <p class="btn"><a href="/access/"><Image src={btnItem02} alt="アクセス" loading="lazy" width={270} height={100} /></a></p>
         </div>
-        <p class="photo"><img src="/img/index/img_about1.webp" alt="エキチカ！" loading="lazy"></p>
+        <p class="photo"><Image src={imgAbout1} alt="エキチカ！" loading="lazy" width={396} height={300} /></p>
       </div>
 
       <div class="item">
@@ -31,9 +39,9 @@
             <span>低価格でもゆとりのある室内</span><br>
             <span>全身撮影にも適した白ホリスタジオ</span>
           </h3>
-          <p class="btn"><a href="/studio/"><img src="/img/index/zebra_240704_item03.webp" alt="スタジオ案内" loading="lazy"></a></p>
+          <p class="btn"><a href="/studio/"><Image src={btnItem03} alt="スタジオ案内" loading="lazy" width={270} height={100} /></a></p>
         </div>
-        <p class="photo"><img src="/img/index/img_about2.webp" alt="ゆったり！" loading="lazy"></p>
+        <p class="photo"><Image src={imgAbout2} alt="ゆったり！" loading="lazy" width={396} height={300} /></p>
       </div>
 
       <div class="item">
@@ -43,9 +51,9 @@
             <span>豊富な機材を無料でお貸し出し</span><br>
             <span>ライティングも思いのままに</span>
           </h3>
-          <p class="btn"><a href="/rental/"><img src="/img/index/zebra_240704_item04.webp" alt="スタジオ機材" loading="lazy"></a></p>
+          <p class="btn"><a href="/rental/"><Image src={btnItem04} alt="スタジオ機材" loading="lazy" width={270} height={100} /></a></p>
         </div>
-        <p class="photo"><img src="/img/index/img_about3.webp" alt="思いのまま！" loading="lazy"></p>
+        <p class="photo"><Image src={imgAbout3} alt="思いのまま！" loading="lazy" width={396} height={300} /></p>
       </div>
     </div>
   </div>

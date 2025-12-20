@@ -5,6 +5,9 @@
  */
 import NewsCard from '../../NewsCard.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import newsTitle from '/public/img/index/news_title.webp';
+import btnNews from '/public/img/index/btn_news.webp';
 
 // ニュース記事を取得（最新8件）
 const newsEntries = await getCollection('news');
@@ -15,7 +18,7 @@ const sortedNews = newsEntries
 
 <div id="news">
   <div class="wrap">
-    <h2><img src="/img/index/news_title.webp" alt="NEWS" loading="lazy"></h2>
+    <h2><Image src={newsTitle} alt="NEWS" loading="lazy" width={155} height={100} /></h2>
     <div class="news-box">
       <div class="news-grid">
         {sortedNews.map((news) => (
@@ -30,7 +33,7 @@ const sortedNews = newsEntries
         ))}
       </div>
     </div>
-    <p class="btn"><a href="/news/"><img src="/img/index/btn_news.webp" alt="すべて見る" loading="lazy"></a></p>
+    <p class="btn"><a href="/news/"><Image src={btnNews} alt="すべて見る" loading="lazy" width={300} height={100} /></a></p>
   </div>
 </div>
 

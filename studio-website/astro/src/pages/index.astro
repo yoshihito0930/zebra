@@ -5,9 +5,29 @@ import AboutSection from '../components/sections/index/AboutSection.astro';
 import NewsSection from '../components/sections/index/NewsSection.astro';
 import MapSection from '../components/sections/index/MapSection.astro';
 import { getEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
 
 // スライドデータを取得
 const slidesData = await getEntry('slides', 'home');
+
+// スライド画像をインポート
+import slide01PC from '/public/img/index/slide01_pc_resize.webp';
+import slide01SP from '/public/img/index/slide01_sp_resize.webp';
+import slide02PC from '/public/img/index/slide02_pc_resize.webp';
+import slide02SP from '/public/img/index/slide02_sp_resize.webp';
+import slide03PC from '/public/img/index/slide03_pc_resize.webp';
+import slide03SP from '/public/img/index/slide03_sp_resize.webp';
+
+// スライド画像マッピング
+const slideImages = [
+  { pc: slide01PC, sp: slide01SP, width: 2071, height: 1165 },
+  { pc: slide02PC, sp: slide02SP, width: 1954, height: 1099 },
+  { pc: slide03PC, sp: slide03SP, width: 2407, height: 1354 },
+];
+
+// バナー画像をインポート
+import bannerTtl from '/public/img/index/banner_ttl.webp';
+import bannerBtn from '/public/img/index/banner_btn.webp';
 ---
 
 <BaseLayout
@@ -20,10 +40,36 @@ const slidesData = await getEntry('slides', 'home');
       <div id="key-box">
         <div class="swiper key-slide">
           <div class="swiper-wrapper">
-            {slidesData.data.slides.map((slide) => (
+            {slidesData.data.slides.map((slide, index) => (
               <div class="swiper-slide">
-                <img class="pc" src={slide.imagePC} fetchpriority="high" loading="eager" alt={slide.alt}>
-                <img class="sp" src={slide.imageSP} fetchpriority="high" loading="eager" alt={slide.alt}>
+                <picture class="pc">
+                  <Picture
+                    src={slideImages[index].pc}
+                    widths={[1024, 1440, 1920, 2400]}
+                    sizes="100vw"
+                    width={slideImages[index].width}
+                    height={slideImages[index].height}
+                    formats={['avif', 'webp']}
+                    alt={slide.alt}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={index === 0 ? 'high' : undefined}
+                    decoding="async"
+                  />
+                </picture>
+                <picture class="sp">
+                  <Picture
+                    src={slideImages[index].sp}
+                    widths={[375, 640, 750, 828]}
+                    sizes="100vw"
+                    width={slideImages[index].width}
+                    height={slideImages[index].height}
+                    formats={['avif', 'webp']}
+                    alt={slide.alt}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={index === 0 ? 'high' : undefined}
+                    decoding="async"
+                  />
+                </picture>
               </div>
             ))}
           </div>
@@ -65,8 +111,8 @@ const slidesData = await getEntry('slides', 'home');
     <!-- 予約バナー -->
     <div id="banner-pdf">
       <div class="wrap">
-        <h2><img src="/img/index/banner_ttl.webp" alt="RESERVATION" loading="lazy"></h2>
-        <p class="btn"><a class="btn-hover" href="/reservation/"><img src="/img/index/banner_btn.webp" alt="予約状況のご確認・お問い合わせ・ご予約はこちら" loading="lazy"></a></p>
+        <h2><Picture src={bannerTtl} alt="RESERVATION" loading="lazy" width={400} height={100} formats={['avif', 'webp']} widths={[300, 400, 600]} /></h2>
+        <p class="btn"><a class="btn-hover" href="/reservation/"><Picture src={bannerBtn} alt="予約状況のご確認・お問い合わせ・ご予約はこちら" loading="lazy" width={600} height={150} formats={['avif', 'webp']} widths={[400, 600, 800]} /></a></p>
       </div>
     </div>
 
@@ -87,31 +133,56 @@ const slidesData = await getEntry('slides', 'home');
     position: relative;
     width: 100%;
     z-index: 1;
+    /* レイアウトシフト対策: アスペクト比を維持 */
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
   }
 
   .key-slide {
     width: 100%;
+    height: 100%;
+  }
+
+  .key-slide .swiper-slide {
+    /* レイアウトシフト対策: スライドの高さを確保 */
+    aspect-ratio: 16 / 9;
   }
 
   .key-slide .swiper-slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
+    /* レイアウトシフト対策: 画像のアスペクト比を明示 */
+    aspect-ratio: 16 / 9;
+  }
+
+  .key-slide .swiper-slide picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .key-slide .swiper-slide picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   /* PC用画像を表示、SP用画像を非表示 */
-  .key-slide .swiper-slide img.pc {
+  .key-slide .swiper-slide picture.pc {
     display: block;
   }
 
-  .key-slide .swiper-slide img.sp {
+  .key-slide .swiper-slide picture.sp {
     display: none;
   }
 
   /* レスポンシブ対応 - WordPressと同じ幅調整 */
   @media only screen and (max-width: 1199px) {
-    .key-slide .swiper-slide img {
-      width: 120%;
+    /* 画像サイズはaspect-ratioとobject-fitで管理 */
+    #key-box {
+      aspect-ratio: 16 / 9;
     }
 
     .head-info .logo a {
@@ -141,8 +212,9 @@ const slidesData = await getEntry('slides', 'home');
   }
 
   @media only screen and (max-width: 1025px) {
-    .key-slide .swiper-slide img {
-      width: 130%;
+    /* 画像サイズはaspect-ratioとobject-fitで管理 */
+    #key-box {
+      aspect-ratio: 16 / 9;
     }
 
     .box-key .box {
@@ -333,17 +405,25 @@ const slidesData = await getEntry('slides', 'home');
       text-align: center;
     }
 
-    /* SP版では画像の幅を100%に戻す */
+    /* SP版のレイアウトシフト対策 */
+    #key-box {
+      aspect-ratio: 4 / 3; /* SP用のアスペクト比 */
+    }
+
+    .key-slide .swiper-slide {
+      aspect-ratio: 4 / 3;
+    }
+
     .key-slide .swiper-slide img {
-      width: 100%;
+      aspect-ratio: 4 / 3;
     }
 
     /* SP版では画像を切り替え */
-    .key-slide .swiper-slide img.pc {
+    .key-slide .swiper-slide picture.pc {
       display: none;
     }
 
-    .key-slide .swiper-slide img.sp {
+    .key-slide .swiper-slide picture.sp {
       display: block;
     }
 
