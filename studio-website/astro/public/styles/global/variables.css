@@ -8,8 +8,10 @@
      カラー
      ======================================== */
   --color-primary: #82C2A9;
+  --color-primary-accessible: #5A9D82; /* WCAG AA準拠 - コントラスト比4.5:1以上 */
   --color-accent: #FF463C;
   --color-gray: #8C8C8C;
+  --color-gray-accessible: #6B6D71; /* WCAG AA準拠 - コントラスト比4.5:1以上 */
   --color-gray-light: #D5D5D5;
   --color-gray-dark: #333;
   --color-black: #000;

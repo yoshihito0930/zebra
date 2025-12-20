@@ -313,9 +313,17 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     border: none;
     border-radius: 8px;
     padding: 0;
-    max-width: 90%;
-    max-height: 90vh;
+    width: 95vw;
+    max-width: 1200px;
+    max-height: 85vh;
     overflow: auto;
+
+    /* 左右中央 + 下方向に配置 */
+    position: fixed;
+    left: 50%;
+    top: 80px;
+    transform: translateX(-50%);
+    margin: 0;
   }
 
   .studio-popup::backdrop {
@@ -358,6 +366,7 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 10px;
   }
 
   .pp-box-st dt img {
@@ -505,6 +514,12 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
 
     .popup-content {
       padding: 20px;
+    }
+
+    .studio-popup {
+      top: 60px;
+      width: 95vw;
+      max-height: 85vh;
     }
   }
 
