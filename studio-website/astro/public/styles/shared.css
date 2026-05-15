@@ -1,4 +1,4 @@
-﻿html:not(.responsive) {
+﻿﻿html:not(.responsive) {
 	min-width: 1000px; /* viewport */
 }
 
