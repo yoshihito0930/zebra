@@ -203,43 +203,6 @@ img[data-srcset] {
 
 
 /*=============================================
- * .clearfix
- *=============================================*/
-
-.nav-fl,
-.nav-fr,
-.clearfix {
-	zoom: 1 !important;
-}
-.nav-fl:after,
-.nav-fr:after,
-.clearfix:after {
-	content: "." !important;
-	clear: both !important;
-	display: block !important;
-	height: 0 !important;
-	visibility: hidden !important;
-}
-
-
-
-/*=============================================
- * nav - float/inline
- *=============================================*/
-
-.nav-fl > * {
-	float: left;
-}
-.nav-fr > * {
-	float: right;
-}
-.nav-inline > * {
-	display: inline-block;
-}
-
-
-
-/*=============================================
  * fonts
  *=============================================*/
 

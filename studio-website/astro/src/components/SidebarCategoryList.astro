@@ -2,52 +2,59 @@
 export interface Props {
   categories: string[];
   currentCategory?: string;
+  heading: string;
+  baseUrl: string;
+  allLabel?: string;
 }
 
-const { categories, currentCategory } = Astro.props;
+const {
+  categories,
+  currentCategory,
+  heading,
+  baseUrl,
+  allLabel = 'すべて',
+} = Astro.props;
 ---
 
-<div class="category-list">
-  <h3>カテゴリ</h3>
+<div class="sidebar-category-list">
+  <h3>{heading}</h3>
   <ul>
     <li class={!currentCategory ? 'active' : ''}>
-      <a href="/blog">すべて</a>
+      <a href={baseUrl}>{allLabel}</a>
     </li>
     {categories.map((category) => (
       <li class={currentCategory === category ? 'active' : ''}>
-        <a href={`/blog/category/${encodeURIComponent(category)}`}>
-          {category}
-        </a>
+        <a href={`${baseUrl}/category/${encodeURIComponent(category)}`}>{category}</a>
       </li>
     ))}
   </ul>
 </div>
 
 <style>
-  .category-list {
+  .sidebar-category-list {
     background: #f5f5f5;
     padding: 20px;
     border-radius: 8px;
   }
 
-  .category-list h3 {
+  .sidebar-category-list h3 {
     font-size: 18px;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #82C2A9;
+    border-bottom: 2px solid var(--color-primary);
   }
 
-  .category-list ul {
+  .sidebar-category-list ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .category-list li {
+  .sidebar-category-list li {
     margin-bottom: 8px;
   }
 
-  .category-list a {
+  .sidebar-category-list a {
     text-decoration: none;
     color: #333;
     display: block;
@@ -56,12 +63,12 @@ const { categories, currentCategory } = Astro.props;
     transition: background 0.3s;
   }
 
-  .category-list a:hover {
+  .sidebar-category-list a:hover {
     background: #e0e0e0;
   }
 
-  .category-list li.active a {
-    background: #82C2A9;
+  .sidebar-category-list li.active a {
+    background: var(--color-primary);
     color: #fff;
     font-weight: bold;
   }

@@ -259,14 +259,6 @@ header h1 {
 	opacity: 0.8;
 }
 
-.sp {
-	display: none;
-}
-
-.pc {
-	display: block;
-}
-
 
 
 /*88888888888888888*/
@@ -581,12 +573,6 @@ bottom: 20%;
 @media only screen and (max-width: 767px) {
 	.reservation .ttl-key-page span.h-span {
 		line-height: 24px;
-	}
-	.sp {
-		display: block !important;
-	}
-	.pc {
-		display: none !important;
 	}
 
     .news {
@@ -1184,142 +1170,6 @@ margin-left: 0 !important;
 	}
 }
 
-.animated {
-  -webkit-animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-duration: 1s;
-  animation-fill-mode: both
-}
-
-@-webkit-keyframes fadeInUp {
-  0% {
-      -webkit-transform: translate3d(0,20px,0);
-      opacity: 0;
-      transform: translate3d(0,20px,0)
-  }
-
-  to {
-      -webkit-transform: translateZ(0);
-      opacity: 1;
-      transform: translateZ(0)
-  }
-}
-
-@keyframes fadeInUp {
-  0% {
-      -webkit-transform: translate3d(0,20px,0);
-      opacity: 0;
-      transform: translate3d(0,20px,0)
-  }
-
-  to {
-      -webkit-transform: translateZ(0);
-      opacity: 1;
-      transform: translateZ(0)
-  }
-}
-
-.fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp
-}
-
-@-webkit-keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-20px);
-    transform: translateX(-20px);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-20px);
-    -ms-transform: translateX(-20px);
-    transform: translateX(-20px);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-  }
-}
-
-.fadeInLeft {
-  -webkit-animation-name: fadeInLeft;
-  animation-name: fadeInLeft;
-}
-
-
-@-webkit-keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(20px);
-    transform: translateX(20px);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-  }
-}
-
-.fadeInRight {
-  -webkit-animation-name: fadeInRight;
-  animation-name: fadeInRight;
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
-
 /* ==========================================================================
    css popup
    ========================================================================== */
@@ -1679,3 +1529,92 @@ html.remodal-is-locked {
 /* ==========================================================================
 	 end css popup
 	 ========================================================================== */
+
+
+/* ==========================================================================
+   Blog / News 一覧ページ共通スタイル
+   ========================================================================== */
+
+.page-all.blog {
+	background: url(/img/common/key_blog.webp) no-repeat center center;
+	background-size: cover;
+	height: 455px;
+	position: relative;
+}
+
+.page-all.news {
+	background: url(/img/news/key_news.webp) no-repeat center center;
+	background-size: cover;
+	height: 455px;
+	position: relative;
+}
+
+.blog .key-page,
+.news .key-page {
+	transform: translate(-50%, -50%);
+}
+
+.blog .ttl-key-page span,
+.news .ttl-key-page span {
+	font-size: 24px;
+	line-height: 48px;
+	font-weight: bold;
+}
+
+.blog-container,
+.news-container {
+	padding: 60px 0;
+}
+
+.blog-layout,
+.news-layout {
+	display: grid;
+	grid-template-columns: 250px 1fr;
+	gap: 40px;
+}
+
+.blog-grid,
+.news-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 30px;
+}
+
+@media (max-width: 767px) {
+	.page-all.blog,
+	.page-all.news {
+		height: 305px;
+	}
+
+	.blog .key-page h1 span,
+	.news .key-page h1 span {
+		font-size: 5.5vw;
+		padding: 10px 15px;
+	}
+
+	.blog .ttl-key-page span,
+	.news .ttl-key-page span {
+		font-size: 3.7vw;
+		line-height: 38px;
+	}
+
+	.blog-layout,
+	.news-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.blog .sidebar,
+	.news .sidebar {
+		order: 2;
+	}
+
+	.blog-main,
+	.news-main {
+		order: 1;
+	}
+
+	.blog-grid,
+	.news-grid {
+		grid-template-columns: 1fr;
+	}
+}

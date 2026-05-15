@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import CategoryList from '../../components/CategoryList.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import SidebarCategoryList from '../../components/SidebarCategoryList.astro';
 import Pagination from '../../components/Pagination.astro';
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
@@ -36,18 +36,23 @@ const categories = [...new Set(allPosts.map(post => post.data.category))];
     <div class="wrap">
       <div class="blog-layout">
         <aside class="sidebar">
-          <CategoryList categories={categories} />
+          <SidebarCategoryList
+            categories={categories}
+            heading="カテゴリ"
+            baseUrl="/blog"
+          />
         </aside>
 
         <main class="blog-main">
           <div class="blog-grid">
             {page.data.map((post) => (
-              <BlogCard
+              <ArticleCard
                 title={post.data.title}
                 description={post.data.description}
                 pubDate={post.data.pubDate}
                 category={post.data.category}
                 slug={post.slug}
+                baseUrl="/blog"
               />
             ))}
           </div>
@@ -64,91 +69,3 @@ const categories = [...new Set(allPosts.map(post => post.data.category))];
     </div>
   </section>
 </BaseLayout>
-
-<style is:global>
-  /* ページヘッダー */
-  .page-all.blog {
-    background: url(/img/common/key_blog.webp) no-repeat center center;
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
-  }
-
-  /* ブログコンテナ */
-  .blog-container {
-    padding: 60px 0;
-  }
-
-  .blog-layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 40px;
-  }
-
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-  }
-
-  /* レスポンシブ */
-  @media (max-width: 767px) {
-    .page-all.blog {
-      height: 305px;
-    }
-
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-    }
-
-    .ttl-key-page span {
-      font-size: 3.7vw;
-      line-height: 38px;
-    }
-
-    .blog-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-      order: 2;
-    }
-
-    .blog-main {
-      order: 1;
-    }
-
-    .blog-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

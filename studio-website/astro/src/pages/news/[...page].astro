@@ -3,8 +3,8 @@ import { getCollection } from 'astro:content';
 import type { GetStaticPaths, Page } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import NewsCard from '../../components/NewsCard.astro';
-import NewsCategoryList from '../../components/NewsCategoryList.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import SidebarCategoryList from '../../components/SidebarCategoryList.astro';
 import Pagination from '../../components/Pagination.astro';
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
@@ -40,19 +40,25 @@ const categories = [...new Set(allNews.map(news => news.data.category))];
     <div class="wrap">
       <div class="news-layout">
         <aside class="sidebar">
-          <NewsCategoryList categories={categories} />
+          <SidebarCategoryList
+            categories={categories}
+            heading="ニュース"
+            baseUrl="/news"
+          />
         </aside>
 
         <main class="news-main">
           <div class="news-grid">
             {page.data.map((news) => (
-              <NewsCard
+              <ArticleCard
                 title={news.data.title}
                 description={news.data.description}
                 pubDate={news.data.pubDate}
                 category={news.data.category}
                 slug={news.slug}
                 image={news.data.image}
+                baseUrl="/news"
+                readMoreText="...［すべて表示］"
               />
             ))}
           </div>
@@ -69,91 +75,3 @@ const categories = [...new Set(allNews.map(news => news.data.category))];
     </div>
   </section>
 </BaseLayout>
-
-<style is:global>
-  /* ページヘッダー */
-  .page-all.news {
-    background: url(/img/news/key_news.webp) no-repeat center center;
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
-  .key-page {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    z-index: 10;
-  }
-
-  .key-page h1 span {
-    color: #FFF;
-    background: #000;
-    min-width: 260px;
-    display: inline-block;
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    padding: 15px 25px;
-    font-size: 30px;
-  }
-
-  .ttl-key-page span {
-    border-bottom: 2px solid;
-    font-size: 24px;
-    line-height: 48px;
-    font-weight: bold;
-  }
-
-  /* ニュースコンテナ */
-  .news-container {
-    padding: 60px 0;
-  }
-
-  .news-layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 40px;
-  }
-
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-  }
-
-  /* レスポンシブ */
-  @media (max-width: 767px) {
-    .page-all.news {
-      height: 305px;
-    }
-
-    .key-page h1 span {
-      font-size: 5.5vw;
-      padding: 10px 15px;
-    }
-
-    .ttl-key-page span {
-      font-size: 3.7vw;
-      line-height: 38px;
-    }
-
-    .news-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-      order: 2;
-    }
-
-    .news-main {
-      order: 1;
-    }
-
-    .news-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

@@ -1,0 +1,188 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  slug: string;
+  baseUrl: string;
+  image?: string;
+  readMoreText?: string;
+  defaultImage?: string;
+}
+
+const {
+  title,
+  description,
+  pubDate,
+  category,
+  slug,
+  baseUrl,
+  image,
+  readMoreText = '続きを読む →',
+  defaultImage = '/img/index/demo.webp',
+} = Astro.props;
+
+const hasImage = image !== undefined;
+const imageSrc = image || defaultImage;
+
+const formattedDate = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(pubDate);
+---
+
+<article class={`article-card${hasImage ? ' article-card--with-image' : ''}`}>
+  <a href={`${baseUrl}/${slug}`}>
+    {hasImage && (
+      <div class="article-card__image">
+        <img src={imageSrc} alt={title} loading="lazy" />
+      </div>
+    )}
+    <div class="article-card__content">
+      <div class="article-card__meta">
+        {hasImage ? (
+          <>
+            <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+            <span class="article-card__category">{category}</span>
+          </>
+        ) : (
+          <>
+            <span class="article-card__category">{category}</span>
+            <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+          </>
+        )}
+      </div>
+      <h3 class="article-card__title">{title}</h3>
+      <p class="article-card__description">{description}</p>
+      <span class="article-card__read-more">{readMoreText}</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .article-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .article-card--with-image {
+    overflow: hidden;
+  }
+
+  .article-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .article-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  /* 画像ブロック（image あり時のみ） */
+  .article-card__image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .article-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s;
+    background: #e9fcf4;
+  }
+
+  .article-card--with-image:hover .article-card__image img {
+    transform: scale(1.05);
+  }
+
+  /* コンテンツ部分 */
+  .article-card__content {
+    padding: 24px;
+  }
+
+  .article-card--with-image .article-card__content {
+    padding: 20px;
+  }
+
+  .article-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  .article-card--with-image .article-card__meta {
+    justify-content: flex-start;
+  }
+
+  .article-card__category {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .article-card__meta time {
+    color: #666;
+  }
+
+  .article-card__title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .article-card--with-image .article-card__title {
+    font-size: 18px;
+  }
+
+  .article-card__description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .article-card--with-image .article-card__description {
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  /* read-more（画像なし: 太字 + primary、画像あり: 通常 + primary-accessible） */
+  .article-card__read-more {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .article-card--with-image .article-card__read-more {
+    color: var(--color-primary-accessible);
+    font-weight: normal;
+  }
+
+  .article-card:hover .article-card__read-more {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .article-card--with-image .article-card__image {
+      height: 180px;
+    }
+
+    .article-card--with-image .article-card__title {
+      font-size: 16px;
+    }
+  }
+</style>

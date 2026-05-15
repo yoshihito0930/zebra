@@ -3,7 +3,7 @@
  * NewsSection - ニュースセクション
  * トップページのニュース一覧セクション（#news）
  */
-import NewsCard from '../../NewsCard.astro';
+import ArticleCard from '../../ArticleCard.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import newsTitle from '/public/img/index/news_title.webp';
@@ -22,13 +22,15 @@ const sortedNews = newsEntries
     <div class="news-box">
       <div class="news-grid">
         {sortedNews.map((news) => (
-          <NewsCard
+          <ArticleCard
             title={news.data.title}
             description={news.data.description}
             pubDate={news.data.pubDate}
             category={news.data.category}
             slug={news.slug}
             image={news.data.image}
+            baseUrl="/news"
+            readMoreText="...［すべて表示］"
           />
         ))}
       </div>

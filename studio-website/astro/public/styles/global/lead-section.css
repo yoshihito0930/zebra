@@ -5,11 +5,11 @@
 
 /* 基本スタイル */
 #lead {
-  background: #82C2A9;
+  background: var(--color-primary);
   margin-top: -12px;
   padding: 40px 45px 45px;
   position: relative;
-  color: #000;
+  color: var(--color-black);
 }
 
 #lead .wrap {
@@ -49,12 +49,12 @@
 /* 装飾フレーム */
 #lead .wrap::before {
   width: 1120px;
-  background: #FFF;
+  background: var(--color-white);
   box-sizing: border-box;
-  border: 14px solid #8C8C8C;
+  border: 14px solid var(--color-gray);
   overflow: hidden;
-  border-top: 14px solid #FF463C;
-  border-left: 14px solid #FF463C;
+  border-top: 14px solid var(--color-accent);
+  border-left: 14px solid var(--color-accent);
   content: '';
   position: absolute;
   top: 0;
@@ -112,9 +112,9 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  background: #FFF;
+  background: var(--color-white);
   box-sizing: border-box;
-  border: 2px solid #000;
+  border: 2px solid var(--color-black);
   margin-bottom: 18px;
 }
 
@@ -141,19 +141,19 @@
 }
 
 .lead-banner .item:first-child {
-  background: #FF463C;
+  background: var(--color-accent);
 }
 
 .lead-banner .item:first-child .ttl {
-  color: #FFF;
+  color: var(--color-white);
 }
 
 .lead-banner .list-price .item:first-child .ttl {
-  color: #000;
+  color: var(--color-black);
 }
 
 .lead-banner .list-price:first-child .item:first-child .ttl {
-  color: #FFF;
+  color: var(--color-white);
 }
 
 .lead-banner .list-price:first-child .item:first-child .ttl span {
@@ -194,7 +194,7 @@
 }
 
 .lead-banner .list-price .item:first-child {
-  background: #D5D5D5;
+  background: var(--color-gray-light);
 }
 
 .lead-banner .list-price:first-child .item:first-child {
@@ -236,10 +236,10 @@
 .lead-banner .item dl dt,
 .lead-banner .list-price:first-child .item:first-child dl dt {
   font-size: 54px;
-  color: #FFF;
+  color: var(--color-white);
   font-weight: bold;
   line-height: 54px;
-  text-shadow: #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px, #000 0px 0px 2px;
+  text-shadow: var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px, var(--color-black) 0px 0px 2px;
   padding: 20px 0 0;
 }
 
@@ -276,7 +276,7 @@
   left: -50%;
   text-align: center;
   width: 200%;
-  color: #000;
+  color: var(--color-black);
   text-shadow: none;
 }
 
@@ -417,7 +417,7 @@
   }
   #lead .wrap {
     padding: 45px 0px 50px;
-    background: #fff;
+    background: var(--color-white);
   }
   .page-id-50 #lead .wrap {
     padding: 45px 10px 50px;
@@ -436,10 +436,10 @@
     width: 100%;
     background: transparent;
     box-sizing: border-box;
-    border: 10px solid #8C8C8C;
+    border: 10px solid var(--color-gray);
     overflow: hidden;
-    border-top: 10px solid #FF463C;
-    border-left: 10px solid #FF463C;
+    border-top: 10px solid var(--color-accent);
+    border-left: 10px solid var(--color-accent);
     content: '';
     z-index: 2;
     position: absolute;
@@ -454,9 +454,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    background: #FFF;
+    background: var(--color-white);
     box-sizing: border-box;
-    border: 2px solid #000;
+    border: 2px solid var(--color-black);
     margin: 0 3.5% 18px;
   }
   .lead-banner .item {
@@ -495,7 +495,7 @@
     font-size: 20px;
   }
   .lead-banner .list-price .item:first-child {
-    background: #D5D5D5;
+    background: var(--color-gray-light);
   }
   .lead-banner .list-price .item .box .text {
     font-weight: bold;
@@ -548,7 +548,7 @@
     left: -50%;
     text-align: center;
     width: 200%;
-    color: #000;
+    color: var(--color-black);
     text-shadow: none;
   }
   #lead .note {
