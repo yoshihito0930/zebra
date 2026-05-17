@@ -1,0 +1,763 @@
+/* ========================================
+   Brand v2 (Claude Design) — Phase 1+
+   詳細: astro/docs/design-system.md §6 / §14
+   ----------------------------------------
+   重要なルール:
+   このファイル内の全セレクタは必ず ".brand-v2" から始めること。
+   ".brand-v2" を持たない要素には一切作用させない（旧ページ温存）。
+   違反例: .btn-primary { ... }     -> 不可
+   正  例: .brand-v2 .btn-primary { ... }
+   セルフチェック: grep -nE '^\.(?!brand-v2)' brand.css
+   ======================================== */
+
+
+/* ========================================
+   1. コンテナ
+   ======================================== */
+.brand-v2 .container-narrow {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--s-5);
+}
+
+.brand-v2 .container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--s-5);
+}
+
+
+/* ========================================
+   2. ページルート (price)
+   ======================================== */
+.brand-v2.page-price {
+  background: var(--paper-1);
+  color: var(--ink-1);
+  font-family: var(--font-body);
+  padding: var(--s-7) 0 var(--s-8);
+}
+
+.brand-v2.page-price > .container-narrow > section,
+.brand-v2.page-price > .container-narrow > div {
+  margin-bottom: var(--s-7);
+}
+
+.brand-v2.page-price > .container-narrow > section:last-of-type,
+.brand-v2.page-price > .container-narrow > div:last-of-type {
+  margin-bottom: 0;
+}
+
+
+/* ========================================
+   3. タイポグラフィ
+   ======================================== */
+.brand-v2 .t-hero {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-hero);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.brand-v2 .t-h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h1);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.brand-v2 .t-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-h2);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.brand-v2 .t-h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h3);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.brand-v2 .t-h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-h4);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.brand-v2 .section-eyebrow {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: var(--r-pill);
+  background: var(--paper-2);
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+.brand-v2 .section-eyebrow.on-dark {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  backdrop-filter: blur(2px);
+}
+
+.brand-v2 .label-en {
+  font-family: var(--font-en);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.brand-v2 .muted {
+  color: var(--ink-3);
+  font-size: var(--t-small);
+  font-weight: 400;
+}
+
+.brand-v2 .accent-mint {
+  color: var(--brand-mint-deep);
+  font-weight: inherit;
+}
+
+
+/* ========================================
+   4. PageHeader v2 (ヒーロー)
+   ======================================== */
+.brand-v2.page-header-v2 {
+  position: relative;
+}
+
+/* key_price.webp 上の文字可読性確保 */
+.brand-v2.page-header-v2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.brand-v2 .key-page-v2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  padding: 0 var(--s-5);
+  z-index: 10;
+}
+
+.brand-v2 .key-page-v2 .section-eyebrow {
+  margin-bottom: var(--s-4);
+}
+
+.brand-v2 .key-page-v2 .hero-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h1);
+  line-height: 1.2;
+  color: var(--brand-white);
+  margin: 0 0 var(--s-3);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  letter-spacing: 0.04em;
+}
+
+.brand-v2 .key-page-v2 .hero-sub {
+  font-family: var(--font-body);
+  font-size: var(--t-small);
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--brand-white);
+  margin: 0;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+
+
+/* ========================================
+   5. ボタン
+   ======================================== */
+.brand-v2 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: 14px 28px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-round);
+  font-weight: 800;
+  font-size: 15px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--d-micro) var(--ease-out), background var(--d-micro) var(--ease-out), color var(--d-micro) var(--ease-out);
+}
+
+.brand-v2 .btn:active {
+  transform: translateY(1px);
+}
+
+.brand-v2 .btn-primary {
+  background: var(--brand-red);
+  color: #fff;
+  box-shadow: var(--shadow-1);
+}
+
+.brand-v2 .btn-primary:hover {
+  background: var(--brand-red-deep);
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.brand-v2 .btn-secondary {
+  background: #fff;
+  color: var(--ink-1);
+  border: 2px solid var(--ink-1);
+  padding: 12px 26px;
+}
+
+.brand-v2 .btn-secondary:hover {
+  background: var(--paper-1);
+}
+
+.brand-v2 .btn-ghost {
+  background: transparent;
+  color: var(--ink-1);
+  padding: 12px 6px;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+}
+
+.brand-v2 .btn-ghost:hover {
+  border-bottom-color: var(--brand-mint);
+}
+
+
+/* ========================================
+   6. カード
+   ======================================== */
+.brand-v2 .card {
+  background: #fff;
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--s-5);
+  transition: transform var(--d-trans) var(--ease-out), box-shadow var(--d-trans) var(--ease-out);
+}
+
+.brand-v2 .card:hover {
+  box-shadow: var(--shadow-2);
+}
+
+.brand-v2 .card-pop {
+  background: #fff;
+  border: 2px solid var(--brand-black);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-pop);
+  padding: var(--s-5);
+  transition: transform var(--d-trans) var(--ease-out), box-shadow var(--d-trans) var(--ease-out);
+}
+
+.brand-v2 .card-pop:hover {
+  transform: translateY(-1px);
+}
+
+.brand-v2 .card-pop:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 0 0 var(--brand-black);
+}
+
+
+/* ========================================
+   7. バッジ・ピル
+   ======================================== */
+.brand-v2 .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-round);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.brand-v2 .badge-danger {
+  background: var(--accent-soft);
+  color: var(--brand-red-deep);
+}
+
+.brand-v2 .badge-warn {
+  background: #FFF4E0;
+  color: #9A6A14;
+}
+
+.brand-v2 .badge-info {
+  background: #E5F2EE;
+  color: #3B7B6E;
+}
+
+.brand-v2 .badge-success {
+  background: #E4F4ED;
+  color: #2E8B57;
+}
+
+.brand-v2 .pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--r-sm);
+  font-family: var(--font-round);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-right: var(--s-2);
+  vertical-align: 2px;
+}
+
+.brand-v2 .pill-black {
+  background: var(--brand-black);
+  color: #fff;
+}
+
+.brand-v2 .pill-navy {
+  background: #2A2A4A;
+  color: #fff;
+}
+
+.brand-v2 .pill-red {
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  background: var(--brand-red);
+  color: #fff;
+  font-family: var(--font-round);
+  font-weight: 800;
+  font-size: 12px;
+  margin: 0;
+  display: inline-block;
+}
+
+.brand-v2 .pill-paper {
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  background: var(--paper-2);
+  color: var(--ink-2);
+  font-family: var(--font-round);
+  font-weight: 800;
+  font-size: 12px;
+  margin: 0;
+  display: inline-block;
+}
+
+
+/* ========================================
+   8. ゼブラバンド
+   ======================================== */
+.brand-v2 .zebra-band {
+  height: 12px;
+  background-image: url('/images/design/zebra-stripe.svg');
+  background-size: 24px 24px;
+}
+
+.brand-v2 .zebra-band-thick {
+  height: 24px;
+  background-image: url('/images/design/zebra-stripe.svg');
+  background-size: 32px 32px;
+}
+
+.brand-v2 .zebra-stripe-overlay {
+  position: absolute;
+  background-image: url('/images/design/zebra-stripe.svg');
+  pointer-events: none;
+}
+
+.brand-v2 .zebra-stripe-overlay.is-banner {
+  right: -10px;
+  top: -10px;
+  width: 130px;
+  height: 130px;
+  background-size: 16px 16px;
+  opacity: 0.18;
+  transform: rotate(-15deg);
+}
+
+.brand-v2 .zebra-stripe-overlay.is-card {
+  right: -16px;
+  top: -16px;
+  width: 80px;
+  height: 80px;
+  background-size: 14px 14px;
+  opacity: 0.14;
+  transform: rotate(15deg);
+}
+
+
+/* ========================================
+   9. price ページ専用コンポーネント
+   ======================================== */
+
+/* 機材使い放題バナー */
+.brand-v2.page-price .price-hero-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  background: var(--brand-black);
+  color: #fff;
+  border-radius: var(--r-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-v2.page-price .badge-circle-red {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-pill);
+  background: var(--brand-red);
+  color: #fff;
+  font-family: var(--font-round);
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1.2;
+  border: 2px solid #fff;
+  white-space: nowrap;
+}
+
+.brand-v2.page-price .banner-copy {
+  position: relative;
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.brand-v2.page-price .banner-copy .accent-mint {
+  color: var(--brand-mint);
+}
+
+/* セクションヘッダー (ピル + 見出し + 英字) */
+.brand-v2.page-price .section-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--s-3);
+  padding: 0 var(--s-1);
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+.brand-v2.page-price .section-row h2,
+.brand-v2.page-price .section-row h3 {
+  flex: 1;
+  min-width: 0;
+}
+
+.brand-v2.page-price .section-row .muted {
+  margin-left: var(--s-2);
+  font-size: var(--t-tiny);
+}
+
+/* 通常帯 2列グリッド */
+.brand-v2.page-price .price-tier-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--s-3);
+  align-items: stretch;
+}
+
+.brand-v2.page-price .price-tier-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-v2.page-price .price-tier-card .price-line {
+  margin-top: var(--s-3);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.brand-v2.page-price .price-tier-card .price-num {
+  font-family: var(--font-en);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--ink-2);
+}
+
+.brand-v2.page-price .price-tier-card.is-primary .price-num {
+  font-size: 40px;
+  color: var(--ink-1);
+}
+
+.brand-v2.page-price .price-tier-card .price-unit {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.brand-v2.page-price .price-tier-card .price-tax {
+  margin-top: var(--s-1);
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.brand-v2.page-price .price-tier-card .price-tax b {
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+/* 深夜帯カード */
+.brand-v2.page-price .price-night-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.brand-v2.page-price .price-night-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4) var(--s-5);
+  gap: var(--s-3);
+}
+
+.brand-v2.page-price .price-night-row + .price-night-row {
+  border-top: 1px solid var(--line-2);
+}
+
+.brand-v2.page-price .price-night-row .row-range {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.brand-v2.page-price .price-night-row .row-rate {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.brand-v2.page-price .price-night-row .price-num-sm {
+  font-family: var(--font-en);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--ink-1);
+}
+
+/* 最低利用時間 + 追加料金 2列 */
+.brand-v2.page-price .price-twocol-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+
+.brand-v2.page-price .price-rows {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.brand-v2.page-price .price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--paper-1);
+  border-radius: var(--r-md);
+}
+
+.brand-v2.page-price .price-row .row-label {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.brand-v2.page-price .price-row .row-value {
+  font-family: var(--font-round);
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--brand-red);
+  white-space: nowrap;
+}
+
+.brand-v2.page-price .addon-row {
+  align-items: flex-start;
+}
+
+.brand-v2.page-price .addon-tag {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  background: var(--brand-red);
+  color: #fff;
+  border-radius: var(--r-pill);
+  font-family: var(--font-en);
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.brand-v2.page-price .addon-row > div {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.brand-v2.page-price .addon-sub {
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* §11 ルールリスト */
+.brand-v2.page-price .rule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--s-2);
+}
+
+.brand-v2.page-price .rule-list li {
+  position: relative;
+  padding-left: 1.4em;
+  line-height: 1.75;
+  font-size: var(--t-body);
+  color: var(--ink-1);
+}
+
+.brand-v2.page-price .rule-list li::before {
+  content: '・';
+  position: absolute;
+  left: 0;
+  color: var(--brand-red);
+  font-weight: 800;
+}
+
+/* キャンセル料カード */
+.brand-v2.page-price .cancel-card header {
+  margin-bottom: var(--s-4);
+  text-align: center;
+}
+
+.brand-v2.page-price .cancel-card header h2 {
+  margin-bottom: var(--s-2);
+}
+
+.brand-v2.page-price .cancel-list {
+  margin: 0;
+  display: grid;
+  gap: var(--s-2);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.brand-v2.page-price .cancel-list dt {
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: var(--s-3) var(--s-4);
+  background: var(--paper-1);
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  font-size: 14px;
+}
+
+.brand-v2.page-price .cancel-list dd {
+  margin: 0;
+  font-family: var(--font-en);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--brand-red);
+  padding: var(--s-3) var(--s-4);
+  background: #fff;
+  border: 1px solid var(--line-1);
+  border-top: 0;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+}
+
+/* デスクトップでは横並び */
+@media (min-width: 768px) {
+  .brand-v2.page-price .cancel-list {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0;
+    max-width: 700px;
+  }
+
+  .brand-v2.page-price .cancel-list dt {
+    border-radius: var(--r-sm) 0 0 var(--r-sm);
+    border: 1px solid var(--line-1);
+    border-right: 0;
+  }
+
+  .brand-v2.page-price .cancel-list dd {
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    border-top: 1px solid var(--line-1);
+  }
+}
+
+/* CTA */
+.brand-v2.page-price .price-cta {
+  text-align: center;
+  padding-top: var(--s-5);
+}
+
+
+/* ========================================
+   10. モバイル (≤767px)
+   ======================================== */
+@media (max-width: 767px) {
+  .brand-v2.page-price {
+    padding: var(--s-5) 0 var(--s-7);
+  }
+
+  .brand-v2.page-price .price-tier-grid,
+  .brand-v2.page-price .price-twocol-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-v2.page-price .price-night-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+
+  .brand-v2.page-price .banner-copy {
+    font-size: 15px;
+  }
+
+  .brand-v2 .key-page-v2 .hero-title {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .brand-v2 .key-page-v2 .hero-sub {
+    font-size: 12px;
+  }
+}
+
+
+/* ========================================
+   11. アクセシビリティ (prefers-reduced-motion)
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .brand-v2 *,
+  .brand-v2 *::before,
+  .brand-v2 *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

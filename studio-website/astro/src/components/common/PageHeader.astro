@@ -2,32 +2,54 @@
 /**
  * PageHeader - ページヘッダーコンポーネント
  * 全ページで使用される共通ヘッダー
+ *
+ * variant:
+ *   'v1' (デフォルト): 旧デザイン。.wow.fadeInUp + 黒ブロック + 下線見出し。
+ *   'v2': Design System v2。.brand-v2 名前空間でレンダリング。
+ *         eyebrow (英字小ラベル) + ヒーロー見出し + サブテキスト。
+ *         .wow クラスを一切出力しない。
+ *
+ * 詳細: astro/docs/design-system.md §6.4 / §14.4
  */
 export interface Props {
   title: string;
   subtitle?: string;
   pageClass: string;
+  variant?: 'v1' | 'v2';
+  eyebrow?: string;
 }
 
-const { title, subtitle, pageClass } = Astro.props;
+const { title, subtitle, pageClass, variant = 'v1', eyebrow } = Astro.props;
 ---
 
-<div id="head-top" class={`page-all ${pageClass}`}>
-  <div class="key-page">
-    <h1 class="wow fadeInUp"><span>{title}</span></h1>
-    {subtitle && (
-      <h2 class="ttl-key-page wow fadeInUp">
-        <span set:html={subtitle}></span>
-      </h2>
-    )}
-    {!subtitle && (
-      <slot name="subtitle" />
-    )}
+{variant === 'v1' && (
+  <div id="head-top" class={`page-all ${pageClass}`}>
+    <div class="key-page">
+      <h1 class="wow fadeInUp"><span>{title}</span></h1>
+      {subtitle && (
+        <h2 class="ttl-key-page wow fadeInUp">
+          <span set:html={subtitle}></span>
+        </h2>
+      )}
+      {!subtitle && (
+        <slot name="subtitle" />
+      )}
+    </div>
   </div>
-</div>
+)}
+
+{variant === 'v2' && (
+  <div id="head-top" class={`page-all ${pageClass} brand-v2 page-header-v2`}>
+    <div class="key-page-v2">
+      {eyebrow && <span class="section-eyebrow on-dark">{eyebrow}</span>}
+      <h1 class="hero-title">{title}</h1>
+      {subtitle && <p class="hero-sub" set:html={subtitle}></p>}
+    </div>
+  </div>
+)}
 
 <style>
-  /* ページヘッダー共通スタイル */
+  /* ページヘッダー共通スタイル (v1) */
   #head-top {
     position: relative;
   }
@@ -64,7 +86,7 @@ const { title, subtitle, pageClass } = Astro.props;
     font-weight: bold;
   }
 
-  /* レスポンシブ */
+  /* レスポンシブ (v1) */
   @media (max-width: 767px) {
     .key-page h1 span {
       font-size: 5.5vw;

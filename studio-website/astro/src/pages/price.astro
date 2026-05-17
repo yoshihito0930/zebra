@@ -1,135 +1,189 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/common/PageHeader.astro';
+
+const tiers = [
+  { range: '10名以下', base: '¥5,000', incl: '¥5,500', primary: true },
+  { range: '11名以上', base: '¥5,500', incl: '¥6,050', primary: false },
+] as const;
+
+const nightRates = [
+  { range: '10名以下', base: '¥7,500', incl: '¥8,250' },
+  { range: '11名以上', base: '¥8,250', incl: '¥9,075' },
+] as const;
+
+const minTime = [
+  { label: '通常帯のみのご利用', value: '2時間〜' },
+  { label: '深夜帯を含む場合',   value: '4時間〜' },
+] as const;
+
+const addons = [
+  { tag: '+¥2,200', label: '6名以上でのワークショップ利用',         sub: '合計料金に加算（税込）' },
+  { tag: '+¥2,200', label: 'ラメ・グリッター等を多用する衣装・小道具', sub: '合計料金に加算（税込）' },
+] as const;
+
+const cancelTiers = [
+  { when: 'ご利用日の6日以前〜4日前', fee: 'ご予約時間分の利用料の50%' },
+  { when: 'ご利用日の3日前〜前日',     fee: 'ご予約時間分の利用料の80%' },
+  { when: 'ご利用日当日',              fee: 'ご予約時間分の利用料の100%' },
+] as const;
+
+// §11 文体: 1 文 1 ルール、ヘッジ表現なし、終止形を統一
+const notes = [
+  '深夜帯（23:00〜翌8:00）は通常料金の50%UPでお願い致します。',
+  '深夜帯を含むご利用の最低利用時間は4時間からとさせていただきます。',
+  'ゴミは45リットル袋1袋につき¥330（税込）にて回収致します。',
+  '分別できていないゴミ・粗大ゴミ・生花用オアシスはお持ち帰りください。',
+  '機材の持ち込み料は原則無料です。',
+  'HMIお持ち込みは1台あたり¥1,100（税込）／1hの持ち込み料を頂戴致します。',
+  'お持ち込み可能なHMIは1台1.2kw以下・総電力量2.5kwまでとさせていただきます。',
+];
 ---
 
-<BaseLayout title="料金案内 | スタジオゼブラ">
+<BaseLayout title="料金のご案内 | スタジオゼブラ" pageClass="price">
   <PageHeader
-    title="料金案内"
+    title="料金のご案内"
     subtitle="新宿エリアの安くてきれいなレンタル撮影スタジオ。<br>シンプルな料金設定です。"
     pageClass="price"
+    variant="v2"
+    eyebrow="PRICE"
   />
 
-  <section>
-    <div id="lead">
-      <div class="wrap">
-        <!-- タイトル -->
-        <h3 class="ttl-common wow fadeInUp title-price b-none">
-          <span><font size="6">スタジオ利用料</font></span>
-        </h3>
+  <div class="brand-v2 page-price">
+    <div class="container-narrow">
 
-        <!-- メインプラン -->
-        <div class="lead-banner is-price mt">
-          <div class="list-price">
-            <div class="item wow fadeInLeft">
-              <p class="photo_price">
-                <img src="/img/price/bnr_price_main.webp" alt="main plan">
-              </p>
-            </div>
-            <div class="item is-item wow fadeInRight">
-              <div class="box">
-                <p class="text1">最低利⽤時間／2時間</p>
-                <p class="text">
-                  スタジオ内のすべての機材が使えます︕<br>
-                  （有料の消耗品・LEDライトを除く）
-                </p>
-                <p class="btn1">
-                  <a href="/rental/">
-                    <img src="/img/index/zebra_240704_item04.webp" alt="貸出機材の詳細はこちら">
-                  </a>
-                </p>
-                <p class="price-add-1807">
-                  ＊深夜帯（23時〜翌8時）は、通常料⾦の50%UP<br>
-                  ＊深夜帯を含む場合の最低利⽤時間／4時間<br>
-                  ＊6⼈以上でのワークショップでご利⽤<br>
-                  ・・・合計のご利⽤料に＋2,200円（税込）<br>
-                  ＊ラメ、グリッターを多⽤した⾐装・⼩道具をご使⽤<br>
-                  ・・・合計のご利⽤料に＋2,200円（税込）
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 機材保険セクション -->
-          <div class="list-price price-old">
-            <div class="item wow fadeInLeft">
-              <p class="photo_price">
-                <img src="/img/price/bnr_price_EquipmentInsurance.webp" alt="EquipmentInsurance">
-              </p>
-            </div>
-            <div class="item is-item wow fadeInRight">
-              <div class="box">
-                <p class="text">
-                  お客様の不注意による機材の破損を保証します。<br>
-                  （免責&yen;10,000、1機材に限ります）<br>
-                  但し、ホリゾントを破損・汚損した場合の<br class="pc">
-                  修繕費用と休業補償は含みません。
-                </p>
-              </div>
-            </div>
-          </div>
+      {/* Section 1: 機材使い放題バナー */}
+      <section aria-label="機材使い放題のご案内">
+        <div class="price-hero-banner">
+          <div class="zebra-stripe-overlay is-banner" aria-hidden="true"></div>
+          <span class="badge-circle-red">機材<br />使い放題</span>
+          <p class="banner-copy">どの料金プランでも、<span class="accent-mint">機材は使い放題。</span></p>
         </div>
+      </section>
 
-        <!-- 注意事項リスト -->
-        <ul class="text-list-note wow fadeInUp">
-          <li><span>●</span> 深夜帯（23時〜翌8時）は通常のご利用料金の<span>50%UP</span></li>
-          <li><span>●</span> ゴミの回収は45リットルのゴミ袋1袋につき¥330(税込)にて回収いたします。分別できていないごみと粗⼤ごみ、⽣花⽤のオアシスは回収できません</li>
-          <li><span>●</span> 機材の持ち込み料は原則かかりません。</li>
-          <li><span>●</span> HMIをお持ち込みの場合は、1台あたり¥1,100(税込)/1hの持ち込み料をお支払いいただきます。<br>お持ち込み可能なHMIの電力量は1台1.2kw以下、総電力量は2.5kwまでです。</li>
+      {/* Section 2 + 3: 通常帯 */}
+      <section aria-labelledby="rate-daytime-h">
+        <header class="section-row">
+          <h2 id="rate-daytime-h" class="t-h3">
+            <span class="pill pill-black">通常帯</span>基本料金（8:00〜23:00）
+          </h2>
+          <span class="label-en">DAYTIME</span>
+        </header>
+        <div class="price-tier-grid">
+          {tiers.map((t) => (
+            <article
+              class={`price-tier-card ${t.primary ? 'card-pop is-primary' : 'card'}`}
+              aria-label={`${t.range} ${t.base} 税込${t.incl} 1時間あたり`}
+            >
+              {t.primary && <div class="zebra-stripe-overlay is-card" aria-hidden="true"></div>}
+              <span class={t.primary ? 'pill-red' : 'pill-paper'}>{t.range}</span>
+              <div class="price-line">
+                <span class="price-num">{t.base}</span>
+                <span class="price-unit">/ 1h</span>
+              </div>
+              <div class="price-tax">（税込 <b>{t.incl}</b>）</div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 4 + 5: 深夜帯 */}
+      <section aria-labelledby="rate-night-h">
+        <header class="section-row">
+          <h2 id="rate-night-h" class="t-h3">
+            <span class="pill pill-navy">深夜帯</span>23:00〜翌8:00
+            <span class="muted">通常料金の 50%UP</span>
+          </h2>
+          <span class="label-en">NIGHT</span>
+        </header>
+        <article class="card price-night-card">
+          {nightRates.map((r) => (
+            <div class="price-night-row">
+              <span class="row-range">{r.range}</span>
+              <span class="row-rate">
+                <span class="price-num-sm">{r.base}</span>
+                <span class="muted">/ 1h（税込 {r.incl}）</span>
+              </span>
+            </div>
+          ))}
+        </article>
+      </section>
+
+      {/* Section 6: 最低利用時間 + 追加料金 */}
+      <div class="price-twocol-grid">
+        <section class="card" aria-labelledby="min-hours-h">
+          <header class="section-row">
+            <h3 id="min-hours-h" class="t-h4">最低利用時間</h3>
+            <span class="label-en">MIN. HOURS</span>
+          </header>
+          <ul class="price-rows">
+            {minTime.map((m) => (
+              <li class="price-row">
+                <span class="row-label">{m.label}</span>
+                <span class="row-value">{m.value}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="card" aria-labelledby="addons-h">
+          <header class="section-row">
+            <h3 id="addons-h" class="t-h4">追加料金が発生する場合</h3>
+            <span class="label-en">ADD-ONS</span>
+          </header>
+          <ul class="price-rows">
+            {addons.map((a) => (
+              <li class="price-row addon-row">
+                <span class="addon-tag">{a.tag}</span>
+                <div>
+                  <div>{a.label}</div>
+                  <div class="addon-sub muted">{a.sub}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      {/* Section 7a: ご利用に関するご案内 (§11 文体) */}
+      <section aria-labelledby="notes-h">
+        <header class="section-row">
+          <h2 id="notes-h" class="t-h3">ご利用に関するご案内</h2>
+        </header>
+        <ul class="rule-list">
+          {notes.map((text) => <li>{text}</li>)}
         </ul>
+      </section>
 
-        <!-- キャンセル料セクション PC版 -->
-        <div class="price-note-edit pc">
-          <h3 class="ttl-common wow fadeInUp">
-            キャンセル料について
-            <span>※本予約確定後は、ご利⽤⽇までの⽇数に応じてキャンセル料が発⽣します。</span>
-          </h3>
-          <div class="list wow fadeInUp">
-            <dl>
-              <dt>ご利⽤⽇の6⽇以前〜4⽇前</dt>
-              <dd>ご予約時間分の利用料の50%</dd>
-            </dl>
-            <dl>
-              <dt>ご利用日の3日前〜前日</dt>
-              <dd>ご予約時間分の利用料の80%</dd>
-            </dl>
-            <dl>
-              <dt>ご利用日当日</dt>
-              <dd>ご予約時間分の利用料の100%</dd>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </div>
+      {/* Section 7b: キャンセル料 */}
+      <section aria-labelledby="cancel-h">
+        <article class="card cancel-card">
+          <header>
+            <h2 id="cancel-h" class="t-h3">キャンセル料について</h2>
+            <p class="muted">本予約確定後は、ご利用日までの日数に応じてキャンセル料が発生致します。</p>
+          </header>
+          <dl class="cancel-list">
+            {cancelTiers.map((c) => (
+              <>
+                <dt>{c.when}</dt>
+                <dd>{c.fee}</dd>
+              </>
+            ))}
+          </dl>
+        </article>
+      </section>
 
-    <!-- キャンセル料セクション SP版 -->
-    <div class="price-note-edit sp">
-      <div class="wrap">
-        <h3 class="ttl-common wow fadeInUp">
-          キャンセル料について
-          <span>※本予約確定後は、ご利⽤⽇までの⽇数に応じてキャンセル料が発⽣します。</span>
-        </h3>
-        <div class="list wow fadeInUp">
-          <dl>
-            <dt>ご利⽤⽇の6⽇以前〜4⽇前</dt>
-            <dd>ご予約時間分の利用料の50%</dd>
-          </dl>
-          <dl>
-            <dt>ご利用日の3日前〜前日</dt>
-            <dd>ご予約時間分の利用料の80%</dd>
-          </dl>
-          <dl>
-            <dt>ご利用日当日</dt>
-            <dd>ご予約時間分の利用料の100%</dd>
-          </dl>
-        </div>
+      {/* CTA */}
+      <div class="price-cta">
+        <a href="/reservation/" class="btn btn-primary">ご予約はこちら</a>
       </div>
+
     </div>
-  </section>
+  </div>
 </BaseLayout>
 
 <style is:global>
-  /* ページヘッダー - price ページ固有スタイル */
+  /* PageHeader 用の hero 背景画像（旧 price ページから継承） */
   .page-all.price {
     background: url(/img/price/key_price.webp) no-repeat center center;
     background-size: cover;
@@ -137,95 +191,9 @@ import PageHeader from '../components/common/PageHeader.astro';
     position: relative;
   }
 
-  /* メインセクション - priceページ固有の調整 */
-  /* #lead の共通スタイルは /styles/global/lead-section.css で定義 */
-
-  /* 注意事項リスト */
-  .text-list-note {
-    list-style: none;
-  }
-
-  .text-list-note li {
-    line-height: 1.8;
-    position: relative;
-    padding-left: 20px;
-    text-indent: 0px;
-  }
-
-  .text-list-note li > span:first-child {
-    position: absolute;
-    left: 0;
-    color: #FF463C;
-  }
-
-  .text-list-note li span {
-    font-weight: bold;
-  }
-
-  /* キャンセル料セクション */
-  .price-note-edit {
-    background: #ffffff
-  }
-
-  .price-note-edit h3 {
-    text-align: center;
-  }
-
-  .price-note-edit h3 span {
-    display: block;
-    font-size: 18x;
-    font-weight: normal;
-    color: #000
-  }
-
-  .price-note-edit .list {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .price-note-edit dl {
-    justify-content: space-between;
-  }
-
-  .price-note-edit dl:last-child {
-    border-bottom: none;
-  }
-
-  .price-note-edit dt {
-    font-weight: bold;
-    flex: 1;
-  }
-
-  .price-note-edit dd {
-    flex: 1;
-    font-weight: bold;
-  }
-
-  /* レスポンシブ */
   @media (max-width: 767px) {
     .page-all.price {
       height: 305px;
-    }
-
-    #lead {
-      padding: 30px 15px 30px;
-    }
-
-    #lead .wrap {
-      padding: 40px 10px 50px;
-    }
-
-    .list-price {
-      flex-direction: column;
-    }
-
-    .price-note-edit dl {
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .price-note-edit dd {
-      text-align: center;
     }
   }
 </style>

@@ -100,4 +100,84 @@
   --z-header: 100;
   --z-modal: 200;
   --z-tooltip: 300;
+
+  /* ========================================
+     Brand v2 (Claude Design) — Phase 1+
+     新ページ (/price/ 以降) 専用トークン。旧トークンは温存。
+     詳細: astro/docs/design-system.md §3.1 / §4 / §5 / §9.1
+     ======================================== */
+
+  /* Brand colors */
+  --brand-red: #E84A3D;
+  --brand-red-deep: #C73A2E;
+  --brand-mint: #93D2C2;
+  --brand-mint-deep: #6FB6A4;
+  --brand-black: #1A1A1A;
+  --brand-white: #FFFFFF;
+
+  /* Neutrals */
+  --ink-1: #1A1A1A;
+  --ink-2: #3A3A3A;
+  --ink-3: #6B6B6B;
+  --ink-4: #9A9A9A;
+  --line-1: #E6E6E6;
+  --line-2: #F0EFEC;
+  --paper-0: #FFFFFF;
+  --paper-1: #FAF8F4;
+  --paper-2: #F3EFE7;
+  --paper-3: #E8E2D4;
+
+  /* Semantic */
+  --accent-soft: #FDEAE6;
+  --success: #2E8B57;
+  --warn: #E8A33B;
+  --danger: var(--brand-red);
+  --info: var(--brand-mint-deep);
+
+  /* Fonts */
+  --font-display: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+  --font-body: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  --font-round: "M PLUS Rounded 1c", "Zen Maru Gothic", sans-serif;
+  --font-en: "DM Sans", "Zen Kaku Gothic New", sans-serif;
+
+  /* Type scale (fluid) */
+  --t-hero: clamp(40px, 6vw, 72px);
+  --t-h1: clamp(32px, 4vw, 48px);
+  --t-h2: clamp(26px, 3vw, 36px);
+  --t-h3: 22px;
+  --t-h4: 18px;
+  --t-body: 16px;
+  --t-small: 14px;
+  --t-tiny: 12px;
+
+  /* Spacing (4pt scale) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* Radii */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* Shadows v2 */
+  --shadow-1: 0 1px 2px rgba(26,26,26,0.05), 0 1px 3px rgba(26,26,26,0.06);
+  --shadow-2: 0 4px 10px rgba(26,26,26,0.06), 0 2px 4px rgba(26,26,26,0.05);
+  --shadow-3: 0 12px 28px rgba(26,26,26,0.10), 0 4px 10px rgba(26,26,26,0.06);
+  --shadow-pop: 0 8px 0 0 var(--brand-black);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --d-micro: 160ms;
+  --d-trans: 240ms;
+  --d-page: 360ms;
 }
