@@ -115,6 +115,13 @@
   --brand-black: #1A1A1A;
   --brand-white: #FFFFFF;
 
+  /* ナビバー用グラデ（ミント → スカイブルーの 3 色）
+     mint(--brand-mint) → 中間 → sky。ブルー系は §3.4 で本来 off-brand だが
+     ナビバーは例外として許可（要望対応）。 */
+  --nav-grad-start: #93D2C2;
+  --nav-grad-mid: #A8DCE0;
+  --nav-grad-end: #BCE2F4;
+
   /* Neutrals */
   --ink-1: #1A1A1A;
   --ink-2: #3A3A3A;
