@@ -553,6 +553,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--s-4);
+  align-items: stretch;
+}
+
+/* common.css の section{margin:auto} がブロック軸 auto マージンを生み、
+   グリッドの stretch を打ち消すため、ここで明示的に高さを揃える */
+.brand-v2.page-price .price-twocol-grid > .card {
+  margin-block: 0;
+  align-self: stretch;
+  height: 100%;
 }
 
 .brand-v2.page-price .price-rows {
