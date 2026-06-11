@@ -136,27 +136,15 @@
    ======================================== */
 .brand-v2.page-header-v2 {
   position: relative;
-}
-
-/* key_price.webp 上の文字可読性確保 */
-.brand-v2.page-header-v2::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.55) 100%);
-  pointer-events: none;
-  z-index: 5;
+  height: auto;   /* shared.css の .page-all 固定高さ(455/305px)を解除 */
+  background: var(--paper-1);
+  /* 上: fixed な .nav-header(約96px) を避けて見出しを下げる / 下: バンド・バナーに任せる */
+  padding: calc(96px + var(--s-6)) 0 0;
 }
 
 .brand-v2 .key-page-v2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 100%;
-  padding: 0 var(--s-5);
-  z-index: 10;
+  text-align: left;
+  padding-bottom: var(--s-6);   /* サブタイトルとバンドの間 */
 }
 
 .brand-v2 .key-page-v2 .section-eyebrow {
@@ -165,12 +153,11 @@
 
 .brand-v2 .key-page-v2 .hero-title {
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 700;   /* 900 は丸ゴシックだと潰れ気味なので 700 で線をすっきり */
   font-size: var(--t-h1);
   line-height: 1.2;
-  color: var(--brand-white);
+  color: var(--ink-1);
   margin: 0 0 var(--s-3);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
   letter-spacing: 0.04em;
 }
 
@@ -179,9 +166,8 @@
   font-size: var(--t-small);
   font-weight: 500;
   line-height: 1.7;
-  color: var(--brand-white);
+  color: var(--ink-3);
   margin: 0;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 
@@ -738,6 +724,11 @@
 
   .brand-v2.page-price .banner-copy {
     font-size: 15px;
+  }
+
+  /* SP は固定ナビ(バー)が無くハンバーガー(60px)のみなので上余白を縮小 */
+  .brand-v2.page-header-v2 {
+    padding-top: var(--s-7);
   }
 
   .brand-v2 .key-page-v2 .hero-title {

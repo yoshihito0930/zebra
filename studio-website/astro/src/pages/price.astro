@@ -43,7 +43,7 @@ const notes = [
 <BaseLayout title="料金のご案内 | スタジオゼブラ" pageClass="price">
   <PageHeader
     title="料金のご案内"
-    subtitle="新宿エリアの安くてきれいなレンタル撮影スタジオ。<br>シンプルな料金設定です。"
+    subtitle="ご利用人数で基本料金が変わります。"
     pageClass="price"
     variant="v2"
     eyebrow="PRICE"
@@ -181,19 +181,3 @@ const notes = [
     </div>
   </div>
 </BaseLayout>
-
-<style is:global>
-  /* PageHeader 用の hero 背景画像（旧 price ページから継承） */
-  .page-all.price {
-    background: url(/img/price/key_price.webp) no-repeat center center;
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
-  @media (max-width: 767px) {
-    .page-all.price {
-      height: 305px;
-    }
-  }
-</style>

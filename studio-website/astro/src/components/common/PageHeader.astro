@@ -40,10 +40,13 @@ const { title, subtitle, pageClass, variant = 'v1', eyebrow } = Astro.props;
 
 {variant === 'v2' && (
   <div id="head-top" class={`page-all ${pageClass} brand-v2 page-header-v2`}>
-    <div class="key-page-v2">
-      {eyebrow && <span class="section-eyebrow on-dark">{eyebrow}</span>}
-      <h1 class="hero-title">{title}</h1>
-      {subtitle && <p class="hero-sub" set:html={subtitle}></p>}
+    <div class="container-narrow">
+      <div class="key-page-v2">
+        {eyebrow && <span class="section-eyebrow">{eyebrow}</span>}
+        <h1 class="hero-title">{title}</h1>
+        {subtitle && <p class="hero-sub" set:html={subtitle}></p>}
+      </div>
+      <div class="zebra-band" aria-hidden="true"></div>
     </div>
   </div>
 )}
