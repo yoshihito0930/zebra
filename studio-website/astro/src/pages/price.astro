@@ -23,20 +23,35 @@ const addons = [
 ] as const;
 
 const cancelTiers = [
-  { when: 'ご利用日の6日以前〜4日前', fee: 'ご予約時間分の利用料の50%' },
-  { when: 'ご利用日の3日前〜前日',     fee: 'ご予約時間分の利用料の80%' },
-  { when: 'ご利用日当日',              fee: 'ご予約時間分の利用料の100%' },
+  { when: 'ご利用日の6日以前〜4日前', pct: '50%',  note: 'ご予約時間分の利用料' },
+  { when: 'ご利用日の3日前〜前日',     pct: '80%',  note: 'ご予約時間分の利用料' },
+  { when: 'ご利用日当日',              pct: '100%', note: 'ご予約時間分の利用料', emphasis: true },
 ] as const;
 
-// §11 文体: 1 文 1 ルール、ヘッジ表現なし、終止形を統一
-const notes = [
-  '深夜帯（23:00〜翌8:00）は通常料金の50%UPでお願い致します。',
-  '深夜帯を含むご利用の最低利用時間は4時間からとさせていただきます。',
-  'ゴミは45リットル袋1袋につき¥330（税込）にて回収致します。',
-  '分別できていないゴミ・粗大ゴミ・生花用オアシスはお持ち帰りください。',
-  '機材の持ち込み料は原則無料です。',
-  'HMIお持ち込みは1台あたり¥1,100（税込）／1hの持ち込み料を頂戴致します。',
-  'お持ち込み可能なHMIは1台1.2kw以下・総電力量2.5kwまでとさせていただきます。',
+// §11 文体: 1 文 1 ルール、ヘッジ表現なし、終止形を統一。カテゴリ別にグループ化
+const noteGroups = [
+  {
+    title: '深夜帯のご利用',
+    items: [
+      '深夜帯（23:00〜翌8:00）は通常料金の50%UPでお願い致します。',
+      '深夜帯を含むご利用の最低利用時間は4時間からとさせていただきます。',
+    ],
+  },
+  {
+    title: 'ゴミの回収',
+    items: [
+      'ゴミは45リットル袋1袋につき¥330（税込）にて回収致します。',
+      '分別できていないゴミ・粗大ゴミ・生花用オアシスはお持ち帰りください。',
+    ],
+  },
+  {
+    title: '機材の持ち込み',
+    items: [
+      '機材の持ち込み料は原則無料です。',
+      'HMIお持ち込みは1台あたり¥1,100（税込）／1hの持ち込み料を頂戴致します。',
+      'お持ち込み可能なHMIは1台1.2kw以下・総電力量2.5kwまでとさせていただきます。',
+    ],
+  },
 ];
 ---
 
@@ -148,35 +163,38 @@ const notes = [
       {/* Section 7a: ご利用に関するご案内 (§11 文体) */}
       <section aria-labelledby="notes-h">
         <header class="section-row">
-          <h2 id="notes-h" class="t-h3">ご利用に関するご案内</h2>
+          <h2 id="notes-h" class="t-h3"><span class="pill pill-mint">ご案内</span>ご利用に関するご案内</h2>
+          <span class="label-en">Usage Notes</span>
         </header>
-        <ul class="rule-list">
-          {notes.map((text) => <li>{text}</li>)}
-        </ul>
+        <article class="card notes-card">
+          {noteGroups.map((g) => (
+            <div class="note-group">
+              <h3 class="note-group-title">{g.title}</h3>
+              <ul class="rule-list">
+                {g.items.map((text) => <li>{text}</li>)}
+              </ul>
+            </div>
+          ))}
+        </article>
       </section>
 
       {/* Section 7b: キャンセル料 */}
       <section aria-labelledby="cancel-h">
-        <article class="card cancel-card">
-          <header>
-            <h2 id="cancel-h" class="t-h3">キャンセル料について</h2>
-            <p class="muted">本予約確定後は、ご利用日までの日数に応じてキャンセル料が発生致します。</p>
-          </header>
-          <dl class="cancel-list">
-            {cancelTiers.map((c) => (
-              <>
-                <dt>{c.when}</dt>
-                <dd>{c.fee}</dd>
-              </>
-            ))}
-          </dl>
-        </article>
+        <header class="section-row">
+          <h2 id="cancel-h" class="t-h3"><span class="pill pill-red-soft">キャンセル料</span>キャンセル料について</h2>
+          <span class="label-en">Cancellation</span>
+        </header>
+        <p class="muted cancel-intro">本予約確定後は、ご利用日までの日数に応じてキャンセル料が発生致します。</p>
+        <div class="cancel-grid">
+          {cancelTiers.map((c) => (
+            <article class={`cancel-fee-card${'emphasis' in c && c.emphasis ? ' is-emphasis' : ''}`}>
+              <div class="cancel-when">{c.when}</div>
+              <div class="cancel-pct">{c.pct}</div>
+              <div class="cancel-note">{c.note}</div>
+            </article>
+          ))}
+        </div>
       </section>
-
-      {/* CTA */}
-      <div class="price-cta">
-        <a href="/reservation/" class="btn btn-primary">ご予約はこちら</a>
-      </div>
 
     </div>
   </div>

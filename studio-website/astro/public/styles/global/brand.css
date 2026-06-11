@@ -42,8 +42,8 @@
   margin-bottom: var(--s-7);
 }
 
-.brand-v2.page-price > .container-narrow > section:last-of-type,
-.brand-v2.page-price > .container-narrow > div:last-of-type {
+.brand-v2.page-price > .container-narrow > section:last-child,
+.brand-v2.page-price > .container-narrow > div:last-child {
   margin-bottom: 0;
 }
 
@@ -346,6 +346,16 @@
   display: inline-block;
 }
 
+.brand-v2 .pill-mint {
+  background: var(--brand-mint-deep);
+  color: #fff;
+}
+
+.brand-v2 .pill-red-soft {
+  background: var(--brand-red);
+  color: #fff;
+}
+
 
 /* ========================================
    8. ゼブラバンド
@@ -620,6 +630,25 @@
   margin-top: 2px;
 }
 
+/* ご利用に関するご案内カード */
+.brand-v2.page-price .notes-card {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.brand-v2.page-price .note-group + .note-group {
+  border-top: 1px solid var(--line-1);
+  padding-top: var(--s-5);
+}
+
+.brand-v2.page-price .note-group-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-h4);
+  color: var(--ink-1);
+  margin: 0 0 var(--s-3);
+}
+
 /* §11 ルールリスト */
 .brand-v2.page-price .rule-list {
   list-style: none;
@@ -645,72 +674,50 @@
   font-weight: 800;
 }
 
-/* キャンセル料カード */
-.brand-v2.page-price .cancel-card header {
-  margin-bottom: var(--s-4);
-  text-align: center;
+/* キャンセル料グリッド */
+.brand-v2.page-price .cancel-intro {
+  margin: 0 0 var(--s-4);
 }
 
-.brand-v2.page-price .cancel-card header h2 {
+.brand-v2.page-price .cancel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+}
+
+.brand-v2.page-price .cancel-fee-card {
+  text-align: center;
+  background: var(--accent-soft);
+  border-radius: var(--r-md);
+  padding: var(--s-5) var(--s-3);
+}
+
+.brand-v2.page-price .cancel-fee-card.is-emphasis {
+  background: #F7C4BC;
+}
+
+.brand-v2.page-price .cancel-when {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--t-small);
+  color: var(--ink-2);
   margin-bottom: var(--s-2);
 }
 
-.brand-v2.page-price .cancel-list {
-  margin: 0;
-  display: grid;
-  gap: var(--s-2);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.brand-v2.page-price .cancel-list dt {
-  font-family: var(--font-body);
-  font-weight: 700;
-  padding: var(--s-3) var(--s-4);
-  background: var(--paper-1);
-  border-radius: var(--r-sm) var(--r-sm) 0 0;
-  font-size: 14px;
-}
-
-.brand-v2.page-price .cancel-list dd {
-  margin: 0;
+.brand-v2.page-price .cancel-pct {
   font-family: var(--font-en);
   font-weight: 700;
-  font-size: 18px;
-  color: var(--brand-red);
-  padding: var(--s-3) var(--s-4);
-  background: #fff;
-  border: 1px solid var(--line-1);
-  border-top: 0;
-  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  font-size: clamp(40px, 7vw, 56px);
+  line-height: 1.05;
+  color: var(--ink-1);
 }
 
-/* デスクトップでは横並び */
-@media (min-width: 768px) {
-  .brand-v2.page-price .cancel-list {
-    grid-template-columns: 1.2fr 1fr;
-    gap: 0;
-    max-width: 700px;
-  }
-
-  .brand-v2.page-price .cancel-list dt {
-    border-radius: var(--r-sm) 0 0 var(--r-sm);
-    border: 1px solid var(--line-1);
-    border-right: 0;
-  }
-
-  .brand-v2.page-price .cancel-list dd {
-    border-radius: 0 var(--r-sm) var(--r-sm) 0;
-    border-top: 1px solid var(--line-1);
-  }
+.brand-v2.page-price .cancel-note {
+  font-family: var(--font-body);
+  font-size: var(--t-tiny);
+  color: var(--ink-3);
+  margin-top: var(--s-2);
 }
-
-/* CTA */
-.brand-v2.page-price .price-cta {
-  text-align: center;
-  padding-top: var(--s-5);
-}
-
 
 /* ========================================
    10. モバイル (≤767px)
@@ -722,6 +729,10 @@
 
   .brand-v2.page-price .price-tier-grid,
   .brand-v2.page-price .price-twocol-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-v2.page-price .cancel-grid {
     grid-template-columns: 1fr;
   }
 
