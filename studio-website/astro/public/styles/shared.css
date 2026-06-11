@@ -196,6 +196,7 @@ header h1 {
 	top: 0;
 	left: 0;
 	position: fixed;
+	z-index: var(--z-header);
 	width: 100%;
 	background: linear-gradient(90deg, var(--nav-grad-start) 0%, var(--nav-grad-mid) 50%, var(--nav-grad-end) 100%);
 	opacity: 0;
