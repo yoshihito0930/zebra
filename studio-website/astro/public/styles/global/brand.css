@@ -457,6 +457,10 @@
   padding: 0 var(--s-1);
   gap: var(--s-3);
   flex-wrap: wrap;
+  /* shared.css のグローバル header { position:relative; z-index:100 } を打ち消し、
+     nav-header(fixed, z-index:100) の前面に重ならないようにする */
+  position: static;
+  z-index: auto;
 }
 
 .brand-v2.page-price .section-row h2,
