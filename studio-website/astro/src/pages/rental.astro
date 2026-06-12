@@ -1,269 +1,225 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/common/PageHeader.astro';
-import { getEntry } from 'astro:content';
 
-// レンタル機材データを取得
-const rentalData = await getEntry('rental', 'equipment');
-const { items } = rentalData?.data ?? { items: [] };
+const IMG = '/images/rental';
+
+// 01 ストロボ・ジェネレーター（公式サイトで確認済み）
+const generators = [
+  { name: 'CS-2400T',   note: '最大 2400Ws', count: 1 },
+  { name: 'CM-1200T',   note: '最大 1200Ws', count: 1 },
+  { name: 'CSb-1200TⅡ', note: '最大 1200Ws', count: 1 },
+] as const;
+
+const heads = [
+  { name: 'CB-25H', note: '2500Ws / 100V専用', count: 6 },
+  { name: 'CAX-H',  note: '',                  count: 1 },
+] as const;
+
+const strobeExtras = ['シンクロコード', 'ヘッド延長コード'] as const;
+
+// 02 ライティング機材（3列）
+const lighting = [
+  { img: 'octa.webp',         name: 'ソフトボックス／オクタ φ120', sub: '× 1' },
+  { img: 'rect-softbox.webp', name: 'ソフトボックス／レクタ',      sub: '× 1' },
+  { img: 'umbrella.webp',     name: 'アンブレラ',                  sub: '直径60cm × 5／直径180cm × 1' },
+  { img: 'reflector.webp',    name: 'カポック・パネル・レフ',      sub: '白黒カポック 3×6判 × 4／白黒Ｌパネル 3×8判 × 2／レフ（銀・白）× 1／フラッグ × 2' },
+  { img: 'grid.webp',         name: 'ハニカムグリッド',            sub: '× 2' },
+  { img: 'radioslave.webp',   name: 'ラジオスレーブ',              sub: '× 1' },
+] as const;
+
+// 03 スタンド・グリップ（5列）
+const grip = [
+  { img: 'stand.webp',          name: 'ライトスタンド・ブーム', sub: '東芝ライテックミニスタンド × 6／アベンジャースタンド40インチ × 3／スーパーブーム × 1' },
+  { img: 'autopole.webp',       name: 'オートポール',           sub: '× 6／エクステンションチューブ 2m × 2・1.5m × 2' },
+  { img: 'weight.webp',         name: 'ウエイト',               sub: '10kg × 4／5kg × 2' },
+  { img: 'clamp.webp',          name: 'クランプ・クリップ',     sub: 'ダブルクランプ × 4／エレンクリップ × 9' },
+  { img: 'extension-cord.webp', name: '延長コード',             sub: '× 3' },
+] as const;
+
+// 04 スタジオ備品（4列）
+const studio = [
+  { img: 'stepladder.webp',        name: '脚立',                       sub: '大 × 1／小 × 1' },
+  { img: 'tripod.webp',            name: '三脚・雲台',                 sub: '各 × 1' },
+  { img: 'minitable.webp',         name: 'ミニテーブル',               sub: '× 2' },
+  { img: 'wood-table.webp',        name: 'セットホース／フラットパネル', sub: 'セットホース × 1／フラットパネル 3×6判 × 1' },
+  { img: 'chair.webp',             name: '椅子',                       sub: '× 6' },
+  { img: 'stool.webp',             name: '丸椅子',                     sub: '× 4' },
+  { img: 'hangerrack-mirror.webp', name: 'ハンガーラック・鏡',         sub: 'ラック × 2／鏡 × 1' },
+  { img: 'applebox.webp',          name: 'サイコロ・箱馬',             sub: '500mm角 × 2／250mm角 × 7／箱馬 × 4' },
+  { img: 'wagon.webp',             name: 'ワゴン',                     sub: '× 1' },
+  { img: 'blower.webp',            name: 'ブロワー',                   sub: '× 1' },
+  { img: 'speaker.webp',           name: 'Bluetooth スピーカー',       sub: '× 1' },
+] as const;
+
+const photoGroups = [
+  { num: '02', title: 'ライティング機材', en: 'LIGHT MODIFIERS',     cols: 3, items: lighting },
+  { num: '03', title: 'スタンド・グリップ', en: 'STANDS / GRIP',       cols: 5, items: grip },
+  { num: '04', title: 'スタジオ備品',     en: 'STUDIO ACCESSORIES', cols: 4, items: studio },
+] as const;
+
+// 05 別途料金のオプション
+const setpaperColors = [
+  { name: 'ブラック',       hex: '#2B2B2B' },
+  { name: 'ダブグレー',     hex: '#8B8B84' },
+  { name: 'ペールブルー',   hex: '#74C3D5' },
+  { name: 'ウィート',       hex: '#D9B36C' },
+  { name: 'アップルグリーン', hex: '#7CC25E' },
+  { name: 'カナリー',       hex: '#F5D533' },
+  { name: 'レッド',         hex: '#9C1F30' },
+  { name: 'ピンク',         hex: '#F59BB4' },
+] as const;
+
+const otherPapers = [
+  { name: 'トレーシングペーパー 1100',         base: '¥200',   incl: '¥220',   unit: '/ 1m' },
+  { name: 'トレーシングペーパー 2200',         base: '¥700',   incl: '¥770',   unit: '/ 1m' },
+  { name: 'ユポ 2200',                         base: '¥2,000', incl: '¥2,200', unit: '/ 1m' },
+  { name: 'タフニール 1830',                   base: '¥700',   incl: '¥770',   unit: '/ 1m' },
+  { name: 'ケント紙（四六判）白・黒・グレー', base: '¥300',   incl: '¥330',   unit: '/ 1枚' },
+] as const;
 ---
 
-<BaseLayout title="レンタル機材 | スタジオゼブラ">
+<BaseLayout title="レンタル機材 | スタジオゼブラ" pageClass="rental">
   <PageHeader
     title="レンタル機材"
-    subtitle="スタジオゼブラの貸し出し機材は充実のラインナップ。<br>ライティングの可能性が広がります。"
+    subtitle="<span class='catch'>機材は、使い放題。</span><br>COMET ジェネレーター 3 台 ＆ ヘッド 7 灯をはじめ、ライティングのアクセサリーから三脚・スピーカーまで。ご利用料金内で、まるごとお使いいただけます。"
     pageClass="rental"
+    variant="v2"
+    eyebrow="RENTAL EQUIPMENT"
   />
 
-  <section>
-    <!-- レンタル機材一覧 -->
-    <div id="lead-rental">
-      <div class="wrap">
-        <h2 class="ttl-common wow fadeInUp">レンタル機材一覧</h2>
-        <div class="list">
-          {items.map((item) => (
-            <div class="item wow fadeInUp">
-              <p class="photo"><img src={item.image} alt={item.text}></p>
-              <p class="text">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+  <div class="brand-v2 page-rental">
+    <div class="container-narrow">
 
-    <!-- ダウンロードセクション -->
-    <div id="download-flie">
-      <div class="wrap">
-        <p class="btn wow fadeInUp">
-          <a href="/pdf/equipment-list.pdf" target="_blank" download>
-            <img src="/img/rental/btn_dowload.webp" alt="機材一覧をダウンロード">
+      {/* 01 ストロボ・ジェネレーター */}
+      <section aria-labelledby="sec-strobe">
+        <header class="section-header">
+          <span class="sec-num">01</span>
+          <h2 id="sec-strobe" class="t-h3">ストロボ・ジェネレーター</h2>
+          <span class="label-en">STROBE / GENERATOR</span>
+        </header>
+
+        <div class="strobe-grid">
+          <div class="strobe-photo card-pop">
+            <div class="strobe-photo-img" style={`background-image:url('${IMG}/generator.webp')`}></div>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-block">
+              <div class="label-en">COMET / GENERATOR</div>
+              <div class="spec-heading">ジェネレーター ×3台</div>
+              <ul class="spec-list">
+                {generators.map((g) => (
+                  <li class="spec-row">
+                    <span class="spec-name"><b>{g.name}</b><span class="spec-note">{g.note}</span></span>
+                    <span class="spec-count">× {g.count}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="spec-block">
+              <div class="label-en">COMET / HEAD</div>
+              <div class="spec-heading">ヘッド ×7台</div>
+              <ul class="spec-list">
+                {heads.map((h) => (
+                  <li class="spec-row">
+                    <span class="spec-name"><b>{h.name}</b>{h.note && <span class="spec-note">{h.note}</span>}</span>
+                    <span class="spec-count">× {h.count}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="spec-tags">
+              {strobeExtras.map((c) => <span class="spec-tag">{c}</span>)}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 02–04 写真グリッド */}
+      {photoGroups.map((group) => (
+        <section aria-label={group.title}>
+          <header class="section-header">
+            <span class="sec-num">{group.num}</span>
+            <h2 class="t-h3">{group.title}</h2>
+            <span class="label-en">{group.en}</span>
+          </header>
+          <div class={`equip-photo-grid cols-${group.cols}`}>
+            {group.items.map((it) => (
+              <div class="equip-photo-card">
+                <div class="equip-photo-img" style={`background-image:url('${IMG}/${it.img}')`}></div>
+                <div class="equip-photo-body">
+                  <div class="equip-name">{it.name}</div>
+                  {it.sub && <div class="equip-sub">{it.sub}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      {/* 05 別途料金のオプション */}
+      <section aria-labelledby="sec-paid">
+        <header class="section-header">
+          <span class="sec-num">05</span>
+          <h2 id="sec-paid" class="t-h3">別途料金のオプション</h2>
+          <span class="label-en">PAID OPTIONS</span>
+        </header>
+
+        {/* 背景紙 */}
+        <div class="paid-card">
+          <div class="paid-card-head">
+            <div class="paid-card-title">
+              <span class="pill-red">別途料金</span>
+              <span class="paid-name">背景紙（2.72m）</span>
+            </div>
+            <div class="paid-price">
+              <span class="paid-price-num">¥2,300</span>
+              <span class="paid-price-tax">（税込 ¥2,530）/ 1m</span>
+            </div>
+          </div>
+          <div class="paid-card-body">
+            <div class="swatch-label">常設カラー（8色）</div>
+            <div class="swatch-grid">
+              {setpaperColors.map((c) => (
+                <div class="swatch">
+                  <div class="swatch-chip" style={`background:${c.hex}`}></div>
+                  <div class="swatch-name">{c.name}</div>
+                </div>
+              ))}
+            </div>
+            <p class="swatch-foot">その他の色はお取り寄せ可能な場合がありますので、ご相談ください。</p>
+          </div>
+        </div>
+
+        {/* その他の紙類 */}
+        <div class="paper-card">
+          <div class="paper-card-head">その他の紙類</div>
+          <ul class="paper-list">
+            {otherPapers.map((p) => (
+              <li class="paper-row">
+                <span class="paper-name"><span class="paper-bullet">●</span>{p.name}</span>
+                <span class="paper-price">
+                  <b>{p.base}</b>
+                  <span class="muted">（税込 {p.incl}）{p.unit}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p class="paid-note">
+          ※ レンタル機材や備品は、状況により内容が変更される場合がございますので事前にご確認ください。
+        </p>
+        <p class="pdf-link">
+          <a href={`${IMG}/equipment-list.pdf`} download="スタジオゼブラ_機材一覧.pdf">
+            機材一覧（PDF）をダウンロード
           </a>
         </p>
-        <p class="file-size wow fadeInUp">PDF <span>76KB</span></p>
-      </div>
-    </div>
+      </section>
 
-    <!-- 消耗品（有料） -->
-    <div id="sec01-rental">
-      <div class="wrap">
-        <h2 class="ttl-common wow fadeInUp">消耗品（有料）</h2>
-        <dl class="wow fadeInUp">
-          <dt><span>●</span> 背景紙（2.72m）</dt>
-          <dd class="right-t">¥2,300（税込¥2,530）/1m</dd>
-        </dl>
-        <p class="txt wow fadeInUp">
-          常設カラー・・・<br>
-          ブラック、ダブグレー、ペールブルー、ウィート、アップルグリーン、カナリー、<br>レッド、ピンク
-        </p>
-        <p class="photo wow fadeInUp">
-          <img src="/img/rental/img_color.webp" alt="消耗品（有料）">
-        </p>
-        <dl class="wow fadeInUp">
-          <dt><span>●</span> トレーシングペーパー1100</dt>
-          <dd>¥200(税込¥220)/1m</dd>
-        </dl>
-        <dl class="wow fadeInUp">
-          <dt><span>●</span> トレーシングペーパー2200</dt>
-          <dd>¥700(税込¥770)/1m</dd>
-        </dl>
-        <dl class="wow fadeInUp">
-          <dt><span>●</span> ユポ2200</dt>
-          <dd>¥2,000(税込¥2,200)/1m</dd>
-        </dl>
-        <dl class="wow fadeInUp">
-          <dt><span>●</span> タフニール1830</dt>
-          <dd>¥700(税込¥770)/1m</dd>
-        </dl>
-        <dl class="wow fadeInUp">
-          <dt><span>●</span> ケント紙（四六判）白・黒・グレー</dt>
-          <dd>¥300(税込¥330)/1枚</dd>
-        </dl>
-        <p class="note wow fadeInUp">
-          レンタル機材や備品は、状況により内容が変更される場合がございますので事前にご確認ください
-        </p>
-      </div>
     </div>
-  </section>
+  </div>
 </BaseLayout>
-
-<style is:global>
-  /* ページヘッダー */
-  .page-all.rental {
-    background: url(/img/rental/key_rental.webp) no-repeat center center;
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
-  /* レンタル機材一覧セクション */
-  #lead-rental {
-    padding: 60px 0;
-  }
-
-  .ttl-common {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 36px;
-  }
-
-  #lead-rental .list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin: 0 auto;
-  }
-
-#lead-rental .list .item {
-  margin: 0 12px;
-  max-width: 284px;
-  position: relative;
-}
-
-  #lead-rental .item {
-    text-align: center;
-  }
-
-  #lead-rental .item .photo {
-    margin-bottom: 15px;
-    overflow: hidden;
-    border-radius: 8px;
-  }
-
-  #lead-rental .item .photo img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  #lead-rental .item:hover .photo img {
-    transform: scale(1.05);
-  }
-
-  #lead-rental .item .text {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #333;
-    white-space: pre-line;
-  }
-
-  /* ダウンロードセクション */
-  #download-flie {
-    padding: 40px 0;
-    text-align: center;
-  }
-
-  #download-flie .btn {
-    margin-bottom: 15px;
-  }
-
-  #download-flie .btn img {
-    max-width: 100%;
-    height: auto;
-    transition: opacity 0.3s ease;
-  }
-
-  #download-flie .btn a:hover img {
-    opacity: 0.8;
-  }
-
-  #download-flie .file-size {
-    font-size: 14px;
-    color: #000;
-  }
-
-  #download-flie .file-size span {
-    font-weight: bold;
-    color: #000;
-  }
-
-  /* 消耗品セクション */
-  #sec01-rental {
-    padding: 60px 0;
-  }
-
-  #sec01-rental .ttl-common {
-    margin-bottom: 40px;
-  }
-
-  #sec01-rental dl {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  #sec01-rental dl dt {
-    flex: 1;
-    font-weight: normal;
-    position: relative;
-    padding-left: 20px;
-  }
-
-  #sec01-rental dl dt span {
-    position: absolute;
-    left: 0;
-    color: #82C2A9;
-    font-weight: bold;
-  }
-
-  #sec01-rental dl dd {
-    flex: 0 0 auto;
-    text-align: right;
-    font-weight: bold;
-    color: #000;
-  }
-
-  #sec01-rental dl dd.right-t {
-  }
-
-  #sec01-rental .txt {
-    line-height: 1.8;
-    color: #000;
-  }
-
-  #sec01-rental .photo {
-    text-align: center;
-  }
-
-  #sec01-rental .photo img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  #sec01-rental .note {
-    font-size: 16px;
-    color: #000;
-  }
-
-  /* レスポンシブ */
-  @media (max-width: 767px) {
-    .page-all.rental {
-      height: 305px;
-    }
-
-    #lead-rental .list {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    #lead-rental .list .item {
-      margin: 0 auto;
-      max-width: 100%;
-    }
-
-    #lead-rental .item .photo img {
-      height: 250px;
-    }
-
-    #sec01-rental dl {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 5px;
-    }
-
-    #sec01-rental dl dd {
-      text-align: left;
-      padding-left: 20px;
-    }
-  }
-</style>
