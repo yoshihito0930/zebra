@@ -77,10 +77,10 @@ const cases = [
     <section id="horizon-cases">
       <div class="container-narrow">
         <div class="cases-card">
-          <header class="cases-head">
+          <div class="cases-head">
             <span class="cases-num">4</span>
             <p class="cases-lead">上記の1〜3に加え、ホリゾントの清掃料や塗装料、修繕費がかかる事例</p>
-          </header>
+          </div>
           <ul class="cases-list">
             {cases.map((c) => (
               <li class="cases-item">
@@ -194,6 +194,10 @@ const cases = [
     gap: 14px;
     padding: 20px 24px;
     background: #EAF5F0;
+    /* 共通の bare `header { z-index:100 }`（shared.css）が
+       固定ナビ(--z-header:100)より前面に出ないよう打ち消す */
+    position: static;
+    z-index: auto;
   }
 
   .brand-v2.page-horizon .cases-num {
