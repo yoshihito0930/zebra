@@ -76,7 +76,7 @@ CLAUDE.md と矛盾する記述があれば CLAUDE.md を優先してくださ�
 Phase 1-2 完了時点では、サイトには **「旧デザインのページ」と「新デザインのページ」が混在** します。これを許容するための統制ルール:
 
 - **Header / Footer は旧デザインのまま**。新ページに遷移しても上下のシェルは変わらない（ユーザーの認知負荷を下げる）。
-  - ただし **ナビバーの背景のみ Phase 1 で先行刷新済み**: 旧単色 `#82C2A9` → mint→sky グラデ（mint `#93D2C2` → 中間 `#A8DCE0` → sky `#BCE2F4`）の横 3 色グラデ（`shared.css` の `.nav-header` / `.header-box`、`Header.astro` の SP ハンバーガーは終端の sky）。色値はナビ専用トークン `--nav-grad-start` / `--nav-grad-mid` / `--nav-grad-end` を参照。レイアウト・構造・ナビアイコンは据え置き。
+  - ただし **ナビバーの背景のみ Phase 1 で先行刷新済み**: 旧単色 `#82C2A9` → mint→sky グラデ（mint `#82C2A9` → 中間 `#A8DCE0` → sky `#BCE2F4`）の横 3 色グラデ（`shared.css` の `.nav-header` / `.header-box`、`Header.astro` の SP ハンバーガーは終端の sky）。色値はナビ専用トークン `--nav-grad-start` / `--nav-grad-mid` / `--nav-grad-end` を参照。レイアウト・構造・ナビアイコンは据え置き。
 - 新ページからは **新トークン (`--brand-*`, `--paper-*`) のみ参照**。旧トークン (`--color-*`) は使わない。
 - 旧ページからは **旧トークン (`--color-*`) のみ参照**。新トークンは参照しない。
 - 共通コンポーネント（Header/Footer/PageHeader）は **旧トークン側に属する**。新ページからも旧トークンの色で表示される。
@@ -94,11 +94,11 @@ Phase 1-2 完了時点では、サイトには **「旧デザインのページ�
 
 ```css
 :root {
-  /* ===== Brand v2 (Claude Design) ===== */
-  --brand-red:        #E84A3D; /* primary CTA / speech bubble / accent */
-  --brand-red-deep:   #C73A2E; /* hover / pressed */
-  --brand-mint:       #93D2C2; /* secondary accent */
-  --brand-mint-deep:  #6FB6A4; /* mint hover */
+  /* ===== Brand v2 (Claude Design) — 旧トークンと統合済み（§16） ===== */
+  --brand-red:        #FF463C; /* primary CTA / speech bubble / accent */
+  --brand-red-deep:   #D8392F; /* hover / pressed */
+  --brand-mint:       #82C2A9; /* secondary accent */
+  --brand-mint-deep:  #5FA88E; /* mint hover */
   --brand-black:      #1A1A1A; /* text / zebra stripe / outline */
   --brand-white:      #FFFFFF; /* white horizon backdrop */
 
@@ -131,21 +131,21 @@ Phase 1-2 完了時点では、サイトには **「旧デザインのページ�
 
 | 旧 (継続) | 新 (Phase 1-2 のみ) | 役割 |
 |---|---|---|
-| `--color-accent` #FF463C | `--brand-red` #E84A3D | CTA・警告アクセント |
-| `--color-primary` #82C2A9 | `--brand-mint` #93D2C2 | セカンダリアクセント |
+| `--color-accent` #FF463C | `--brand-red` #FF463C | CTA・警告アクセント |
+| `--color-primary` #82C2A9 | `--brand-mint` #82C2A9 | セカンダリアクセント |
 | `--color-black` #000 | `--brand-black` #1A1A1A | 本文・縞模様 |
 | `--color-text` #231815 | `--ink-1` #1A1A1A | 主テキスト |
 | `--color-bg-light` #f9f9f9 | `--paper-1` #FAF8F4 | ページ背景 |
 | `--color-border` #DFDFDF | `--line-1` #E6E6E6 | 罫線 |
 
-> **注**: 旧の赤 `#FF463C` と新の赤 `#E84A3D` は **意図的に別色** として扱います。混色しないでください。Phase 1-2 完了後に統合判断を行います（§16）。
+> **注（統合済み）**: 当初は旧の赤 `#FF463C` と新の赤 `#E84A3D`（同様にミント `#82C2A9` / `#93D2C2`）を **意図的に別色** として扱っていましたが、ユーザー判断により **Claude Design のデザイン値（赤 #FF463C / ミント #82C2A9）に一本化**しました。`--brand-red` / `--brand-mint` は旧 `--color-accent` / `--color-primary` と同値です（§16 参照）。
 
 ### 3.4 使うべきでない色
 
 - 純黒 `#000000` は新ページでは使わない（`--brand-black` #1A1A1A を使う）
 - グラデーション（`linear-gradient`）は次の 2 種類のみ可。それ以外不可:
   - 背景の `paper-1 → mint`（料金ヒーロー用）
-  - ヘッダーナビバーの mint→sky グラデ（`linear-gradient(90deg, var(--nav-grad-start) 0%, var(--nav-grad-mid) 50%, var(--nav-grad-end) 100%)`、横方向）。mint(#93D2C2) → 中間(#A8DCE0) → sky(#BCE2F4) の 3 色。共通シェル（Header）に Phase 1 で先行適用。詳細は §9 参照
+  - ヘッダーナビバーの mint→sky グラデ（`linear-gradient(90deg, var(--nav-grad-start) 0%, var(--nav-grad-mid) 50%, var(--nav-grad-end) 100%)`、横方向）。mint(#82C2A9) → 中間(#A8DCE0) → sky(#BCE2F4) の 3 色。共通シェル（Header）に Phase 1 で先行適用。詳細は §9 参照
 - パープル・ターコイズ・ブルー系は原則 off-brand。ただし**ヘッダーナビバーのスカイブルー（mint→sky グラデの終端 `--nav-grad-end` #BCE2F4）のみ例外として許可**（要望対応・上記グラデ参照）。本文・CTA・カード等のコンテンツ領域では引き続き使用しない
 
 ---
@@ -714,8 +714,8 @@ card-soft
 次セッション以降でユーザーに確認すべき項目です。本書を更新する形で順次クローズしてください。
 
 1. **ロゴ書体**: `Zen Maru Gothic Black` は近似代替。原ロゴの書体ファイル/ベクターデータの提供可否。
-2. **Brand red の最終仕様**: `#E84A3D` は bundle で PNG ボタン画像からサンプリングした値。印刷物との連携がある場合の Pantone 指定の有無。
-3. **旧 `--color-accent #FF463C` と新 `--brand-red #E84A3D` の統合時期**: 共存はサイト全体新デザイン化完了まで。完了基準と削除タイミング。
+2. **Brand red の最終仕様**: ~~`#E84A3D` は bundle で PNG ボタン画像からサンプリングした値~~ → **決定済み**: ユーザー判断で `--brand-red` をデザイン値 `#FF463C`（＝旧 `--color-accent`）に確定。印刷物との連携がある場合の Pantone 指定は別途要確認。
+3. ~~**旧 `--color-accent #FF463C` と新 `--brand-red #E84A3D` の統合時期**~~ → **決定済み**: 新トークンをデザイン値に一本化（赤 `#FF463C` / ミント `#82C2A9`）。`--brand-red`＝旧 `--color-accent`、`--brand-mint`＝旧 `--color-primary` と同値。旧トークン自体の削除は全ページ v2 化完了後に判断。
 4. **機材写真の最終ライブラリ**: bundle 同梱 24 点で十分か、追加撮影・差し替えが必要か（特にストロボ本体・ヘッド単体写真）。
 5. **マスコット**: 他ポーズ（waving / ありがとう / またね）を作るか。固定予約ボタンとの統合タイミング。
 6. **DM Sans のサブセット**: latin のみで OK か、英字以外（特殊記号）も含めるか。

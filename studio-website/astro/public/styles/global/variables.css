@@ -107,18 +107,20 @@
      詳細: astro/docs/design-system.md §3.1 / §4 / §5 / §9.1
      ======================================== */
 
-  /* Brand colors */
-  --brand-red: #E84A3D;
-  --brand-red-deep: #C73A2E;
-  --brand-mint: #93D2C2;
-  --brand-mint-deep: #6FB6A4;
+  /* Brand colors
+     旧 (--color-accent #FF463C / --color-primary #82C2A9) と統合済み。
+     Claude Design のデザイン値に一本化（design-system.md §3.1 / §16）。 */
+  --brand-red: #FF463C;
+  --brand-red-deep: #D8392F;
+  --brand-mint: #82C2A9;
+  --brand-mint-deep: #5FA88E;
   --brand-black: #1A1A1A;
   --brand-white: #FFFFFF;
 
   /* ナビバー用グラデ（ミント → スカイブルーの 3 色）
      mint(--brand-mint) → 中間 → sky。ブルー系は §3.4 で本来 off-brand だが
      ナビバーは例外として許可（要望対応）。 */
-  --nav-grad-start: #93D2C2;
+  --nav-grad-start: #82C2A9;
   --nav-grad-mid: #A8DCE0;
   --nav-grad-end: #BCE2F4;
 

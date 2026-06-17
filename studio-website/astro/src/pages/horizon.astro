@@ -1,261 +1,319 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/common/PageHeader.astro';
-import LeadReservationSection from '../components/sections/shared/LeadReservationSection.astro';
+
+const rules = [
+  {
+    n: '1',
+    title: '土足厳禁！',
+    body: '撮影にお使いになる靴は、事前に清掃・お手入れをしたお履物や、新品のお履物をご準備いただき、裏面を養生テープで覆うなどしてお使いください。土足を使用してホリゾントを汚した場合は、靴裏の養生の有無に関わらず清掃費が発生します。',
+  },
+  {
+    n: '2',
+    title: 'デニムなど色移りするお召し物の着用はお控えください！',
+    body: 'カメラマンさん、スタイリストさん、ヘアメイクさんなど、ホリゾントに入り作業をする可能性のある方は、デニムなどの色移りするお召し物の着用をお避けください。また、被写体の方の衣装が色移りする素材の場合は、座りのポーズを避ける、敷物の上に座る、などの工夫をお願いします。',
+  },
+  {
+    n: '3',
+    title: '養生用の板の活用をお願いします！',
+    body: 'スタジオゼブラでは、ホリゾントの床面を養生するための白い板を常備しています。画角に入らないところには養生の板を敷き、物を落としてへこませてしまうことを防止したり、必要以上の汚れが付かないようにしてください。スタジオのスタッフにお声がけいただけましたら、養生の板の使い方をご説明いたしますので、お気軽にお申し付けください。',
+  },
+];
+
+const cases = [
+  {
+    head: 'ソールが厚いブーツなどのお履物による強い汚れ',
+    body: '養生テープで覆いきれていないソールの部分がホリゾントに擦れることで、真っ黒な強い汚れが付いてしまいます。ポージングの際には十分にお気をつけください。',
+  },
+  {
+    head: '禁止物の持ち込み及び使用による汚損',
+    body: '土や草花の色、油染みは通常の清掃では落ちません。また、飲料やインクなどの液体物はホリゾントを変質させる恐れがあり、火気は火災の原因となります。',
+  },
+  {
+    head: '刃物の傷、画鋲などの穴、ステッカーなどを貼ったことによる汚れや塗装の剥がれ',
+    body: 'ホリゾント内で刃物を使用して、床や壁を傷付けないでください。壁面に画鋲やピンを刺したり、ステッカーや装飾品を貼る行為も禁止です。ホリゾントの壁面に触ったり寄りかかること、アール部分に機材や小道具を置くこと、アール部分に人が乗ることは禁止です。',
+  },
+  {
+    head: 'ホリゾント内に指定のお履物以外で立ち入った際の汚れ',
+    body: 'ホリゾント内に、ホリゾント用のスリッパや養生をした靴以外のお履物でお入りになることで、ホリゾント全体にもやがかかったような汚れが付いてしまうことがあります。必ずエリアごとにお履物を使い分けてください。',
+  },
+  {
+    head: 'ホリゾント内で機材を組み立てたり、靴や衣類の準備をした際の汚れ',
+    body: 'ホリゾント内で機材の組み立てや片付けをすることで、金属を引きずったような傷ができてしまうことがあります。また、ホリゾント内で靴裏に養生テープを貼る作業をしたり、衣装ラックを持ち込むと、思わぬ汚損や作業者の衣類による着色が起こってしまうことがあります。ホリゾント内は撮影の準備をする場所ではなく、シューティングの場とお考えください。',
+  },
+];
 ---
 
 <BaseLayout title="ホリゾントルール | スタジオゼブラ">
   <PageHeader
     title="ホリゾントルール"
-    pageClass="reservation"
-  >
-    <p class="ttl-key-page" slot="subtitle">
-      <span class="h-span">ホリゾントの使い方を誤り、結果的に強い汚れや傷が付いてしまった場合には<br>清掃料や塗装料、修繕費をお支払いいただきます。</span>
-    </p>
-  </PageHeader>
+    subtitle="ホリゾントの使い方を誤り、結果的に強い汚れや傷が付いてしまった場合には、<br>清掃料や塗装料、修繕費をお支払いいただきます。"
+    pageClass="horizon"
+    variant="v2"
+    eyebrow="HORIZON RULES"
+  />
 
-  <LeadReservationSection>
-    <h2 class="ttl-c1">
-          <img src="/img/horizon/attention.webp" alt="必ずお守りください！">
-        </h2>
-        <div id="flow-box-faq">
-          <!-- ルール1: 土足厳禁 -->
-          <div class="box wow fadeInUp">
-            <dl>
-              <dt>
-                <span class="rule-number">1.</span> 土足厳禁！
-              </dt>
-              <dd>
-                撮影にお使いになる靴は、 事前に清掃・お手入れをしたお履物や、新品のお履物をご準備いただき、裏面を養生テープで覆うなどしてお使いください。<br>
-                土足を使用してホリゾントを汚した場合は、靴裏の養生の有無に関わらず清掃費が発生します。
-              </dd>
-            </dl>
-          </div>
+  <div class="brand-v2 page-horizon">
+    <!-- 必ずお守りください！ -->
+    <section id="horizon-must">
+      <div class="container-narrow">
+        <span class="must-badge">必ずお守りください！</span>
 
-          <!-- ルール2: 色移り注意 -->
-          <div class="box wow fadeInUp">
-            <dl>
-              <dt>
-                <span class="rule-number">2.</span> デニムなど色移りするお召し物の着用はお控えください！
-              </dt>
-              <dd>
-                カメラマンさん、スタイリストさん、ヘアメイクさんなど、ホリゾントに入り作業をする可能性のある方は、デニムなどの色移りするお召し物の着用をお避けください。また、被写体の方の衣装が色移りする素材の場合は、座りのポーズを避ける、敷物の上に座る、などの工夫をお願いします。
-              </dd>
-            </dl>
-          </div>
-
-          <!-- ルール3: 養生板の活用 -->
-          <div class="box wow fadeInUp">
-            <dl>
-              <dt>
-                <span class="rule-number">3.</span> 養生用の板の活用をお願いします！
-              </dt>
-              <dd>
-                スタジオゼブラでは、ホリゾントの床面を養生するための白い板を常備しています。画角に入らないところには養生の板を敷き、物を落としてへこませてしまうことを防止したり、必要以上の汚れが付かないようにしてください。スタジオのスタッフにお声がけいただけましたら、養生の板の使い方をご説明いたしますので、お気軽にお申し付けください。
-              </dd>
-            </dl>
-          </div>
-
-          <!-- ルール4: 清掃料・塗装料・修繕費がかかる事例 -->
-          <div class="box wow fadeInUp">
-            <dl>
-              <dt>
-                <span class="rule-number">4.</span> 上記の1～3に加え、ホリゾントの清掃料や塗装料、修繕費がかかる事例
-              </dt>
-              <dd>
-                <span>● ソールが厚いブーツなどのお履物による強い汚れ</span>
-                養生テープで覆いきれていないソールの部分がホリゾントに擦れることで、真っ黒な強い汚れが付いてしまいます。ポージングの際には十分にお気をつけください。
-                <span>● 禁止物の持ち込み及び使用による汚損</span>
-                土や草花の色、油染みは通常の清掃では落ちません。また、飲料やインクなどの液体物はホリゾントを変質させる恐れがあり、火気は火災の原因となります。
-                <span>● 刃物の傷、画鋲などの穴、ステッカーなどを貼ったことによる汚れや塗装の剥がれ</span>
-                ホリゾント内で刃物を使用して、床や壁を傷付けないでください。壁面に画鋲やピンを刺したり、ステッカーや装飾品を貼る行為も禁止です。<br>
-                ホリゾントの壁面に触ったり寄りかかること、アール部分に機材や小道具を置くこと、アール部分に人が乗ることは禁止です。
-                <span>● ホリゾント内に指定のお履物以外で立ち入った際の汚れ</span>
-                ホリゾント内に、ホリゾント用のスリッパや養生をした靴以外のお履物でお入りになることで、ホリゾント全体にもやがかかったような汚れが付いてしまうことがあります。<br>
-                必ずエリアごとにお履物を使い分けてください。
-                <span>● ホリゾント内で機材を組み立てたり、靴や衣類の準備をした際の汚れ</span>
-                ホリゾント内で機材の組み立てや片付けをすることで、金属を引きずったような傷ができてしまうことがあります。また、ホリゾント内で靴裏に養生テープを貼る作業をしたり、衣装ラックを持ち込むと、思わぬ汚損や作業者の衣類による着色が起こってしまうことがあります。ホリゾント内は撮影の準備をする場所ではなく、シューティングの場とお考えください。
-              </dd>
-            </dl>
-          </div>
-
-          <!-- 利用規約リンク -->
-          <p class="link-h">
-            <a href="/policy/" target="_blank">
-              <img src="/img/horizon/policy.webp" alt="利用規約はこちら">
-            </a>
-          </p>
+        <div class="rule-grid">
+          {rules.map((r) => (
+            <article class="rule-card">
+              <div class="rule-num">{r.n}</div>
+              <div class="rule-body">
+                <h3 class="rule-title">{r.title}</h3>
+                <p class="rule-text">{r.body}</p>
+              </div>
+            </article>
+          ))}
         </div>
-  </LeadReservationSection>
+      </div>
+    </section>
+
+    <!-- 4. 清掃料・塗装料・修繕費がかかる事例 -->
+    <section id="horizon-cases">
+      <div class="container-narrow">
+        <div class="cases-card">
+          <header class="cases-head">
+            <span class="cases-num">4</span>
+            <p class="cases-lead">上記の1〜3に加え、ホリゾントの清掃料や塗装料、修繕費がかかる事例</p>
+          </header>
+          <ul class="cases-list">
+            {cases.map((c) => (
+              <li class="cases-item">
+                <p class="cases-item-head"><span class="cases-mark">●</span>{c.head}</p>
+                <p class="cases-item-text">{c.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p class="policy-link">
+          <a class="btn btn-secondary" href="/policy/" target="_blank">利用規約はこちら →</a>
+        </p>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
 
 <style is:global>
-  /* ページヘッダー */
-  .page-all.reservation {
-    background: url(/img/common/key_reservation.webp) no-repeat center center;
-    background-size: cover;
-    position: relative;
+  .brand-v2.page-horizon {
+    background: #fff;
+    color: var(--ink-1);
+    font-family: var(--font-body);
+    padding-bottom: var(--s-7);
   }
 
-  /* ホリゾントルールセクション */
-  #lead-reservation {
-    background: #82C2A9;
-    padding-bottom: 50px;
+  /* ===== 必ずお守りください！ ===== */
+  #horizon-must {
+    padding: var(--s-7) 0 var(--s-5);
   }
 
-  .ttl-c1 {
-    text-align: center;
-    margin: auto;
-    width: 685px;
+  .brand-v2.page-horizon .must-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    border-radius: var(--r-pill);
+    background: var(--brand-red);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+    box-shadow: 0 4px 0 0 var(--brand-black);
+    margin-bottom: var(--s-5);
   }
 
-  .ttl-c1 img {
-    max-width: 100%;
-    height: auto;
+  .brand-v2.page-horizon .rule-grid {
+    display: grid;
+    gap: var(--s-4);
   }
 
-  /* フローボックス */
-  #flow-box-faq {
-  background: #FFF;
-  padding: 55px 35px 45px;
-  margin-bottom: 50px;
+  .brand-v2.page-horizon .rule-card {
+    overflow: hidden;
+    background: #fff;
+    border: 2px solid var(--brand-mint);
+    border-radius: var(--r-lg);
+    box-shadow: 0 8px 0 0 var(--brand-mint);
+    display: flex;
+    align-items: stretch;
   }
 
-  #flow-box-faq .box {
-    background: #f8fffc;
-    border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  .brand-v2.page-horizon .rule-num {
+    flex-shrink: 0;
+    width: 64px;
+    background: var(--brand-mint);
+    color: var(--brand-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 28px;
   }
 
-  #flow-box-faq .box dl {
+  .brand-v2.page-horizon .rule-body {
+    padding: 20px 24px;
+  }
+
+  .brand-v2.page-horizon .rule-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 1.4;
+    margin: 0 0 8px;
+    color: var(--brand-red);
+  }
+
+  .brand-v2.page-horizon .rule-text {
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--ink-1);
     margin: 0;
   }
 
-  #flow-box-faq .box dt {
-    font-size: 30px;
-    font-weight: bold;
-    color: #000;
+  /* ===== 4. 事例カード ===== */
+  #horizon-cases {
+    padding: var(--s-5) 0 var(--s-7);
+  }
+
+  .brand-v2.page-horizon .cases-card {
+    overflow: hidden;
+    background: #fff;
+    border: 2px solid var(--brand-mint);
+    border-radius: var(--r-lg);
+    box-shadow: 0 8px 0 0 var(--brand-mint);
+  }
+
+  .brand-v2.page-horizon .cases-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 24px;
+    background: #EAF5F0;
+  }
+
+  .brand-v2.page-horizon .cases-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-pill);
+    background: var(--brand-mint);
+    color: var(--brand-black);
     display: flex;
     align-items: center;
-    line-height: 1.4;
-  }
-
-  #flow-box-faq .box dt span {
-    flex-shrink: 0;
-  }
-
-  #flow-box-faq .box dt .rule-number {
-    color: #FF463C;
-    font-size: 28px;
-    font-weight: bold;
-    margin-right: 8px;
-  }
-
-  #flow-box-faq .box dt img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-  }
-
-  #flow-box-faq .box dd {
-    color: #000;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-weight: 700;
     font-size: 18px;
   }
 
-  #flow-box-faq dl dd {
-    padding: 10px 5px 20px;
-    line-height: 30px;
+  .brand-v2.page-horizon .cases-lead {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 17px;
+    line-height: 1.6;
+    padding-top: 4px;
+    margin: 0;
   }
 
-  #flow-box-faq dl dt {
-    position: relative;
-    font-size: 24px;
-    padding: 10px 0 20px 45px;
-    line-height: 32px;
-  }
-  #flow-box-faq dl dt span {
-    display: block;
-    width: 65px;
-    position: absolute;
-    left: 1px;
-}
-
-  #flow-box-faq .box dd span {
-    display: block;
-    font-weight: bold;
-    color: #000;
-    margin-top: 20px;
-    margin-bottom: 8px;
+  .brand-v2.page-horizon .cases-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  #flow-box-faq .box dd span:first-child {
-    margin-top: 0;
+  .brand-v2.page-horizon .cases-item {
+    padding: 18px 24px;
+    border-top: 1px solid var(--line-2);
   }
 
-  /* 利用規約リンク */
-  #flow-box-faq .link-h {
+  .brand-v2.page-horizon .cases-item-head {
     display: flex;
-    justify-content: center;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 0 0 6px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-1);
   }
 
-  #flow-box-faq .link-h a {
-    display: block;
-    max-width: 380px;
+  .brand-v2.page-horizon .cases-mark {
+    color: var(--brand-red);
+    font-weight: 800;
+    flex-shrink: 0;
+    font-size: 15px;
   }
 
-  #flow-box-faq .link-h a img {
-    width: 100%;
-    height: auto;
+  .brand-v2.page-horizon .cases-item-text {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--ink-2);
+    margin: 0 0 0 24px;
   }
 
-  /* レスポンシブ */
+  /* ===== 利用規約リンク ===== */
+  .brand-v2.page-horizon .policy-link {
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  /* ===== レスポンシブ ===== */
   @media (max-width: 767px) {
-    .page-all.reservation {
-      height: 305px;
+    #horizon-must {
+      padding: var(--s-6) 0 var(--s-4);
     }
 
-    .ttl-c1 {
-      text-align: center;
-      margin: auto;
-      max-width: 90%;
+    .brand-v2.page-horizon .must-badge {
+      font-size: 17px;
+      padding: 9px 18px;
     }
 
-    #flow-box-faq {
-      background: #FFF;
-      padding: 30px 15px 30px;
-      margin-bottom: 50px;
-    }
-
-    #flow-box-faq .box {
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    #flow-box-faq .box dt {
-      font-size: 16px;
-      gap: 10px;
+    .brand-v2.page-horizon .rule-card {
       flex-direction: column;
-      align-items: flex-start;
     }
 
-    #flow-box-faq .box dt .rule-number {
+    .brand-v2.page-horizon .rule-num {
+      width: 100%;
+      height: 44px;
       font-size: 24px;
     }
 
-    #flow-box-faq .box dt img {
-      width: 40px;
-      height: 40px;
+    .brand-v2.page-horizon .rule-body {
+      padding: 16px 18px;
     }
 
-    #flow-box-faq .box dd {
+    .brand-v2.page-horizon .rule-title {
+      font-size: 17px;
+    }
+
+    .brand-v2.page-horizon .rule-text {
       font-size: 14px;
-      line-height: 1.8;
     }
 
-    .link-h {
-      margin-top: 30px;
+    .brand-v2.page-horizon .cases-head {
+      padding: 16px 18px;
+    }
+
+    .brand-v2.page-horizon .cases-lead {
+      font-size: 15px;
+    }
+
+    .brand-v2.page-horizon .cases-item {
+      padding: 16px 18px;
+    }
+
+    .brand-v2.page-horizon .cases-item-head {
+      font-size: 14px;
+    }
+
+    .brand-v2.page-horizon .cases-item-text {
+      font-size: 13.5px;
+      margin-left: 20px;
     }
   }
 </style>
