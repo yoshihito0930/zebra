@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/common/PageHeader.astro';
-import LeadReservationSection from '../components/sections/shared/LeadReservationSection.astro';
 import { getEntry } from 'astro:content';
 
 // FAQデータを取得
@@ -15,303 +14,225 @@ const { categories } = faqData.data;
 <BaseLayout title="よくある質問 | スタジオゼブラ">
   <PageHeader
     title="よくある質問"
-    pageClass="reservation"
-  >
-    <p class="ttl-key-page wow fadeInUp" slot="subtitle">
-      <span class="h-span">よくお問い合わせいただくご質問と、<br class="sp">その回答をご紹介します。</span>
-    </p>
-  </PageHeader>
+    subtitle="よくお問い合わせいただくご質問と、その回答をご紹介します。"
+    pageClass="faq"
+    variant="v2"
+    eyebrow="FAQ"
+  />
 
-  <LeadReservationSection>
-    <h2 class="ttl-c">
-          <img src="/img/faq/faq.webp" alt="FAQ">
-        </h2>
-        <div id="faq-block">
-          <div class="list">
-            {categories.map((category, catIndex) => (
-              <div class="item-faq toggle wow fadeInUp" data-category={catIndex}>
-                <h3 class="toggle-link">{category.title}</h3>
-                <div class="toggle-main">
-                  {category.questions.map((qa) => (
-                    <dl>
-                      <dt>{qa.question}</dt>
-                      <dd set:html={qa.answer}></dd>
-                    </dl>
-                  ))}
-                  <p class="close-all">
-                    <img src="/img/faq/close.webp" alt="close">
-                  </p>
-                </div>
+  <div class="brand-v2 page-faq">
+    <section id="faq-body">
+      <div class="container-narrow">
+        <div class="faq-cats">
+          {categories.map((category, catIndex) => (
+            <div class="faq-cat">
+              <h2 class="faq-cat-title">
+                <span class="faq-cat-num">{String(catIndex + 1).padStart(2, '0')}</span>
+                {category.title}
+              </h2>
+              <div class="faq-list">
+                {category.questions.map((qa) => (
+                  <details class="faq-item card">
+                    <summary class="faq-q">
+                      <span class="faq-mark faq-mark-q" aria-hidden="true">Q</span>
+                      <span class="faq-q-text">{qa.question}</span>
+                      <span class="faq-chevron" aria-hidden="true">⌄</span>
+                    </summary>
+                    <div class="faq-a">
+                      <span class="faq-mark faq-mark-a" aria-hidden="true">A</span>
+                      <p class="faq-a-text" set:html={qa.answer}></p>
+                    </div>
+                  </details>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-  </LeadReservationSection>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
 
 <style is:global>
-  /* FAQセクション */
-  #lead-reservation {
-    background: #82C2A9;
+  .brand-v2.page-faq {
+    background: #fff;
+    color: var(--ink-1);
+    font-family: var(--font-body);
   }
 
-  #lead-reservation h2 {
-    padding-bottom: 50px;
+  #faq-body {
+    padding: var(--s-7) 0 var(--s-8);
   }
 
-  #lead-reservation h2 img {
-    width: 100%;
-    height: auto;
+  /* カテゴリ全体 */
+  .brand-v2.page-faq .faq-cats {
+    display: grid;
+    gap: var(--s-7);
   }
 
-  .ttl-c {
-    text-align: center;
-    margin: -75px auto -90px;
-    width: 650px;
-  }
-
-  .ttl-c img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* FAQブロック */
-  #faq-block {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-    padding-bottom: 50px;
-  }
-
-  #faq-block .list {
+  /* カテゴリ見出し（連番ピル + タイトル） */
+  .brand-v2.page-faq .faq-cat-title {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: var(--s-3);
+    margin: 0 0 var(--s-4);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--ink-1);
+    /* shared.css のグローバル header の position/z-index を打ち消し、固定ナビと干渉させない */
+    position: static;
+    z-index: auto;
   }
 
-  /* アコーディオンアイテム */
-  .item-faq {
-    position: relative;
-    border: 1px solid #e0e0e0;
-    border-radius: 15px;
+  .brand-v2.page-faq .faq-cat-num {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: var(--r-pill);
+    background: var(--brand-mint);
+    color: var(--brand-black);
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  /* Q&A リスト */
+  .brand-v2.page-faq .faq-list {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  /* アコーディオン（ネイティブ details） */
+  .brand-v2.page-faq .faq-item {
     overflow: hidden;
+    padding: 0;
+  }
+
+  .brand-v2.page-faq .faq-item[open] {
+    box-shadow: var(--shadow-2);
+  }
+
+  /* 質問（summary） */
+  .brand-v2.page-faq .faq-q {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: 16px 18px;
     background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.3s ease;
-    margin-bottom: 15px;
-    padding: 5px 20px;
-    font-size: 18px;
-    line-height: 30px;
-  }
-
-  .item-faq:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  #faq-block .item-faq dl dd {
-    position: relative;
-    padding-left: 25px;
-    margin: 12px 0 10px;
-  }
-  #faq-block .item-faq dl dt {
-    display: inline-block;
-    position: relative;
-    padding-left: 25px;
-    margin: 10px 0 2px;
-  }
-
-  #faq-block .item-faq dl dd::before {
-    content: "A.";
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #f62a2d;
-}
-  /* アコーディオンヘッダー */
-  .toggle-link {
-    padding: 10px 15px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
     cursor: pointer;
-    background: #fff;
-    position: relative;
-    margin: 0;
-    transition: background-color 0.3s ease;
+    list-style: none;
     user-select: none;
+    transition: background var(--d-micro) var(--ease-out);
   }
 
-  #faq-block .toggle-link {
-    font-size: 22px;
-    position: relative;
-    padding: 12px 10px;
+  .brand-v2.page-faq .faq-q::-webkit-details-marker {
+    display: none;
   }
 
-  .toggle-link:hover {
-    background: #fff;
+  .brand-v2.page-faq .faq-item[open] .faq-q {
+    background: var(--paper-1);
   }
 
-  .toggle-link::before,
-  .toggle-link::after {
-    content: none !important;
-    display: none !important;
-  }
-
-  /* アコーディオンコンテンツ */
-  .toggle-main {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    padding-bottom: 5px;
-  }
-
-  .item-faq.active .toggle-main {
-    max-height: 5000px;
-  }
-
-  .toggle-main dl {
-    padding: 20px 25px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .toggle-main dl:last-of-type {
-    border-bottom: none;
-  }
-
-  .toggle-main dt {
-    font-weight: bold;
-    color: #82C2A9;
-    margin-bottom: 10px;
-    font-size: 16px;
+  .brand-v2.page-faq .faq-q-text {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 700;
     line-height: 1.6;
-    position: relative;
-    padding-left: 20px;
+    color: var(--ink-1);
   }
 
-  .toggle-main dt::before {
-    content: 'Q.';
-    position: absolute;
-    left: 0;
-    font-weight: bold;
+  /* Q / A マーク */
+  .brand-v2.page-faq .faq-mark {
+    flex-shrink: 0;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.4;
   }
 
-  .toggle-main dd {
-    color: #000;
-    line-height: 1.8;
+  .brand-v2.page-faq .faq-mark-q {
+    color: var(--brand-red);
+  }
+
+  .brand-v2.page-faq .faq-mark-a {
+    color: var(--brand-mint);
+    padding-top: 12px;
+  }
+
+  /* 開閉シェブロン */
+  .brand-v2.page-faq .faq-chevron {
+    flex-shrink: 0;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ink-3);
+    transition: transform var(--d-trans) var(--ease-out);
+  }
+
+  .brand-v2.page-faq .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* 回答 */
+  .brand-v2.page-faq .faq-a {
+    display: flex;
+    gap: var(--s-3);
+    padding: 4px 18px 18px;
+    border-top: 1px solid var(--line-2);
+  }
+
+  .brand-v2.page-faq .faq-a-text {
+    flex: 1;
+    margin: 12px 0 0;
     font-size: 14px;
-    margin-left: 20px;
-    position: relative;
+    line-height: 1.95;
+    color: var(--ink-2);
   }
 
-  .toggle-main dd::before {
-    content: 'A.';
-    position: absolute;
-    left: -20px;
-    font-weight: bold;
-    color: #333;
-  }
-
-  .toggle-main dd a {
-    color: #f62a2d;
+  .brand-v2.page-faq .faq-a-text a {
+    color: var(--brand-red);
     text-decoration: underline;
-    transition: opacity 0.3s ease;
+    text-underline-offset: 2px;
+    transition: opacity var(--d-micro) var(--ease-out);
   }
 
-  .toggle-main dd a:hover {
+  .brand-v2.page-faq .faq-a-text a:hover {
     opacity: 0.7;
-  }
-
-  /* 閉じるボタン */
-  .close-all {
-    width: 60px;
-    margin: auto;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-  }
-
-  .close-all:hover {
-    opacity: 0.7;
-  }
-
-  .close-all img {
-    width: 100%;
-    height: auto;
   }
 
   /* レスポンシブ */
   @media (max-width: 767px) {
-    .page-all.reservation {
-      height: 305px;
+    #faq-body {
+      padding: var(--s-6) 0 var(--s-7);
     }
 
-    #lead-reservation {
-      padding: 40px 0;
+    .brand-v2.page-faq .faq-cats {
+      gap: var(--s-6);
     }
 
-    #lead-reservation h2 {
-      max-width: 526px;
-      width: 100%;
-    }
-    #lead-reservation h2 img {
-      width: 100%;
-      height: auto;
+    .brand-v2.page-faq .faq-cat-title {
+      font-size: 18px;
     }
 
-    .ttl-c {
-      text-align: center;
-      margin: -65px auto -80px;
-      max-width: 90%;
+    .brand-v2.page-faq .faq-q {
+      padding: 14px 16px;
     }
 
-    .toggle-link {
-      padding: 15px 20px;
-      font-size: 16px;
-      padding-right: 50px;
+    .brand-v2.page-faq .faq-q-text {
+      font-size: 14px;
     }
 
-    .toggle-link::after {
-      right: 20px;
+    .brand-v2.page-faq .faq-a {
+      padding: 4px 16px 16px;
     }
 
-    .toggle-main dl {
-      padding: 15px 20px;
-    }
-
-    .toggle-main dt {
-      font-size: 15px;
-    }
-
-    .toggle-main dd {
-      font-size: 13px;
-    }
-
-    .close-all img {
-      max-width: 120px;
+    .brand-v2.page-faq .faq-a-text {
+      font-size: 13.5px;
     }
   }
 </style>
-
-<script>
-  // アコーディオン機能
-  document.addEventListener('DOMContentLoaded', () => {
-    const toggleItems = document.querySelectorAll('.item-faq.toggle');
-
-    toggleItems.forEach((item) => {
-      const toggleLink = item.querySelector('.toggle-link');
-      const closeBtn = item.querySelector('.close-all');
-
-      // タイトルクリックで開閉
-      if (toggleLink) {
-        toggleLink.addEventListener('click', () => {
-          item.classList.toggle('active');
-        });
-      }
-
-      // 閉じるボタンで閉じる
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          item.classList.remove('active');
-        });
-      }
-    });
-  });
-</script>
