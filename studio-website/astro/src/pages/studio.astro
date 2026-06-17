@@ -103,39 +103,26 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
         </h2>
         <h3 class="ttl-common">フォトギャラリー</h3>
 
-        <div class="slide-box">
-          <!-- メインスライダー -->
-          <div class="swiper gallery-main">
-            <div class="swiper-wrapper">
-              {gallery.map((item) => (
-                <div class="swiper-slide">
-                  <img src={item.main} alt={item.alt}>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <!-- サムネイルスライダー -->
-        <div class="th-box">
-          <div class="swiper-button-prev"></div>
-          <div class="swiper gallery-thumbs">
-            <div class="swiper-wrapper">
-              {gallery.map((item) => (
-                <div class="swiper-slide">
-                  <img src={item.thumbnail} alt={item.alt}>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <!-- フォトギャラリー（グリッド表示。クリックで拡大） -->
+        <ul class="gallery-grid">
+          {gallery.map((item) => (
+            <li>
+              <button class="gallery-thumb" type="button" data-full={item.main} data-alt={item.alt}>
+                <img src={item.thumbnail} alt={item.alt} loading="lazy">
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
+
+    <!-- 拡大表示用ライトボックス -->
+    <dialog id="gallery-lightbox" class="gallery-lightbox">
+      <button class="gallery-lightbox-close" type="button" aria-label="閉じる">×</button>
+      <img class="gallery-lightbox-img" src="" alt="">
+    </dialog>
   </section>
 </BaseLayout>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style is:global>
   /* スタジオ紹介セクション */
@@ -415,72 +402,111 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
   }
 
   #gallery-box h2 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
   }
 
-  #gallery-box h3 {
-    text-align: center;
-    margin-bottom: 40px;
+  #gallery-box h3.ttl-common {
+    text-align: left;
+    margin: 0;
+    padding: 0;
   }
 
-  .slide-box {
-    margin-bottom: 20px;
+  /* フォトギャラリー グリッド */
+  .gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
   }
 
-  .gallery-main {
+  .gallery-grid > li {
+    margin: 0;
+  }
+
+  .gallery-thumb {
+    display: block;
     width: 100%;
-    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .gallery-main .swiper-slide img {
+  .gallery-thumb:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .gallery-thumb img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
 
-  .th-box .swiper-button-prev,
-  .th-box .swiper-button-next {
-    width: 50px;
-    height: 50px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    font-size: 0;
-    color: transparent;
+  /* 拡大表示ライトボックス（画面中央に固定サイズで表示） */
+  .gallery-lightbox {
+    border: none;
+    padding: 0;
+    background: transparent;
+    overflow: visible;
+
+    /* どの画像も同じ大きさ・画面中央に表示する */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 80vw;
+    height: 80vh;
+    max-width: 1000px;
   }
 
-  .th-box .swiper-button-prev {
-    background-image: url(/img/studio/arrow_r.webp);
+  .gallery-lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.8);
   }
 
-  .th-box .swiper-button-next {
-    background-image: url(/img/studio/arrow_l.webp);
-  }
-
-  .th-box .swiper-button-prev::after,
-  .th-box .swiper-button-next::after {
-    display: none;
-  }
-
-  .gallery-thumbs {
+  .gallery-lightbox-img {
+    display: block;
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    /* 新しい画像のデコード完了まで非表示にし、前の画像が残らないようにする */
+    opacity: 0;
+    transition: opacity 0.15s ease;
   }
 
-  .gallery-thumbs .swiper-slide {
-    opacity: 0.5;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-  }
-
-  .gallery-thumbs .swiper-slide-thumb-active {
+  .gallery-lightbox-img.is-loaded {
     opacity: 1;
   }
 
-  .gallery-thumbs .swiper-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
+  .gallery-lightbox-close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #000;
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 1;
+  }
+
+  .gallery-lightbox-close:hover {
+    background: #333;
   }
 
   /* レスポンシブ */
@@ -525,14 +551,16 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
       width: 95vw;
       max-height: 85vh;
     }
+
+    /* モバイル版: ギャラリーグリッドを2列に */
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
 </style>
 
 <script>
-  import Swiper from 'swiper';
-  import { Navigation, Thumbs } from 'swiper/modules';
-
   // ポップアップ機能
   const popupButtons = document.querySelectorAll('[data-popup]');
   popupButtons.forEach((button) => {
@@ -589,35 +617,52 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     });
   });
 
-  // Swiperギャラリー
-  const galleryThumbs = new Swiper('.gallery-thumbs', {
-    spaceBetween: 10,
-    slidesPerView: 4,
-    freeMode: true,
-    watchSlidesProgress: true,
-    breakpoints: {
-      320: {
-        slidesPerView: 3,
-      },
-      768: {
-        slidesPerView: 4,
-      },
-      1024: {
-        slidesPerView: 6,
-      },
-    },
-  });
+  // フォトギャラリー: サムネイルクリックでライトボックス拡大
+  const lightbox = document.getElementById('gallery-lightbox') as HTMLDialogElement | null;
+  const lightboxImg = lightbox?.querySelector('.gallery-lightbox-img') as HTMLImageElement | null;
+  const lightboxClose = lightbox?.querySelector('.gallery-lightbox-close') as HTMLButtonElement | null;
 
-  const galleryMain = new Swiper('.gallery-main', {
-    modules: [Navigation, Thumbs],
-    spaceBetween: 10,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    thumbs: {
-      swiper: galleryThumbs,
-    },
-  });
+  if (lightbox && lightboxImg) {
+    const thumbButtons = document.querySelectorAll<HTMLButtonElement>('.gallery-thumb');
+    thumbButtons.forEach((button) => {
+      button.addEventListener('click', async () => {
+        const full = button.getAttribute('data-full') ?? '';
+        const alt = button.getAttribute('data-alt') ?? '';
 
+        // 前の画像が残らないよう、いったん非表示にしてから差し替える
+        lightboxImg.classList.remove('is-loaded');
+        lightboxImg.src = full;
+        lightboxImg.alt = alt;
+        lightbox.showModal();
+
+        // 新しい画像のデコード完了後に表示する
+        try {
+          await lightboxImg.decode();
+        } catch {
+          // デコード失敗（中断等）は無視。fallback で表示する
+        }
+        lightboxImg.classList.add('is-loaded');
+      });
+    });
+
+    // 閉じる時は次回のチラつき防止のため非表示状態に戻す
+    const closeLightbox = () => {
+      lightbox.close();
+    };
+
+    // Esc キーなど全ての閉じ方で非表示状態にリセットする
+    lightbox.addEventListener('close', () => {
+      lightboxImg.classList.remove('is-loaded');
+    });
+
+    // 閉じるボタン
+    lightboxClose?.addEventListener('click', closeLightbox);
+
+    // 背景クリックで閉じる
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
 </script>
