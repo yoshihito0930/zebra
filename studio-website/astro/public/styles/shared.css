@@ -355,23 +355,10 @@ header h1 {
 }
 
 
-.price {
-	background: url(../img/common/key_price.webp) no-repeat center center;
-	background-size: cover;
-}
-
+/* .price / .access / .rental は PageHeader v2 (白背景) へ移行済みのため
+   旧キービジュアル背景は削除。.studio は v1 のため残す。 */
 .studio {
 	background: url(../img/common/key_studio.webp) no-repeat center center;
-	background-size: cover;
-}
-
-.access {
-	background: url(../img/common/key_access.webp) no-repeat center center;
-	background-size: cover;
-}
-
-.rental {
-	background: url(../img/common/key_rental.webp) no-repeat center center;
 	background-size: cover;
 }
 

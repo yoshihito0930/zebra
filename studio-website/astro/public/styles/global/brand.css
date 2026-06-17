@@ -31,7 +31,7 @@
    2. ページルート (price)
    ======================================== */
 .brand-v2.page-price {
-  background: var(--paper-1);
+  /* background は指定なし（= 白／親の背景）*/
   color: var(--ink-1);
   font-family: var(--font-body);
   padding: var(--s-7) 0 var(--s-8);
@@ -137,7 +137,7 @@
 .brand-v2.page-header-v2 {
   position: relative;
   height: auto;   /* shared.css の .page-all 固定高さ(455/305px)を解除 */
-  background: var(--paper-1);
+  /* background は指定なし（= 白／親の背景）*/
   /* 上: fixed な .nav-header(約96px) を避けて見出しを下げる / 下: バンド・バナーに任せる */
   padding: calc(96px + var(--s-6)) 0 0;
 }
@@ -769,7 +769,7 @@
    12. レンタル機材ページ (page-rental)
    ======================================== */
 .brand-v2.page-rental {
-  background: var(--paper-1);
+  /* background は指定なし（= 白／親の背景）*/
   color: var(--ink-1);
   font-family: var(--font-body);
   padding: var(--s-7) 0 var(--s-8);
