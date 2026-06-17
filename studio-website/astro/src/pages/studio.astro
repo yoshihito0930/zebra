@@ -13,6 +13,8 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     title="スタジオ案内"
     subtitle="天高3m超・引き9mの白ホリスタジオ。<br>あなたのスタジオワークをもっと自由に、快適に。"
     pageClass="studio"
+    variant="v2"
+    eyebrow="STUDIO"
   />
 
   <section>
@@ -136,17 +138,16 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style is:global>
-  /* ページヘッダー */
-  .page-all.studio {
-    background: url(/img/studio/key_studio.webp) no-repeat center center;
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
   /* スタジオ紹介セクション */
   #lead-studio {
     padding: 60px 0;
+  }
+
+  /* ヘッダーの zebra-band (.container-narrow: max 760px / 左右 24px) と
+     横幅を揃える */
+  #lead-studio .wrap {
+    max-width: 760px;
+    padding: 0 24px;
   }
 
   .ttl-common {
@@ -406,6 +407,13 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
     padding: 60px 0;
   }
 
+  /* ヘッダーの zebra-band (.container-narrow: max 760px / 左右 24px) と
+     横幅を揃える */
+  #gallery-box .wrap {
+    max-width: 760px;
+    padding: 0 24px;
+  }
+
   #gallery-box h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -477,10 +485,6 @@ const { popups, gallery } = studioData?.data ?? { popups: [], gallery: [] };
 
   /* レスポンシブ */
   @media (max-width: 767px) {
-    .page-all.studio {
-      height: 305px;
-    }
-
     /* モバイル版: PC用のポップアップ表示エリアを完全に非表示 */
     .popup-display {
       display: none !important;
