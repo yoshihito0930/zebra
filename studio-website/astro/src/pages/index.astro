@@ -415,9 +415,17 @@ const categoryBadge: Record<string, string> = {
   }
 
   /* ---------- HERO ---------- */
+  /* nav-header(固定)の高さは画面幅で変化するため、実寸を JS で測って
+     --nav-header-h に反映する。下記はJS無効時/初期表示用のフォールバック値。
+     （1280px+:96px / 1000-1279px:76px / 768-999px:73px 相当） */
+  .brand-v2.page-home {
+    --nav-header-h: 96px;
+  }
+
   .brand-v2.page-home .home-hero {
     position: relative;
     background: #fff;
+    padding-top: var(--nav-header-h);
   }
 
   .brand-v2.page-home .hero-stage {
@@ -990,6 +998,11 @@ const categoryBadge: Record<string, string> = {
     .brand-v2.page-home .hero-slide picture.pc { display: none; }
     .brand-v2.page-home .hero-slide picture.sp { display: block; }
 
+    /* SPでは nav-header 非表示(ハンバーガーのみ浮く)のためオフセット不要 */
+    .brand-v2.page-home .home-hero {
+      padding-top: 0;
+    }
+
     .brand-v2.page-home .hero-stage {
       height: min(56vh, 420px);
     }
@@ -1077,5 +1090,30 @@ const categoryBadge: Record<string, string> = {
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  // 固定 nav-header の実寸を測り、ヒーローのオフセットに反映（レスポンシブ対応）。
+  // nav-header の高さはブレークポイントで変化するため、CSS の固定値ではなく実測する。
+  const hero = document.querySelector<HTMLElement>('.brand-v2.page-home .home-hero');
+  const navHeader = document.querySelector<HTMLElement>('.nav-header');
+
+  if (hero && navHeader) {
+    const isNavVisible = () =>
+      window.matchMedia('(min-width: 768px)').matches &&
+      getComputedStyle(navHeader).visibility !== 'hidden';
+
+    const syncNavOffset = () => {
+      // SP は nav-header 非表示（ハンバーガーのみ）→ オフセット 0
+      const offset = isNavVisible() ? navHeader.offsetHeight : 0;
+      hero.style.setProperty('--nav-header-h', `${offset}px`);
+    };
+
+    syncNavOffset();
+    window.addEventListener('resize', syncNavOffset, { passive: true });
+
+    // nav-header の表示/サイズが後から変わる場合に追従
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(syncNavOffset).observe(navHeader);
+    }
   }
 </script>
