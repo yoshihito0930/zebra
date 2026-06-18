@@ -31,6 +31,11 @@ const tiers = [
   { range: '11名以上', base: '¥5,500', incl: '¥6,050', primary: false },
 ] as const;
 
+const nightRates = [
+  { range: '10名以下', base: '¥7,500', incl: '¥8,250' },
+  { range: '11名以上', base: '¥8,250', incl: '¥9,075' },
+] as const;
+
 const minTime = [
   { label: '通常帯のみのご利用', value: '2時間〜' },
   { label: '深夜帯を含む場合',   value: '4時間〜' },
@@ -174,29 +179,50 @@ const categoryBadge: Record<string, string> = {
         </div>
 
         {/* 通常帯 */}
-        <header class="section-row">
-          <h2 class="t-h3"><span class="pill pill-black">通常帯</span>基本料金（8:00〜23:00）</h2>
-          <span class="label-en">DAYTIME</span>
-        </header>
-        <div class="price-tier-grid">
-          {tiers.map((t) => (
-            <article
-              class={`price-tier-card ${t.primary ? 'card-pop is-primary' : 'card'}`}
-              aria-label={`${t.range} ${t.base} 税込${t.incl} 1時間あたり`}
-            >
-              {t.primary && <div class="zebra-stripe-overlay is-card" aria-hidden="true"></div>}
-              <span class={t.primary ? 'pill-red' : 'pill-paper'}>{t.range}</span>
-              <div class="price-line">
-                <span class="price-num">{t.base}</span>
-                <span class="price-unit">/ 1h</span>
+        <section class="price-block">
+          <header class="section-row">
+            <h2 class="t-h3"><span class="pill pill-black">通常帯</span>基本料金（8:00〜23:00）</h2>
+            <span class="label-en">DAYTIME</span>
+          </header>
+          <div class="price-tier-grid">
+            {tiers.map((t) => (
+              <article
+                class={`price-tier-card ${t.primary ? 'card-pop is-primary' : 'card'}`}
+                aria-label={`${t.range} ${t.base} 税込${t.incl} 1時間あたり`}
+              >
+                {t.primary && <div class="zebra-stripe-overlay is-card" aria-hidden="true"></div>}
+                <span class={t.primary ? 'pill-red' : 'pill-paper'}>{t.range}</span>
+                <div class="price-line">
+                  <span class="price-num">{t.base}</span>
+                  <span class="price-unit">/ 1h</span>
+                </div>
+                <div class="price-tax">（税込 <b>{t.incl}</b>）</div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* 深夜帯 */}
+        <section class="price-block">
+          <header class="section-row">
+            <h2 class="t-h3"><span class="pill pill-navy">深夜帯</span>23:00〜翌8:00<span class="muted">通常料金の 50%UP</span></h2>
+            <span class="label-en">NIGHT</span>
+          </header>
+          <article class="card price-night-card">
+            {nightRates.map((r) => (
+              <div class="price-night-row">
+                <span class="row-range">{r.range}</span>
+                <span class="row-rate">
+                  <span class="price-num-sm">{r.base}</span>
+                  <span class="muted">/ 1h（税込 {r.incl}）</span>
+                </span>
               </div>
-              <div class="price-tax">（税込 <b>{t.incl}</b>）</div>
-            </article>
-          ))}
-        </div>
+            ))}
+          </article>
+        </section>
 
         {/* 最低利用時間 + 追加料金 */}
-        <div class="price-twocol-grid">
+        <div class="price-block price-twocol-grid">
           <section class="card" aria-labelledby="home-min-hours-h">
             <header class="section-row">
               <h3 id="home-min-hours-h" class="t-h4">最低利用時間</h3>
@@ -549,7 +575,6 @@ const categoryBadge: Record<string, string> = {
     align-items: center;
     gap: var(--s-4);
     padding: var(--s-4) var(--s-5);
-    margin-bottom: var(--s-6);
     background: var(--brand-black);
     color: #fff;
     border-radius: var(--r-md);
@@ -653,12 +678,58 @@ const categoryBadge: Record<string, string> = {
     color: var(--ink-2);
   }
 
+  /* 料金セクション内の各ブロック間を統一の余白で揃える */
+  .brand-v2.page-home .price-block {
+    margin-top: var(--s-7);
+  }
+
+  /* 深夜帯カード */
+  .brand-v2.page-home .price-night-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .brand-v2.page-home .price-night-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-4) var(--s-5);
+    gap: var(--s-3);
+  }
+
+  .brand-v2.page-home .price-night-row + .price-night-row {
+    border-top: 1px solid var(--line-2);
+  }
+
+  .brand-v2.page-home .price-night-row .row-range {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .brand-v2.page-home .price-night-row .row-rate {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--s-2);
+  }
+
+  .brand-v2.page-home .price-night-row .price-num-sm {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink-1);
+  }
+
+  .brand-v2.page-home .section-row .muted {
+    margin-left: var(--s-2);
+    font-size: var(--t-tiny);
+  }
+
   .brand-v2.page-home .price-twocol-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--s-4);
     align-items: stretch;
-    margin-top: var(--s-5);
   }
 
   .brand-v2.page-home .price-twocol-grid > .card {
