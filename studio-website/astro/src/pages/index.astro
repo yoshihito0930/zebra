@@ -1,33 +1,91 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PriceSection from '../components/sections/index/PriceSection.astro';
-import AboutSection from '../components/sections/index/AboutSection.astro';
-import NewsSection from '../components/sections/index/NewsSection.astro';
-import MapSection from '../components/sections/index/MapSection.astro';
-import { getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
 
-// スライドデータを取得
-const slidesData = await getEntry('slides', 'home');
-
-// スライド画像をインポート
+// ヒーロースライド画像（PC/SP出し分け）。新デザインの順序: 01 → 04 → 02 → 03
 import slide01PC from '/public/img/index/slide01_pc_resize.webp';
 import slide01SP from '/public/img/index/slide01_sp_resize.webp';
+import slide04PC from '/public/img/index/slide04_pc.webp';
+import slide04SP from '/public/img/index/slide04_sp.webp';
 import slide02PC from '/public/img/index/slide02_pc_resize.webp';
 import slide02SP from '/public/img/index/slide02_sp_resize.webp';
 import slide03PC from '/public/img/index/slide03_pc_resize.webp';
 import slide03SP from '/public/img/index/slide03_sp_resize.webp';
 
-// スライド画像マッピング
-const slideImages = [
-  { pc: slide01PC, sp: slide01SP, width: 2071, height: 1165 },
-  { pc: slide02PC, sp: slide02SP, width: 1954, height: 1099 },
-  { pc: slide03PC, sp: slide03SP, width: 2407, height: 1354 },
+const heroSlides = [
+  { pc: slide01PC, sp: slide01SP, width: 2071, height: 1165, alt: 'スタジオゼブラ 撮影風景' },
+  { pc: slide04PC, sp: slide04SP, width: 1920, height: 1080, alt: 'スタジオゼブラ 白ホリゾント' },
+  { pc: slide02PC, sp: slide02SP, width: 1954, height: 1099, alt: 'スタジオゼブラ 撮影風景' },
+  { pc: slide03PC, sp: slide03SP, width: 2407, height: 1354, alt: 'スタジオゼブラ 撮影風景' },
 ];
 
-// バナー画像をインポート
-import bannerTtl from '/public/img/index/banner_ttl.webp';
-import bannerBtn from '/public/img/index/banner_btn.webp';
+// ABOUT 画像
+import imgAbout1 from '/public/img/index/img_about1.webp';
+import imgAbout2 from '/public/img/index/img_about2.webp';
+import imgAbout3 from '/public/img/index/img_about3.webp';
+
+// 料金（通常帯のみ。price.astro と同一の数値）
+const tiers = [
+  { range: '10名以下', base: '¥5,000', incl: '¥5,500', primary: true },
+  { range: '11名以上', base: '¥5,500', incl: '¥6,050', primary: false },
+] as const;
+
+const minTime = [
+  { label: '通常帯のみのご利用', value: '2時間〜' },
+  { label: '深夜帯を含む場合',   value: '4時間〜' },
+] as const;
+
+const addons = [
+  { tag: '+¥2,200', label: '6名以上でのワークショップ利用',         sub: '合計料金に加算（税込）' },
+  { tag: '+¥2,200', label: 'ラメ・グリッター等を多用する衣装・小道具', sub: '合計料金に加算（税込）' },
+] as const;
+
+// ABOUT OUR STUDIO 3 理由（HomePage.jsx の文言を踏襲）
+const reasons = [
+  {
+    n: '01', k: 'エキチカ！', accent: 'var(--brand-red)', kColor: 'var(--brand-red)',
+    title: '駅チカで、楽に通える',
+    desc: 'JR代々木駅 東口から徒歩3分。新宿駅・新宿三丁目駅からも歩いて来られるので、機材が多い日も移動が楽です。',
+    chip: '代々木駅 徒歩3分', img: imgAbout1, to: '/access/', cta: 'アクセスを見る',
+  },
+  {
+    n: '02', k: 'ゆったり！', accent: 'var(--brand-mint)', kColor: 'var(--brand-mint-deep)',
+    title: '広くて、天井が高い',
+    desc: '天井高3m超・引き9mの白ホリゾント。被写体から距離をとれるので、全身撮影やライティングにゆとりがあります。',
+    chip: '天井高3m / 引き9m', img: imgAbout2, to: '/studio/', cta: 'スタジオ案内を見る',
+  },
+  {
+    n: '03', k: '思いのまま！', accent: 'var(--brand-red)', kColor: 'var(--brand-red)',
+    title: '機材は無料で使い放題',
+    desc: 'ストロボや各種スタンド、レフなどのレンタル機材を追加料金なしでご利用いただけます。ライティングも自由自在です。',
+    chip: 'レンタル機材 ¥0', img: imgAbout3, to: '/rental/', cta: 'レンタル機材を見る',
+  },
+] as const;
+
+// アクセス 徒歩分数カード
+const walkCards = [
+  { line: 'JR 代々木駅', exit: '東口より', num: '3', accent: 'var(--brand-red)' },
+  { line: 'JR 新宿駅', exit: '新南口より', num: '7', accent: 'var(--brand-mint)' },
+  { line: '東京メトロ丸ノ内線', exit: '新宿三丁目駅 E8出口より', num: '5', accent: 'var(--brand-red)' },
+] as const;
+
+// NEWS（最新4件）
+const newsEntries = await getCollection('news');
+const sortedNews = newsEntries
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4);
+
+const formatNewsDate = (d: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+
+// カテゴリ → バッジ配色
+const categoryBadge: Record<string, string> = {
+  'メンテナンス': 'badge-danger',
+  '営業情報': 'badge-warn',
+  '機材': 'badge-success',
+  'お知らせ': 'badge-info',
+};
 ---
 
 <BaseLayout
@@ -35,450 +93,989 @@ import bannerBtn from '/public/img/index/banner_btn.webp';
   showReservationBanner={false}
   pageClass="page-home"
 >
-  <div id="head-top">
-    {slidesData && (
-      <div id="key-box">
-        <div class="swiper key-slide">
-          <div class="swiper-wrapper">
-            {slidesData.data.slides.map((slide, index) => (
-              <div class="swiper-slide">
-                <picture class="pc">
-                  <Picture
-                    src={slideImages[index].pc}
-                    widths={[1024, 1440, 1920, 2400]}
-                    sizes="100vw"
-                    width={slideImages[index].width}
-                    height={slideImages[index].height}
-                    formats={['avif', 'webp']}
-                    alt={slide.alt}
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    fetchpriority={index === 0 ? 'high' : undefined}
-                    decoding="async"
-                  />
-                </picture>
-                <picture class="sp">
-                  <Picture
-                    src={slideImages[index].sp}
-                    widths={[375, 640, 750, 828]}
-                    sizes="100vw"
-                    width={slideImages[index].width}
-                    height={slideImages[index].height}
-                    formats={['avif', 'webp']}
-                    alt={slide.alt}
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    fetchpriority={index === 0 ? 'high' : undefined}
-                    decoding="async"
-                  />
-                </picture>
+  <div class="brand-v2 page-home">
+
+    {/* ---------- HERO ---------- */}
+    <section class="home-hero" id="head-top">
+      <div class="hero-stage">
+        <div class="hero-slides">
+          {heroSlides.map((slide, index) => (
+            <div class={`hero-slide${index === 0 ? ' is-active' : ''}`} data-slide>
+              <picture class="pc">
+                <Picture
+                  src={slide.pc}
+                  widths={[1024, 1440, 1920, 2400]}
+                  sizes="100vw"
+                  width={slide.width}
+                  height={slide.height}
+                  formats={['avif', 'webp']}
+                  alt={slide.alt}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={index === 0 ? 'high' : undefined}
+                  decoding="async"
+                />
+              </picture>
+              <picture class="sp">
+                <Picture
+                  src={slide.sp}
+                  widths={[375, 640, 750, 828]}
+                  sizes="100vw"
+                  width={slide.width}
+                  height={slide.height}
+                  formats={['avif', 'webp']}
+                  alt={slide.alt}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={index === 0 ? 'high' : undefined}
+                  decoding="async"
+                />
+              </picture>
+            </div>
+          ))}
+        </div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <div class="container">
+            <span class="section-eyebrow hero-eyebrow">STUDIO ZEBRA</span>
+            <h1 class="hero-title">新宿エリア × 高コスパ<br />白ホリスタジオ</h1>
+            <p class="hero-lead">
+              新宿・代々木エリアの白ホリゾント撮影スタジオ。<br />
+              天高3m超・引き9m、機材は無料でお使いいただけます。
+            </p>
+          </div>
+        </div>
+        <div class="hero-dots" role="tablist" aria-label="ヒーロースライド">
+          {heroSlides.map((_, index) => (
+            <button
+              type="button"
+              class={`hero-dot${index === 0 ? ' is-active' : ''}`}
+              data-dot
+              aria-label={`スライド ${index + 1}`}
+            ></button>
+          ))}
+        </div>
+      </div>
+      <div class="zebra-band"></div>
+    </section>
+
+    {/* ---------- PRICE ---------- */}
+    <section class="home-section home-price">
+      <div class="container-narrow">
+        <div class="section-head">
+          <span class="section-eyebrow">PRICE</span>
+          <h2 class="section-title">料金のご案内</h2>
+          <div class="zebra-band section-rule"></div>
+        </div>
+
+        {/* 機材使い放題バナー */}
+        <div class="price-hero-banner">
+          <div class="zebra-stripe-overlay is-banner" aria-hidden="true"></div>
+          <span class="badge-circle-red">機材<br />使い放題</span>
+          <p class="banner-copy">どの料金プランでも、<span class="accent-mint">機材は使い放題。</span></p>
+        </div>
+
+        {/* 通常帯 */}
+        <header class="section-row">
+          <h2 class="t-h3"><span class="pill pill-black">通常帯</span>基本料金（8:00〜23:00）</h2>
+          <span class="label-en">DAYTIME</span>
+        </header>
+        <div class="price-tier-grid">
+          {tiers.map((t) => (
+            <article
+              class={`price-tier-card ${t.primary ? 'card-pop is-primary' : 'card'}`}
+              aria-label={`${t.range} ${t.base} 税込${t.incl} 1時間あたり`}
+            >
+              {t.primary && <div class="zebra-stripe-overlay is-card" aria-hidden="true"></div>}
+              <span class={t.primary ? 'pill-red' : 'pill-paper'}>{t.range}</span>
+              <div class="price-line">
+                <span class="price-num">{t.base}</span>
+                <span class="price-unit">/ 1h</span>
               </div>
-            ))}
+              <div class="price-tax">（税込 <b>{t.incl}</b>）</div>
+            </article>
+          ))}
+        </div>
+
+        {/* 最低利用時間 + 追加料金 */}
+        <div class="price-twocol-grid">
+          <section class="card" aria-labelledby="home-min-hours-h">
+            <header class="section-row">
+              <h3 id="home-min-hours-h" class="t-h4">最低利用時間</h3>
+              <span class="label-en">MIN. HOURS</span>
+            </header>
+            <ul class="price-rows">
+              {minTime.map((m) => (
+                <li class="price-row">
+                  <span class="row-label">{m.label}</span>
+                  <span class="row-value">{m.value}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section class="card" aria-labelledby="home-addons-h">
+            <header class="section-row">
+              <h3 id="home-addons-h" class="t-h4">追加料金が発生する場合</h3>
+              <span class="label-en">ADD-ONS</span>
+            </header>
+            <ul class="price-rows">
+              {addons.map((a) => (
+                <li class="price-row addon-row">
+                  <span class="addon-tag">{a.tag}</span>
+                  <div>
+                    <div>{a.label}</div>
+                    <div class="addon-sub muted">{a.sub}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        <p class="section-cta">
+          <a class="btn btn-primary" href="/price/">料金案内はこちら →</a>
+        </p>
+      </div>
+    </section>
+
+    {/* ---------- ABOUT OUR STUDIO ---------- */}
+    <section class="home-section home-about">
+      <div class="container-narrow">
+        <div class="section-head">
+          <span class="section-eyebrow">ABOUT OUR STUDIO</span>
+          <h2 class="section-title">スタジオゼブラについて</h2>
+          <div class="zebra-band section-rule"></div>
+        </div>
+        <div class="about-grid">
+          {reasons.map((r) => (
+            <article class="about-card">
+              <div class="about-media">
+                <Picture
+                  src={r.img}
+                  widths={[320, 480, 640]}
+                  sizes="(max-width: 767px) 100vw, 240px"
+                  formats={['avif', 'webp']}
+                  alt={r.k}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="about-num">{r.n}</span>
+              </div>
+              <div class="about-body" style={`--accent:${r.accent}`}>
+                <span class="about-k" style={`color:${r.kColor}`}>{r.k}</span>
+                <h3 class="about-h">{r.title}</h3>
+                <p class="about-desc">{r.desc}</p>
+                <span class="about-chip">{r.chip}</span>
+                <a class="btn btn-secondary about-btn" href={r.to}>{r.cta} →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ---------- RESERVATION ---------- */}
+    <section class="home-section home-reserve">
+      <div class="container-narrow">
+        <div class="section-head">
+          <span class="section-eyebrow">RESERVATION</span>
+          <h2 class="section-title is-sm">ご予約・お問い合わせ</h2>
+          <div class="zebra-band section-rule"></div>
+        </div>
+        <div class="card-pop reserve-card">
+          <p class="reserve-lead">
+            空き状況はカレンダーからご確認いただけます。<br />
+            はじめての方も、お気軽にお問い合わせください。
+          </p>
+          <a class="btn btn-primary" href="/reservation/">予約状況のご確認・ご予約はこちら →</a>
+        </div>
+      </div>
+    </section>
+
+    {/* ---------- NEWS ---------- */}
+    <section class="home-section home-news">
+      <div class="container-narrow">
+        <div class="section-head">
+          <span class="section-eyebrow">NEWS</span>
+          <h2 class="section-title is-sm">お知らせ</h2>
+          <div class="zebra-band section-rule"></div>
+        </div>
+        <ul class="news-list">
+          {sortedNews.map((news) => (
+            <li class="news-item">
+              <a href={`/news/${news.slug}`}>
+                <span class="news-date">{formatNewsDate(news.data.pubDate)}</span>
+                <span class={`badge ${categoryBadge[news.data.category] ?? 'badge-info'} news-cat`}>{news.data.category}</span>
+                <span class="news-title">{news.data.title}</span>
+                <span class="news-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="section-cta is-link">
+          <a class="news-all" href="/news/">お知らせをすべて見る →</a>
+        </p>
+      </div>
+    </section>
+
+    {/* ---------- ACCESS ---------- */}
+    <section class="home-section home-access">
+      <div class="container-narrow">
+        <div class="section-head">
+          <span class="section-eyebrow">ACCESS</span>
+          <h2 class="section-title is-sm">アクセス</h2>
+          <div class="zebra-band section-rule"></div>
+        </div>
+
+        <div class="access-walk-grid">
+          {walkCards.map((s) => (
+            <div class="walk-card" style={`--accent:${s.accent}`}>
+              <div class="walk-line">{s.line}</div>
+              <div class="walk-exit">{s.exit}</div>
+              <div class="walk-num-row">
+                <span class="walk-label">徒歩</span>
+                <span class="walk-num">{s.num}</span>
+                <span class="walk-unit">分</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="access-map-grid">
+          <div class="access-map">
+            <iframe
+              title="スタジオゼブラ 地図"
+              src="https://www.google.com/maps?q=東京都渋谷区千駄ヶ谷5-28-10&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div class="card access-info">
+            <div class="label-en">STUDIO ZEBRA</div>
+            <p class="access-addr">
+              〒151-0051<br />
+              渋谷区千駄ヶ谷5-28-10<br />
+              ドルミ第2御苑 B101
+            </p>
+            <p class="access-tel">TEL: 090-6707-0936</p>
+            <a class="btn btn-secondary" href="/access/">もっと詳しく →</a>
           </div>
         </div>
       </div>
-    )}
-    <div class="head-info">
-      <h1 class="logo pc"><a href="/"><img src="/img/shared/logo.webp" alt="新宿エリアのリーズナブルなレンタル撮影スタジオ"></a></h1>
-      <div class="box-key">
-        <div class="box">
-          <p class="text">
-            新宿エリア×⾼コスパ<br>
-            ⽩ホリスタジオ誕⽣
-          </p>
-          <p class="btn"><a href="/reservation#cal-box-add"><img src="/img/index/btn_box.webp" alt="予約ボタン"></a></p>
-        </div>
-        <p class="ttl_key"><img src="/img/index/ttl_key.webp" alt="タイトル画像"></p>
-      </div>
-      <ul class="nav-h">
-        <li><a href="/studio/"><img src="/img/shared/gnav01.webp" alt="スタジオ案内"></a></li>
-        <li><a href="/price/"><img src="/img/shared/gnav02.webp" alt="料金案内"></a></li>
-        <li><a href="/rental/"><img src="/img/shared/gnav03.webp" alt="レンタル機材"></a></li>
-        <li><a href="/access/"><img src="/img/shared/gnav04.webp" alt="アクセス"></a></li>
-        <li><a href="/faq/"><img src="/img/shared/gnav_a1.webp" alt="よくある質問"></a></li>
-        <li><a href="/horizon/"><img src="/img/shared/gnav_a2.webp" alt="ホリゾントルール"></a></li>
-        <li><a href="/reservation/"><img src="/img/shared/gnav05.webp" alt="ご予約・お問い合わせ"></a></li>
-        <li><a href="/news/"><img src="/img/shared/gnavi_news.webp" alt="news"></a></li>
-        <li><a href="https://twitter.com/studiozebra1st" target="_blank"><img src="/img/shared/gnavi_tw.webp" alt="twitter"></a></li>
-      </ul>
-    </div>
+    </section>
+
   </div>
-  <section>
-    <!-- 料金案内セクション -->
-    <PriceSection />
-
-    <!-- スタジオ紹介セクション -->
-    <AboutSection />
-
-    <!-- 予約バナー -->
-    <div id="banner-pdf">
-      <div class="wrap">
-        <h2><Picture src={bannerTtl} alt="RESERVATION" loading="lazy" width={400} height={100} formats={['avif', 'webp']} widths={[300, 400, 600]} /></h2>
-        <p class="btn"><a class="btn-hover" href="/reservation/"><Picture src={bannerBtn} alt="予約状況のご確認・お問い合わせ・ご予約はこちら" loading="lazy" width={600} height={150} formats={['avif', 'webp']} widths={[400, 600, 800]} /></a></p>
-      </div>
-    </div>
-
-    <!-- ニュースセクション -->
-    <NewsSection />
-
-    <!-- アクセスセクション -->
-    <MapSection />
-  </section>
 </BaseLayout>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
 <style is:global>
+  /* =========================================================
+     HOME (Design System v2) — すべて .brand-v2.page-home スコープ
+     ========================================================= */
 
-  /* key-boxスライダー */
-  #key-box {
+  .brand-v2.page-home {
+    background: #fff;
+  }
+
+  .brand-v2.page-home .home-section {
+    padding: var(--s-7) 0;
+    background: #fff;
+  }
+
+  /* ---------- セクション共通ヘッダー ---------- */
+  .brand-v2.page-home .section-head {
+    text-align: left;
+    margin-bottom: var(--s-6);
+  }
+
+  .brand-v2.page-home .section-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 1.3;
+    margin: var(--s-4) 0 var(--s-2);
+    color: var(--ink-1);
+  }
+
+  .brand-v2.page-home .section-title.is-sm {
+    font-size: 26px;
+  }
+
+  .brand-v2.page-home .section-rule {
+    height: 10px;
+    border-radius: 5px;
+    margin-top: var(--s-4);
+  }
+
+  .brand-v2.page-home .section-cta {
+    text-align: center;
+    margin: var(--s-6) 0 0;
+  }
+
+  .brand-v2.page-home .section-cta.is-link {
+    margin-top: var(--s-5);
+  }
+
+  /* ---------- HERO ---------- */
+  .brand-v2.page-home .home-hero {
     position: relative;
-    width: 100%;
-    z-index: 1;
-    /* レイアウトシフト対策: アスペクト比を維持 */
-    aspect-ratio: 16 / 9;
+    background: #fff;
+  }
+
+  .brand-v2.page-home .hero-stage {
+    position: relative;
+    height: min(64vh, 560px);
     overflow: hidden;
   }
 
-  .key-slide {
-    width: 100%;
-    height: 100%;
-  }
-
-  .key-slide .swiper-slide {
-    /* レイアウトシフト対策: スライドの高さを確保 */
-    aspect-ratio: 16 / 9;
-  }
-
-  .key-slide .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    /* レイアウトシフト対策: 画像のアスペクト比を明示 */
-    aspect-ratio: 16 / 9;
-  }
-
-  .key-slide .swiper-slide picture {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .key-slide .swiper-slide picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* PC用画像を表示、SP用画像を非表示 */
-  .key-slide .swiper-slide picture.pc {
-    display: block;
-  }
-
-  .key-slide .swiper-slide picture.sp {
-    display: none;
-  }
-
-  /* レスポンシブ対応 - WordPressと同じ幅調整 */
-  @media only screen and (max-width: 1199px) {
-    /* 画像サイズはaspect-ratioとobject-fitで管理 */
-    #key-box {
-      aspect-ratio: 16 / 9;
-    }
-
-    .head-info .logo a {
-      width: 400px;
-    }
-
-    .box-key .box {
-      max-width: 335px;
-      bottom: 26%;
-    }
-
-    .box-key .box .text {
-      font-size: 28px;
-      line-height: 46px;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-
-    .head-info ul {
-      width: 635px;
-      height: 40px;
-      background: url(/img/shared/bg_av_left.webp) no-repeat center left, url(/img/shared/bg_av.webp) no-repeat center right 117px;
-      background-size: auto 100%;
-      bottom: 20px;
-    }
-
-  }
-
-  @media only screen and (max-width: 1025px) {
-    /* 画像サイズはaspect-ratioとobject-fitで管理 */
-    #key-box {
-      aspect-ratio: 16 / 9;
-    }
-
-    .box-key .box {
-      max-width: 280px;
-      bottom: 30%;
-    }
-
-    .head-info .logo a {
-      width: 400px;
-    }
-
-    .box-key .ttl_key {
-      max-width: 230px;
-    }
-
-    .box-key .box .text {
-      font-size: 22px;
-      line-height: 36px;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-
-    .head-info ul {
-      width: 570px;
-      height: 38px;
-      background: url(/img/shared/bg_av_left.webp) no-repeat center left, url(/img/shared/bg_av.webp) no-repeat center right 100px;
-      background-size: auto 100%;
-      bottom: 15px;
-    }
-  }
-
-  /* head-topの調整 */
-  #head-top {
-    position: relative;
-  }
-
-  /* head-infoをスライダーの上に重ねる */
-  .head-info {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 50px 40px 0 40px;
+  .brand-v2.page-home .hero-slides {
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
+    inset: 0;
+  }
+
+  .brand-v2.page-home .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+  }
+
+  .brand-v2.page-home .hero-slide.is-active {
+    opacity: 1;
+  }
+
+  .brand-v2.page-home .hero-slide picture,
+  .brand-v2.page-home .hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .brand-v2.page-home .hero-slide picture.pc { display: block; }
+  .brand-v2.page-home .hero-slide picture.sp { display: none; }
+
+  .brand-v2.page-home .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.6) 42%, rgba(255,255,255,0) 70%);
     pointer-events: none;
+  }
+
+  .brand-v2.page-home .hero-copy {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
-    z-index: 10;
-  }
-
-  .head-info > * {
-    pointer-events: auto;
-  }
-
-  .head-info .logo {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .head-info .logo a {
-    width: 400px;
-    display: block;
-  }
-
-  .head-info .logo img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* box-keyのレイアウト */
-  .box-key {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding-top: 50px;
-    flex: 1;
-    box-sizing: border-box;
-  }
-
-  .box-key .box {
-    max-width: 300px;
-    background: #82C2A9;
-    box-sizing: border-box;
-    border: 4px solid #333;
-    padding: 12px 20px 20px 20px;
-    position: absolute;
-    bottom: 22%;
-    left: 0;
-  }
-
-  .box-key .box .text {
-    font-size: 24px;
-    line-height: 38px;
-    font-weight: bold;
-    margin: 0 0 15px 0;
-    text-align: center;
-  }
-
-  .box-key .box .btn {
-    margin: 0;
-    text-align: center;
-  }
-
-  .box-key .box .btn a {
-    display: inline-block;
-  }
-
-  .box-key .box .btn img {
-    max-width: 200px;
-    display: block;
-    margin: 0 auto;
-  }
-
-  .box-key .ttl_key {
-    max-width: 250px;
-  }
-
-  .box-key img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* nav-hのスタイル */
-  .head-info ul {
-    width: 750px;
-    height: 46px;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    background: url(/img/shared/bg_av_left.webp) no-repeat center left, url(/img/shared/bg_av.webp) no-repeat center right 140px;
-    background-size: auto 100%;
+  }
+
+  .brand-v2.page-home .hero-copy .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    /* 中央寄せ(margin:0 auto)を解除し、白グラデの左端に寄せる */
+    margin-left: 0;
+  }
+
+  .brand-v2.page-home .hero-copy .section-eyebrow,
+  .brand-v2.page-home .hero-copy .hero-title,
+  .brand-v2.page-home .hero-copy .hero-lead {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .brand-v2.page-home .hero-eyebrow {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #93D2C2 0%, #A8DCE0 50%, #BCE2F4 100%);
+    color: var(--ink-1);
+  }
+
+  .brand-v2.page-home .hero-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 5vw, 60px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: var(--s-4) 0 var(--s-2);
+    color: var(--ink-1);
+    text-align: left;
+  }
+
+  .brand-v2.page-home .hero-lead {
+    font-size: 16px;
+    color: var(--ink-2);
+    line-height: 1.8;
+    margin: var(--s-2) 0 0;
+    max-width: 460px;
+    text-align: left;
+  }
+
+  .brand-v2.page-home .hero-dots {
     position: absolute;
-    bottom: 35px;
-    right: 40px;
+    bottom: 18px;
+    right: 24px;
+    display: flex;
+    gap: var(--s-2);
+    z-index: 2;
   }
 
-  .head-info ul li {
+  .brand-v2.page-home .hero-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: var(--r-pill);
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(26,26,26,0.28);
+    transition: width var(--d-trans) var(--ease-out), background var(--d-trans) var(--ease-out);
+  }
+
+  .brand-v2.page-home .hero-dot.is-active {
+    width: 22px;
+    background: var(--brand-red);
+  }
+
+  /* ---------- PRICE（price.astro 由来クラスを page-home に複製） ---------- */
+  .brand-v2.page-home .price-hero-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-4) var(--s-5);
+    margin-bottom: var(--s-6);
+    background: var(--brand-black);
+    color: #fff;
+    border-radius: var(--r-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-v2.page-home .badge-circle-red {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--r-pill);
+    background: var(--brand-red);
+    color: #fff;
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 1.2;
+    border: 2px solid #fff;
+    white-space: nowrap;
+  }
+
+  .brand-v2.page-home .banner-copy {
+    position: relative;
+    flex: 1;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .brand-v2.page-home .banner-copy .accent-mint {
+    color: var(--brand-mint);
+  }
+
+  .brand-v2.page-home .section-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--s-3);
+    padding: 0 var(--s-1);
+    gap: var(--s-3);
+    flex-wrap: wrap;
+    position: static;
+    z-index: auto;
+  }
+
+  .brand-v2.page-home .section-row h2 { flex: 1; min-width: 0; }
+
+  .brand-v2.page-home .price-tier-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--s-3);
+    align-items: stretch;
+  }
+
+  .brand-v2.page-home .price-tier-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-v2.page-home .price-tier-card .price-line {
+    margin-top: var(--s-3);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .brand-v2.page-home .price-tier-card .price-num {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--ink-2);
+  }
+
+  .brand-v2.page-home .price-tier-card.is-primary .price-num {
+    font-size: 40px;
+    color: var(--ink-1);
+  }
+
+  .brand-v2.page-home .price-tier-card .price-unit {
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+
+  .brand-v2.page-home .price-tier-card .price-tax {
+    margin-top: var(--s-1);
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .brand-v2.page-home .price-tier-card .price-tax b {
+    font-family: var(--font-en);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+
+  .brand-v2.page-home .price-twocol-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+    align-items: stretch;
+    margin-top: var(--s-5);
+  }
+
+  .brand-v2.page-home .price-twocol-grid > .card {
+    margin-block: 0;
+    align-self: stretch;
+    height: 100%;
+  }
+
+  .brand-v2.page-home .price-rows {
     list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-3);
   }
 
-  .head-info ul li a {
-    display: block;
-    transition: all 0.4s ease;
+  .brand-v2.page-home .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    background: var(--paper-1);
+    border-radius: var(--r-md);
   }
 
-  .head-info ul li a img {
+  .brand-v2.page-home .price-row .row-label {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .brand-v2.page-home .price-row .row-value {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--brand-red);
+    white-space: nowrap;
+  }
+
+  .brand-v2.page-home .addon-row {
+    align-items: flex-start;
+  }
+
+  .brand-v2.page-home .addon-tag {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    background: var(--brand-red);
+    color: #fff;
+    border-radius: var(--r-pill);
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 11px;
+  }
+
+  .brand-v2.page-home .addon-row > div {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .brand-v2.page-home .addon-sub {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .brand-v2.page-home .about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-4);
+  }
+
+  .brand-v2.page-home .about-card {
+    background: #fff;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-v2.page-home .about-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .brand-v2.page-home .about-media img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .head-info ul li.active a,
-  .head-info ul li:hover a {
-    opacity: 0.8;
+  .brand-v2.page-home .about-num {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+    background: var(--brand-black);
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
   }
 
+  .brand-v2.page-home .about-body {
+    padding: 22px 20px 24px;
+    border-top: 3px solid var(--accent, var(--brand-red));
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .brand-v2.page-home .about-k {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  .brand-v2.page-home .about-h {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 1.45;
+    margin: 6px 0 10px;
+    color: var(--ink-1);
+  }
+
+  .brand-v2.page-home .about-desc {
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin: 0 0 var(--s-4);
+  }
+
+  .brand-v2.page-home .about-chip {
+    align-self: flex-start;
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: var(--r-pill);
+    background: var(--paper-2);
+    color: var(--ink-1);
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+
+  .brand-v2.page-home .about-btn {
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+
+  /* ---------- RESERVATION ---------- */
+  .brand-v2.page-home .reserve-card {
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #93D2C2 0%, #A8DCE0 50%, #BCE2F4 100%);
+  }
+
+  .brand-v2.page-home .reserve-lead {
+    font-size: 14.5px;
+    color: var(--ink-1);
+    font-weight: 600;
+    line-height: 1.8;
+    margin: 0 0 var(--s-5);
+  }
+
+  /* ---------- NEWS ---------- */
+  .brand-v2.page-home .news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .brand-v2.page-home .news-item a {
+    display: flex;
+    gap: var(--s-4);
+    align-items: center;
+    padding: 14px 18px;
+    background: #fff;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line-1);
+    transition: box-shadow var(--d-trans) var(--ease-out), transform var(--d-trans) var(--ease-out);
+  }
+
+  .brand-v2.page-home .news-item a:hover {
+    box-shadow: var(--shadow-2);
+    transform: translateY(-1px);
+  }
+
+  .brand-v2.page-home .news-date {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink-3);
+    min-width: 92px;
+  }
+
+  .brand-v2.page-home .news-cat {
+    min-width: 96px;
+    justify-content: center;
+  }
+
+  .brand-v2.page-home .news-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-1);
+    flex: 1;
+  }
+
+  .brand-v2.page-home .news-arrow {
+    font-size: 18px;
+    color: var(--ink-3);
+  }
+
+  .brand-v2.page-home .news-all {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-1);
+    border-bottom: 2px solid var(--brand-mint);
+    padding-bottom: 2px;
+  }
+
+  /* ---------- ACCESS ---------- */
+  .brand-v2.page-home .access-walk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: var(--s-5);
+  }
+
+  .brand-v2.page-home .walk-card {
+    background: #fff;
+    border: 1px solid var(--line-1);
+    border-radius: 18px;
+    box-shadow: var(--shadow-1);
+    padding: 22px 20px;
+    border-top: 3px solid var(--accent, var(--brand-red));
+  }
+
+  .brand-v2.page-home .walk-line {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+
+  .brand-v2.page-home .walk-exit {
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-bottom: 6px;
+    min-height: 32px;
+  }
+
+  .brand-v2.page-home .walk-num-row {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .brand-v2.page-home .walk-label {
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+
+  .brand-v2.page-home .walk-num {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--brand-black);
+  }
+
+  .brand-v2.page-home .walk-unit {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+
+  .brand-v2.page-home .access-map-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--s-4);
+    align-items: stretch;
+  }
+
+  .brand-v2.page-home .access-map {
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 2px solid var(--brand-black);
+    box-shadow: var(--shadow-pop);
+    min-height: 240px;
+  }
+
+  .brand-v2.page-home .access-map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    border: 0;
+    display: block;
+  }
+
+  .brand-v2.page-home .access-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .brand-v2.page-home .access-addr {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--ink-1);
+    margin: 10px 0 12px;
+    font-weight: 600;
+  }
+
+  .brand-v2.page-home .access-tel {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 0 0 18px;
+  }
+
+  .brand-v2.page-home .access-info .btn {
+    align-self: flex-start;
+  }
+
+  /* ---------- レスポンシブ ---------- */
   @media (max-width: 767px) {
-    /* SP版のhead-top調整 */
-    #head-top {
-      padding-top: 10px;
+    .brand-v2.page-home .hero-slide picture.pc { display: none; }
+    .brand-v2.page-home .hero-slide picture.sp { display: block; }
+
+    .brand-v2.page-home .hero-stage {
+      height: min(56vh, 420px);
     }
 
-    .head-info {
-      padding: 40px 15px 0 20px;
+    .brand-v2.page-home .hero-lead { font-size: 14px; }
+
+    .brand-v2.page-home .section-title { font-size: 28px; }
+    .brand-v2.page-home .section-title.is-sm { font-size: 22px; }
+
+    .brand-v2.page-home .price-tier-grid,
+    .brand-v2.page-home .price-twocol-grid,
+    .brand-v2.page-home .about-grid,
+    .brand-v2.page-home .access-walk-grid,
+    .brand-v2.page-home .access-map-grid {
+      grid-template-columns: 1fr;
     }
 
-    /* SP版のbox-key調整 */
-    .box-key {
-      padding-top: 20px;
+    .brand-v2.page-home .walk-exit { min-height: 0; }
+
+    .brand-v2.page-home .reserve-card { padding: 28px 20px; }
+
+    .brand-v2.page-home .news-item a {
+      flex-wrap: wrap;
+      gap: var(--s-2) var(--s-3);
+      padding: 12px 14px;
     }
 
-    .box-key .ttl_key {
-      width: 32%;
+    .brand-v2.page-home .news-title {
+      flex: 1 1 100%;
+      order: 3;
     }
 
-    .box-key .box {
-      width: 48%;
-      max-width: 100%;
-      padding: 10px 8px 15px;
-      border: 3px solid #333;
-      bottom: 5%;
-    }
-
-    .box-key .box .text {
-      font-size: 3.6vw;
-      line-height: 1.8;
-      text-align: center;
-    }
-
-    /* SP版のレイアウトシフト対策 */
-    #key-box {
-      aspect-ratio: 4 / 3; /* SP用のアスペクト比 */
-    }
-
-    .key-slide .swiper-slide {
-      aspect-ratio: 4 / 3;
-    }
-
-    .key-slide .swiper-slide img {
-      aspect-ratio: 4 / 3;
-    }
-
-    /* SP版では画像を切り替え */
-    .key-slide .swiper-slide picture.pc {
-      display: none;
-    }
-
-    .key-slide .swiper-slide picture.sp {
-      display: block;
-    }
-
-    /* SP版のナビゲーション調整 - モバイルでは非表示 */
-    .head-info ul {
-      display: none;
-    }
-
-    /* 料金セクション - 画像を中央揃え */
-    .lead-banner li img {
-      width: 100%;
-      margin-left: 0;
-    }
+    .brand-v2.page-home .news-arrow { display: none; }
   }
 </style>
 
 <script>
-  import Swiper from 'swiper';
-  import { Autoplay } from 'swiper/modules';
+  // ヒーロースライダー（自前 opacity フェード + ドットナビ）
+  const slides = Array.from(document.querySelectorAll<HTMLElement>('.home-hero [data-slide]'));
+  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.home-hero [data-dot]'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // キースライダーの初期化
-  new Swiper('.key-slide', {
-    modules: [Autoplay],
-    // 自動再生
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    // ループ
-    loop: true,
-    // スライド速度
-    speed: 800,
-  });
+  if (slides.length > 1) {
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
 
-  // スクロール検知でHeaderを表示/非表示
+    const show = (next: number) => {
+      slides[current].classList.remove('is-active');
+      dots[current]?.classList.remove('is-active');
+      current = (next + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      dots[current]?.classList.add('is-active');
+    };
+
+    const start = () => {
+      if (reduceMotion) return;
+      stop();
+      timer = setInterval(() => show(current + 1), 4500);
+    };
+    const stop = () => {
+      if (timer) clearInterval(timer);
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        show(index);
+        start();
+      });
+    });
+
+    start();
+  }
+
+  // スクロール検知で固定ボタン用クラスを付与（既存挙動を維持）
   const headTop = document.getElementById('head-top');
   const body = document.body;
 
   if (headTop) {
-    const headTopHeight = headTop.offsetHeight;
-
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      if (scrollY > headTopHeight) {
+      if (window.scrollY > headTop.offsetHeight) {
         body.classList.add('fixed-btn');
       } else {
         body.classList.remove('fixed-btn');
       }
     };
-
-    // 初回実行
     handleScroll();
-
-    // スクロールイベント
     window.addEventListener('scroll', handleScroll, { passive: true });
   }
 </script>
