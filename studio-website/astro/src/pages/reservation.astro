@@ -1,7 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/common/PageHeader.astro';
-import LeadReservationSection from '../components/sections/shared/LeadReservationSection.astro';
+
+// 外部サービス・連絡先（現行サイトを踏襲）
+const RESERVATION_FORM = 'https://form.run/@studiozebra-1st-reservation';
+const LINE_URL = 'https://line.me/R/ti/p/%40190bnuvc';
+const TEL_RAW = '09067070936';
+const TEL_DISP = '090-6707-0936';
+const MAIL = 'studiozebra1st@gmail.com';
+
+// 01 ご予約の流れ
+const steps = [
+  {
+    n: '01',
+    t: '予約状況を確認してお申し込み',
+    body: 'ご予約カレンダーで空き状況をご確認のうえ、ご予約フォームよりお申し込みをお願いします。',
+  },
+  {
+    n: '02',
+    t: '自動返信メール → 受付担当者の返信',
+    body: '自動返信メールが届いたら、受付担当者からの返信をお待ちください。',
+    em: '受付担当者からの返信をもってご予約の受付完了となります。',
+    mail: MAIL,
+    notes: [
+      '※ 6時間以内に返信がない場合は、お手数ですがご連絡ください。',
+      '※ 20時以降のお申し込みは、翌日の正午までに返信いたします。',
+    ],
+  },
+  {
+    n: '03',
+    t: '予約確定（仮予約／本予約）',
+    body: 'お申し込み方法により、予約確定のタイミングが異なります。',
+    bullets: [
+      { label: '仮予約', em: 'ご利用日の7日前までに予約確定のご連絡をお願いします。', cls: 'mint' },
+      { label: '本予約', em: 'その時点で予約確定となり、同時にキャンセル料発生の対象となります。', cls: 'red' },
+    ],
+  },
+] as const;
+
+// 03 予約に関するご案内（用語ピル）
+const terms = [
+  {
+    label: '本予約', cls: 'red',
+    parts: [
+      { t: '予約が完全に確定している状態です。お申し込み時点で' },
+      { t: '予約確定', em: true },
+      { t: 'となり、同時に' },
+      { t: 'キャンセル料発生の対象', em: true },
+      { t: 'となります。' },
+    ],
+  },
+  {
+    label: '仮予約', cls: 'mint',
+    parts: [
+      { t: '正式確定前の一時的な予約です。仮予約は1日のご利用につき最大2日間まで承ります。ご利用日の' },
+      { t: '7日前の夕方6時まで', em: true },
+      { t: 'に予約確定のご連絡が必要です。' },
+      { t: 'ご連絡がない場合はキャンセル扱い', em: true },
+      { t: 'となります。' },
+    ],
+  },
+  {
+    label: '第2キープ', cls: 'sky',
+    parts: [
+      { t: 'すでに仮予約が入っている日時への' },
+      { t: 'キャンセル待ち', em: true },
+      { t: 'です。キャンセルの有無が判明した時点でご連絡を差し上げます（他のお客様が本予約をされている日時へのキャンセル待ちはできません）。' },
+    ],
+  },
+] as const;
 ---
 
 <BaseLayout
@@ -11,555 +78,665 @@ import LeadReservationSection from '../components/sections/shared/LeadReservatio
 >
   <PageHeader
     title="ご予約・お問い合わせ"
+    subtitle="<b>ご予約</b>は予約フォームから、<b>お問い合わせ</b>はLINE・お電話で承ります。"
     pageClass="reservation"
-  >
-    <p class="ttl-key-page wow fadeInUp" slot="subtitle">
-      <span>「<b><a href="/policy/" target="_blank">利用規約</a></b>」の内容をご確認のうえ、<br class="sp">ご予約をお願いいたします。</span>
-    </p>
-  </PageHeader>
+    variant="v2"
+    eyebrow="RESERVATION"
+  />
 
-  <LeadReservationSection>
-    <h2 class="wow fadeInUp">
-          <img src="/img/reservation/title.webp" alt="How to Reserve">
-        </h2>
-        <div id="flow-box">
-          <!-- STEP 01 -->
-          <div class="box">
-            <span class="number ft-add">01</span>
-            <p>
-              <span>ご予約カレンダー</span>で予約状況をご確認のうえ、<br class="pc">
-              <span>ご予約フォーム</span>よりお申し込みをお願いします。
+  <div class="brand-v2 page-reservation">
+    <div class="container-narrow">
+
+      <!-- 必読の注意ブロック -->
+      <section class="alert-section" aria-label="ご予約前の注意">
+        <div class="must-read">
+          <span class="must-read-badge" aria-hidden="true">!</span>
+          <div>
+            <h2 class="must-read-title">ご予約の前に、必ずお読みください</h2>
+            <p class="must-read-body">
+              当スタジオをご利用いただくには、<a href="/horizon/">ホリゾントルール</a>および<a href="/policy/">利用規約</a>への同意が必要です。内容をご確認のうえ、お申し込みください。
             </p>
-            <nav>
-              <a href="#cal-box-add">
-                <img src="/img/reservation/zebra_reservation_calender.webp" alt="RESERVATION CALENDER">
-              </a>
-              <a href="https://form.run/@studiozebra-1st-reservation" target="_blank">
-                <img src="/img/reservation/zebra_reservation_form.webp" alt="RESERVATION FORM">
-              </a>
-            </nav>
-          </div>
-
-          <!-- STEP 02 -->
-          <div class="box wow fadeInUp">
-            <span class="number ft-add">02</span>
-            <p>
-              ⾃動返信メールが届きましたら、受付担当者からの返信をお待ちください。<br>
-              <span>受付担当者からの返信をもってご予約の受付完了となります。</span><br>
-              （スタジオのメールアドレス：<a href="mailto:studiozebra1st@gmail.com">studiozebra1st@gmail.com</a>）<br>
-              ※6時間以内に返信がない場合はお⼿数ですがご連絡ください。<br>
-              ※20時以降にいただいたお申し込みにつきましては、翌⽇の正午までに返信いたします。
-            </p>
-          </div>
-
-          <!-- STEP 03 -->
-          <div class="box wow fadeInUp">
-            <span class="number ft-add">03</span>
-            <ul>
-              <li>
-                仮予約にてお申し込みの場合は<br>
-                <span>ご利用日の7日前までに予約確定のご連絡をお願いします。</span>
-              </li>
-              <li id="cal-box-add">
-                本予約にてお申し込みの場合はその時点で<span>予約確定</span>となり<br>
-                同時にキャンセル料発生の対象となります。
-              </li>
-            </ul>
           </div>
         </div>
+      </section>
 
-        <!-- Googleカレンダー -->
-        <h3 class="ttl-common add-news"><span>カレンダーで予約状況を確認</span></h3>
-        <div class="box-cal wow fadeInUp">
-          <p class="text-note">
-            ご予約希望日に他の予約が入っている場合は、前後1時間以上あけてのご予約をお願いします。<br>
-            （リアルタイム更新ではありません）<br>
-            <a href="https://calendar.google.com/calendar/embed?src=studiozebra1st%40gmail.com&ctz=Asia%2FTokyo" target="_blank" style="color: #FF463C; font-size: 120%; text-decoration: underline; text-underline-offset: 3px;">
-              ＞＞ページがうまく表示されない場合は、こちらをクリック！
+      <!-- 01 ご予約の流れ -->
+      <section aria-labelledby="sec-flow">
+        <header class="section-header">
+          <span class="sec-num">01</span>
+          <h2 id="sec-flow">ご予約の流れ</h2>
+          <span class="label-en">HOW TO RESERVE</span>
+        </header>
+
+        <div class="flow-steps">
+          {steps.map((s, i) => (
+            <div class="flow-step">
+              <div class="flow-rail">
+                <div class="flow-num">
+                  <span class="flow-num-en">STEP</span>
+                  <span class="flow-num-n">{s.n}</span>
+                </div>
+                {i < steps.length - 1 && <div class="flow-connector" aria-hidden="true"></div>}
+              </div>
+              <div class="card flow-card">
+                <h3 class="flow-card-title">{s.t}</h3>
+                <p class="flow-card-body">{s.body}</p>
+
+                {s.bullets && (
+                  <div class="flow-bullets">
+                    {s.bullets.map((bl) => (
+                      <div class={`flow-bullet flow-bullet-${bl.cls}`}>
+                        <span class={`pill pill-${bl.cls}`}>{bl.label}</span>
+                        <span class="flow-bullet-text">{bl.em}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {s.em && <p class="flow-em">{s.em}</p>}
+
+                {s.mail && (
+                  <p class="flow-mail">
+                    スタジオのメールアドレス：<a href={`mailto:${s.mail}`}>{s.mail}</a>
+                  </p>
+                )}
+
+                {s.notes && s.notes.map((nt) => <p class="flow-note">{nt}</p>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 02 ご予約・お問い合わせの方法 -->
+      <section aria-labelledby="sec-contact">
+        <header class="section-header">
+          <span class="sec-num">02</span>
+          <h2 id="sec-contact">ご予約・お問い合わせの方法</h2>
+          <span class="label-en">CONTACT</span>
+        </header>
+
+        <p class="method-group-label method-group-label-red">ご予約</p>
+        <div class="card method-card method-card-form">
+          <div class="method-card-text">
+            <h3 class="method-title">予約フォーム</h3>
+            <p class="method-body">ご予約はこちらから。24時間いつでもご入力いただけます。</p>
+          </div>
+          <a href={RESERVATION_FORM} target="_blank" rel="noopener" class="btn btn-primary method-btn">
+            フォームへ →
+          </a>
+        </div>
+
+        <p class="method-group-label method-group-label-mint">お問い合わせ</p>
+        <div class="method-grid">
+          <div class="card method-card-line">
+            <h3 class="method-title">LINEでお問い合わせ</h3>
+            <p class="method-body">友だち追加のうえ、トークでお気軽にお問い合わせください。</p>
+            <a href={LINE_URL} target="_blank" rel="noopener" class="btn btn-secondary method-btn-sm">
+              LINEを開く →
             </a>
+          </div>
+          <div class="card method-card-tel">
+            <h3 class="method-title">お電話でお問い合わせ</h3>
+            <a href={`tel:${TEL_RAW}`} class="method-tel-num">{TEL_DISP}</a>
+            <span class="method-tel-hours">受付時間 10:00〜20:00</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 予約に関するご案内 -->
+      <section aria-labelledby="sec-about">
+        <header class="section-header">
+          <span class="sec-num">03</span>
+          <h2 id="sec-about">予約に関するご案内</h2>
+          <span class="label-en">ABOUT BOOKING</span>
+        </header>
+
+        <div class="card terms-card">
+          {terms.map((t, i) => (
+            <div class={`term-row ${i === 0 ? 'term-row-first' : ''}`}>
+              <span class={`pill pill-${t.cls} term-pill`}>{t.label}</span>
+              <p class="term-text">
+                {t.parts.map((p) => (
+                  p.em ? <span class={`term-em term-em-${t.cls}`}>{p.t}</span> : <span>{p.t}</span>
+                ))}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- 詳細な注意事項（現行サイトの実務情報を保持） -->
+        <div class="card notice-card">
+          <h3 class="notice-title">キャンセル料について</h3>
+          <ul class="notice-list">
+            <li>ご利用日の<em>6日前〜4日前</em>までのキャンセル料は、ご予約時間分の<em>利用料の50%</em>です。</li>
+            <li>ご利用日の<em>3日前〜前日</em>までのキャンセル料は、ご予約時間分の<em>利用料の80%</em>です。</li>
+            <li>ご利用日<em>当日</em>のキャンセル、およびご予約当日にご来店がない場合は、ご予約時間分の<em>利用料の100%</em>です。</li>
+            <li>キャンセル料のお支払いは、キャンセルより1週間以内に当スタジオにお越しいただき、現金およびクレジットカードにてお支払いいただくか、お振込にてお支払いいただきます。</li>
+          </ul>
+
+          <h3 class="notice-title">ロケハンについて</h3>
+          <ul class="notice-list">
+            <li>ロケハンのお問い合わせは、メールかお電話にてお願いします。</li>
+            <li>ロケハンのご予約日に撮影のお申し込みがあった場合、ロケハン日時を変更していただくことがございますので、あらかじめご了承ください。</li>
+          </ul>
+        </div>
+
+        <p class="about-foot-note">
+          ※ キャンセル料は、本予約確定後にご利用日までの日数に応じて発生します。詳しくは<a href="/price/">料金ページのキャンセル料について</a>をご覧ください。
+        </p>
+      </section>
+
+      <!-- 04 予約カレンダー（ウィジェット組み込み口） -->
+      <section aria-labelledby="sec-calendar">
+        <header class="section-header">
+          <span class="sec-num">04</span>
+          <h2 id="sec-calendar">予約カレンダー</h2>
+          <span class="label-en">BOOKING CALENDAR</span>
+        </header>
+
+        <div class="calendar-placeholder">
+          <div class="calendar-icon" aria-hidden="true">📅</div>
+          <h3 class="calendar-title">予約カレンダーウィジェット</h3>
+          <p class="calendar-body">
+            ここに自社開発の予約カレンダーを組み込みます。<br />
+            カレンダーの日付をクリックすると、予約管理アプリケーションへ移動する流れを想定しています。
           </p>
-          <div class="block">
-            <iframe
-              src="https://calendar.google.com/calendar/embed?height=590&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FTokyo&amp;src=c3R1ZGlvemVicmExc3RAZ21haWwuY29t&amp;color=%23039BE5&amp;showTitle=0&amp;showTz=1&amp;showNav=1"
-              style="border:solid 1px #777"
-              width="800"
-              height="590"
-              frameborder="0"
-              scrolling="no">
-            </iframe>
-          </div>
+          <!-- calendar widget mount point -->
+          <code class="calendar-mount">&lt;!-- calendar widget mount point --&gt;</code>
         </div>
-      </div>
+
+        <p class="about-foot-note">
+          ※ 表示はリアルタイム更新ではありません。ご予約希望日に他の予約が入っている場合は、前後1時間以上あけてのご予約をお願いします。
+        </p>
+      </section>
+
     </div>
-
-    <!-- お問い合わせセクション -->
-    <div id="contact-box">
-      <div class="wrap wow fadeInUp">
-        <h2><img src="/img/reservation/contact.webp" alt="contact"></h2>
-        <h3 class="ttl-common">メールフォームでのご予約・お問合わせ</h3>
-        <ul class="btn-contact">
-          <li>
-            <a href="https://form.run/@studiozebra-1st-reservation" target="_blank">
-              <img src="/img/reservation/btn_reservation_form.webp" alt="ご予約フォームはこちら">
-            </a>
-          </li>
-          <li>
-            <a href="https://form.run/@studiozebra-st-inquiry" target="_blank">
-              <img src="/img/reservation/btn_contact_form.webp" alt="お問い合わせフォームはこちら">
-            </a>
-          </li>
-        </ul>
-        <ul class="btn-sns">
-          <li class="wow fadeInLeft">
-            <a href="tel:09067070936" class="telhref" onclick="ga('send', 'event', 'tel', 'click', 'info_phone');">
-              <img src="/img/reservation/tel.webp" alt="090-6707-0936">
-            </a>
-          </li>
-          <li class="wow fadeInRight">
-            <a href="https://line.me/R/ti/p/%40190bnuvc" target="_blank">
-              <img src="/img/reservation/line.webp" alt="LINEでのご予約・お問合わせ">
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 注意事項セクション -->
-    <div id="sec01-reservation">
-      <div class="wrap">
-        <h2 class="ttl-common wow fadeInUp">ご予約についての注意事項</h2>
-
-        <h3 class="wow fadeInUp">仮予約につきまして</h3>
-        <ul class="wow fadeInUp">
-          <li>仮予約は<span>1⽇のご利⽤につき最⼤2⽇間</span>まで承ります。</li>
-          <li>仮予約にてお申し込みの場合、<span>ご利⽤⽇の7⽇前の⼣⽅6時までに</span>予約確定のご連絡をお願いいたします。</li>
-          <li>予約確定のご連絡がない場合はキャンセル扱いとなります。</li>
-          <li>仮予約中に他の方から本予約のお申し込みがあった場合、状況をお伺いするためにご連絡させていただくことがあります。</li>
-        </ul>
-
-        <h3 class="wow fadeInUp">本予約につきまして</h3>
-        <ul class="wow fadeInUp">
-          <li>本予約にてお申し込みの場合はその時点で予約確定となり、同時に<span>キャンセル料発生の対象となります。</span></li>
-        </ul>
-
-        <h3 class="wow fadeInUp">第２キープにつきまして</h3>
-        <ul class="wow fadeInUp">
-          <li>他のお客様が仮予約をされている日時に「<span>第２キープ</span>」としてキャンセル待ちを承ることができます。</li>
-          <li>キャンセルの有無が判明した時点で当スタジオよりご連絡を差し上げます。</li>
-          <li>他のお客様が本予約をされている日時へのキャンセル待ちはできません。</li>
-        </ul>
-
-        <h3 class="wow fadeInUp">キャンセル料の発生のタイミングと、キャンセル料のお支払いにつきまして</h3>
-        <ul class="wow fadeInUp">
-          <li>
-            キャンセル料の発生のタイミングは下記の通りです。<br>
-            ・ご利⽤⽇の<span>6⽇以前〜4⽇前</span>までのキャンセル料はご予約時間分の<span>利用料の50%</span><br>
-            ・ご利用日の<span>3日前〜前日</span>までのキャンセル料はご予約時間分の<span>利用料の80%</span><br>
-            ・ご利用日<span>当日</span>のキャンセルはご予約時間分の<span>利用料の100%</span>
-          </li>
-          <li>ご予約当日にご来店が無い場合は、キャンセル料としてご予約時間分の利用料の100%をお支払いいただきます。</li>
-          <li>キャンセル料のお支払いは、キャンセルより1週間以内に当スタジオにお越しいただき、現金およびクレジットカードにてお支払いいただくか、お振込にてお⽀払いいただきます。</li>
-        </ul>
-
-        <h3 class="wow fadeInUp">ロケハンにつきまして</h3>
-        <ul class="wow fadeInUp">
-          <li>ロケハンのお問い合わせは、メールかお電話にてお願いします。</li>
-          <li>ロケハンのご予約日に撮影のお申し込みがあった場合、ロケハン日時を変更していただくことがございますのであらかじめご了承ください。</li>
-        </ul>
-      </div>
-  </LeadReservationSection>
+  </div>
 </BaseLayout>
 
 <style is:global>
-  /* ページヘッダー */
-  .page-all.reservation {
-    background-size: cover;
-    height: 455px;
-    position: relative;
-  }
-
-  .ttl-key-page a {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  /* 予約フローセクション */
-  #lead-reservation {
-    padding: 100px 0 60px;
-    background: #82C2A9;
-  }
-
-  #lead-reservation h2 {
-    width: 526px;
-    text-align: center;
-    margin: auto;
-    padding-bottom: 50px;
-  }
-
-  #lead-reservation h2 img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* フローボックス */
-  #flow-box {
-    max-width: 900px;
-    margin: 0 auto 60px;
-  }
-
-  #flow-box .box {
+  .brand-v2.page-reservation {
     background: #fff;
-    margin-bottom: 40px;
-    font-size: 18px;
-    line-height: 30px;
-    padding: 30px;
-    position: relative;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: var(--ink-1);
+    font-family: var(--font-body);
+    padding: var(--s-7) 0 var(--s-8);
   }
 
-  #flow-box .number {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 60px;
-    font-weight: bold;
-    color: #5c5c5c;
+  /* セクション間の余白 */
+  .brand-v2.page-reservation > .container-narrow > section {
+    margin-bottom: var(--s-7);
+  }
+  .brand-v2.page-reservation > .container-narrow > section:last-child {
+    margin-bottom: 0;
+  }
+  .brand-v2.page-reservation > .container-narrow > section.alert-section {
+    margin-bottom: var(--s-6);
   }
 
-  #flow-box .box p {
-    margin-left: 80px;
-    color: #000;
-    font-size: 18px;
+  /* セクション見出し（番号 + タイトル + 英ラベル）— rental と同等 */
+  .brand-v2.page-reservation .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    margin-bottom: var(--s-5);
+    position: static;
+    z-index: auto;
+  }
+  .brand-v2.page-reservation .section-header .sec-num {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--brand-red);
+  }
+  .brand-v2.page-reservation .section-header h2 {
+    flex: 0 1 auto;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: var(--t-h2);
+    line-height: 1.3;
+  }
+  .brand-v2.page-reservation .section-header .label-en {
+    margin-left: auto;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--ink-4);
   }
 
-  #flow-box .box p span {
-    font-weight: bold;
-    color: #FF463C;
-  }
-
-  #flow-box .box p a {
-    text-decoration: underline;
-  }
-
-  #flow-box .box nav {
-    position: absolute;
-    top: 46%;
-    right: -5%;
-    width: 200px;
-    transform: translateY(-50%);
-  }
-
-  #flow-box .box nav a {
-    display: block;
-    margin: -40px 0;
-  }
-
-  #flow-box .box nav a:hover {
-    opacity: 0.8;
-  }
-
-  #flow-box .box nav img {
-    width: 100%;
-    height: auto;
-  }
-
-  #flow-box .box ul {
-    margin-left: 80px;
-  }
-
-  #flow-box .box ul li {
-    margin-bottom: 15px;
-    line-height: 1.9;
-    color: #000;
-    font-size: 18px;
-    position: relative;
-    padding-left: 25px;
-  }
-
-  #flow-box .box ul li::before {
-    content: "●";
-    font-size: 18px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #82C2A9;
-  }
-
-  #flow-box .box ul li span {
-    font-weight: bold;
-    color: #FF463C;
-  }
-
-  /* フローボックス間の矢印 */
-  #flow-box .box + .box::before {
-    background: url(/img/reservation/arr_list.webp) no-repeat center center;
-    background-size: 27px auto;
-    width: 27px;
-    height: 19px;
-    content: "";
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    margin-left: -13px;
-  }
-
-  /* カレンダーセクション */
-  .ttl-common.add-news {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .ttl-common.add-news span {
-    font-size: 28px;
-    font-weight: bold;
-    color: #3a3a3a;
-    padding-bottom: 15px;
-    border-bottom: 3px solid #fff;
-    display: inline-block;
-  }
-
-  .box-cal {
-    background: #fff;
-    border-radius: 8px;
-    padding: 40px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .box-cal .text-note {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 30px;
-    line-height: 1.8;
-    color: #000;
-  }
-
-  .box-cal .block {
+  /* 共通ピル */
+  .brand-v2.page-reservation .pill {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-pill);
+    color: #fff;
+    font-family: var(--font-round);
+    font-weight: 800;
     text-align: center;
   }
+  .brand-v2.page-reservation .pill-red  { background: var(--brand-red); }
+  .brand-v2.page-reservation .pill-mint { background: var(--brand-mint); }
+  .brand-v2.page-reservation .pill-sky  { background: #5AB4D8; }
 
-  .box-cal iframe {
-    max-width: 100%;
-    width: 800px;
-    height: 590px;
+  /* ===== 必読の注意ブロック ===== */
+  .brand-v2.page-reservation .must-read {
+    display: flex;
+    gap: var(--s-4);
+    align-items: flex-start;
+    padding: 20px 24px;
+    background: var(--accent-soft);
+    border: 2px solid var(--brand-red);
+    border-radius: var(--r-lg);
+  }
+  .brand-v2.page-reservation .must-read-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-pill);
+    background: var(--brand-red);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+  }
+  .brand-v2.page-reservation .must-read-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 17px;
+    margin: 0 0 6px;
+    color: var(--brand-red-deep);
+  }
+  .brand-v2.page-reservation .must-read-body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-1);
+    margin: 0;
+  }
+  .brand-v2.page-reservation .must-read-body a {
+    font-weight: 700;
+    color: var(--brand-red-deep);
+    border-bottom: 2px solid var(--brand-red);
   }
 
-  /* お問い合わせセクション */
-  #contact-box {
-    padding: 80px 0;
-    background: #000;
+  /* ===== 01 ご予約の流れ ===== */
+  .brand-v2.page-reservation .flow-steps {
+    display: flex;
+    flex-direction: column;
+  }
+  .brand-v2.page-reservation .flow-step {
+    display: flex;
+    gap: var(--s-5);
+    align-items: stretch;
+  }
+  .brand-v2.page-reservation .flow-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-v2.page-reservation .flow-num {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--r-pill);
+    background: var(--brand-red);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--brand-black);
+    box-shadow: 0 3px 0 0 var(--brand-black);
+  }
+  .brand-v2.page-reservation .flow-num-en {
+    font-size: 8px;
+    font-family: var(--font-en);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+  .brand-v2.page-reservation .flow-num-n {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.1;
+  }
+  .brand-v2.page-reservation .flow-connector {
+    flex: 1;
+    width: 3px;
+    background: repeating-linear-gradient(var(--brand-mint) 0 6px, transparent 6px 12px);
+    margin: 6px 0;
+    min-height: 24px;
+  }
+  .brand-v2.page-reservation .flow-card {
+    flex: 1;
+    padding: 20px 24px;
+  }
+  .brand-v2.page-reservation .flow-step:not(:last-child) .flow-card {
+    margin-bottom: var(--s-4);
+  }
+  .brand-v2.page-reservation .flow-card-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+  .brand-v2.page-reservation .flow-card-body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .brand-v2.page-reservation .flow-bullets {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .brand-v2.page-reservation .flow-bullet {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border-radius: var(--r-md);
+  }
+  .brand-v2.page-reservation .flow-bullet-mint {
+    background: #E5F2EE;
+    border-left: 4px solid var(--brand-mint);
+  }
+  .brand-v2.page-reservation .flow-bullet-red {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--brand-red);
+  }
+  .brand-v2.page-reservation .flow-bullet .pill {
+    min-width: 56px;
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+  .brand-v2.page-reservation .flow-bullet-text {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--ink-1);
+  }
+  .brand-v2.page-reservation .flow-em {
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--brand-red-deep);
+    margin: 10px 0 0;
+    padding: 10px 14px;
+    background: var(--accent-soft);
+    border-radius: var(--r-md);
+    border-left: 4px solid var(--brand-red);
+  }
+  .brand-v2.page-reservation .flow-mail {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 10px 0 0;
+  }
+  .brand-v2.page-reservation .flow-mail a {
+    font-weight: 700;
+    color: var(--ink-1);
+    border-bottom: 1px solid var(--brand-mint);
+  }
+  .brand-v2.page-reservation .flow-note {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-3);
+    margin: 4px 0 0;
+  }
+  .brand-v2.page-reservation .flow-note:first-of-type {
+    margin-top: 10px;
   }
 
-  #contact-box h2 {
-    width: 384px;
-    margin: auto;
+  /* ===== 02 ご予約・お問い合わせの方法 ===== */
+  .brand-v2.page-reservation .method-group-label {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: 15px;
+    margin: 0 0 10px;
+  }
+  .brand-v2.page-reservation .method-group-label-red  { color: var(--brand-red); }
+  .brand-v2.page-reservation .method-group-label-mint { color: #3B7B6E; margin-top: 28px; }
+
+  .brand-v2.page-reservation .method-card-form {
+    padding: 24px;
+    display: flex;
+    gap: var(--s-5);
+    align-items: center;
+    border-top: 3px solid var(--brand-red);
+  }
+  .brand-v2.page-reservation .method-card-text { flex: 1; }
+  .brand-v2.page-reservation .method-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 19px;
+    margin: 0 0 8px;
+  }
+  .brand-v2.page-reservation .method-body {
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .brand-v2.page-reservation .method-btn { flex-shrink: 0; }
+
+  .brand-v2.page-reservation .method-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .brand-v2.page-reservation .method-card-line {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 3px solid var(--brand-mint);
+  }
+  .brand-v2.page-reservation .method-card-line .method-title { margin: 0; }
+  .brand-v2.page-reservation .method-card-line .method-body { margin: 0; }
+  .brand-v2.page-reservation .method-btn-sm {
+    align-self: flex-start;
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+  .brand-v2.page-reservation .method-card-tel {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    border-top: 3px solid #A8DCE0;
+  }
+  .brand-v2.page-reservation .method-card-tel .method-title { margin: 0 0 4px; }
+  .brand-v2.page-reservation .method-tel-num {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--ink-1);
+    line-height: 1.1;
+  }
+  .brand-v2.page-reservation .method-tel-hours {
+    font-size: 13px;
+    color: var(--ink-3);
   }
 
-  #contact-box h2 img {
-    max-width: 100%;
-    height: auto;
+  /* ===== 03 予約に関するご案内 ===== */
+  .brand-v2.page-reservation .terms-card {
+    padding: 8px 0;
   }
-
-  #contact-box .ttl-common {
-    text-align: center;
-    font-size: 24px;
-    padding: 5px 0 20px;
-    color: #FFF;
+  .brand-v2.page-reservation .term-row {
+    display: flex;
+    gap: var(--s-4);
+    align-items: flex-start;
+    padding: 18px 24px;
+    border-top: 1px solid var(--line-2);
   }
+  .brand-v2.page-reservation .term-row-first {
+    border-top: 0;
+  }
+  .brand-v2.page-reservation .term-pill {
+    min-width: 84px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  .brand-v2.page-reservation .term-text {
+    font-size: 14px;
+    line-height: 1.95;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .brand-v2.page-reservation .term-em {
+    font-weight: 700;
+    color: var(--ink-1);
+    padding: 1px 4px;
+    border-radius: var(--r-xs);
+  }
+  .brand-v2.page-reservation .term-em-red  { background: var(--accent-soft); }
+  .brand-v2.page-reservation .term-em-mint { background: #E5F4F0; }
+  .brand-v2.page-reservation .term-em-sky  { background: #E4F2F8; }
 
-  .btn-contact {
-    gap: 30px;
-    width: 706px;
-    margin: auto;
+  /* 詳細注意事項カード */
+  .brand-v2.page-reservation .notice-card {
+    margin-top: var(--s-4);
+    padding: var(--s-5) 24px;
+  }
+  .brand-v2.page-reservation .notice-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    margin: 0 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--brand-mint);
+    color: var(--ink-1);
+  }
+  .brand-v2.page-reservation .notice-card .notice-title:not(:first-child) {
+    margin-top: 24px;
+  }
+  .brand-v2.page-reservation .notice-list {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
   }
-
-  .btn-contact li {
-    margin-bottom: 15px;
-  }
-
-  .btn-contact a {
-    display: block;
-    transition: opacity 0.3s ease;
-  }
-
-  .btn-contact a:hover {
-    opacity: 0.8;
-  }
-
-  .btn-contact img {
-    width: 100%;
-    height: auto;
-  }
-
-  .btn-sns {
-    display: flex;
-    gap: 30px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .btn-sns img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* 注意事項セクション */
-  #sec01-reservation {
-    padding: 80px 0;
-    background: #FFF;
-  }
-
-  #sec01-reservation .ttl-common {
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 30px;
-  }
-
-  #sec01-reservation h3 {
-    font-size: 23px;
-    color: #000;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    padding-left: 20px;
-    border-left: 4px solid #82C2A9;
-  }
-
-  #sec01-reservation ul {
-  }
-
-  #sec01-reservation ul li {
-    padding-left: 20px;
+  .brand-v2.page-reservation .notice-list li {
     position: relative;
+    padding-left: 20px;
+    font-size: 14px;
     line-height: 1.9;
-    color: #000;
+    color: var(--ink-2);
   }
-
-  #sec01-reservation ul li::before {
+  .brand-v2.page-reservation .notice-list li::before {
     content: '●';
     position: absolute;
     left: 0;
-    color: #8c8c8c;
-    font-weight: bold;
+    color: var(--brand-mint);
+    font-size: 11px;
+    top: 0.3em;
+  }
+  .brand-v2.page-reservation .notice-list em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--brand-red-deep);
   }
 
-  #sec01-reservation ul li span {
-    color: #FF463C;
+  .brand-v2.page-reservation .about-foot-note {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin: 14px 4px 0;
+    line-height: 1.8;
+  }
+  .brand-v2.page-reservation .about-foot-note a {
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--brand-mint);
   }
 
-  /* レスポンシブ */
+  /* ===== 04 予約カレンダー（プレースホルダー） ===== */
+  .brand-v2.page-reservation .calendar-placeholder {
+    border: 2px dashed var(--brand-mint);
+    background: var(--paper-2);
+    border-radius: var(--r-xl);
+    padding: 56px 32px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-v2.page-reservation .calendar-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-lg);
+    background: #fff;
+    border: 1px solid var(--line-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .brand-v2.page-reservation .calendar-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+    margin: 0;
+  }
+  .brand-v2.page-reservation .calendar-body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 520px;
+  }
+  .brand-v2.page-reservation .calendar-mount {
+    font-family: var(--font-en);
+    font-size: 12px;
+    color: var(--ink-3);
+    background: #fff;
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-sm);
+    padding: 8px 14px;
+  }
+
+  /* ===== レスポンシブ ===== */
   @media (max-width: 767px) {
-    .page-all.reservation {
-      height: 305px;
+    .brand-v2.page-reservation .section-header {
+      flex-wrap: wrap;
+      gap: var(--s-2);
     }
-
-    #lead-reservation {
-      padding: 60px 0 40px;
-    }
-
-    #lead-reservation h2 {
-      max-width: 526px;
-      width: 100%;
-      margin: auto;
-      padding-bottom: 50px
-    }
-
-    #flow-box .box {
-      margin-bottom: 40px;
-      font-size: 16px;
-      line-height: 28px;
-      padding: 50px 15px 20px;
-    }
-
-    #flow-box .box nav {
-      position: relative;
-      top: 0;
-      right: 0;
-      width: auto;
-      transform: translateY(0%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #flow-box .box nav a {
-      display: box;
-      margin: 0 -15px;
-    }
-
-    #flow-box .number {
-      font-size: 32px;
-      top: 15px;
-      left: 15px;
-    }
-
-    #flow-box .box p,
-    #flow-box .box nav,
-    #flow-box .box ul,
-    #flow-box .box ul li {
-      font-size: 16px;
+    .brand-v2.page-reservation .section-header .label-en {
+      flex-basis: 100%;
       margin-left: 0;
     }
-
-    #flow-box .box ul li {
-      font-size: 16px;
-      line-height: 1.5;
+    .brand-v2.page-reservation .method-card-form {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--s-4);
     }
-
-    .box-cal {
-      padding: 20px;
-    }
-
-    .box-cal .text-note {
-      font-size: 16px;
+    .brand-v2.page-reservation .method-btn {
       text-align: center;
-      margin-bottom: 20px;
-      line-height: 1.7;
-      color: #000;
     }
-
-    .box-cal iframe {
-      width: 100%;
-      height: 400px;
+    .brand-v2.page-reservation .method-grid {
+      grid-template-columns: 1fr;
     }
-
-    #contact-box {
-      padding: 50px 0 45px;
+    .brand-v2.page-reservation .flow-step {
+      gap: var(--s-4);
     }
-
-    #contact-box .ttl-common {
-      font-size: 4.4vw;
-      letter-spacing: 0;
-      padding: 5px 0 20px;
+    .brand-v2.page-reservation .term-row {
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px 18px;
     }
-
-    #contact-box .btn-contact,
-    #contact-box .btn-sns {
-      width: 100%;
-      margin: auto;
-      overflow: hidden;
-    }
-
-    #contact-box .btn-sns {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-
-    #sec01-reservation {
-      padding: 60px 0;
-    }
-
-    #sec01-reservation .ttl-common {
-      font-size: 24px;
-      margin-bottom: 40px;
-    }
-
-    #sec01-reservation h3 {
-      font-size: 18px;
-      margin-top: 40px;
+    .brand-v2.page-reservation .calendar-placeholder {
+      padding: 40px 20px;
     }
   }
 </style>
