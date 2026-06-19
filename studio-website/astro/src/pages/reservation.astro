@@ -235,16 +235,17 @@ const terms = [
           <span class="label-en">BOOKING CALENDAR</span>
         </header>
 
-        <div class="calendar-placeholder">
-          <div class="calendar-icon" aria-hidden="true">📅</div>
-          <h3 class="calendar-title">予約カレンダーウィジェット</h3>
-          <p class="calendar-body">
-            ここに自社開発の予約カレンダーを組み込みます。<br />
-            カレンダーの日付をクリックすると、予約管理アプリケーションへ移動する流れを想定しています。
-          </p>
-          <!-- calendar widget mount point -->
-          <code class="calendar-mount">&lt;!-- calendar widget mount point --&gt;</code>
-        </div>
+        <!-- ウィジェットのマウント先 -->
+        <div
+          id="zebra-reservation"
+          data-studio-id="studio_001"
+          data-api-base-url="https://ynnrspq7rl.execute-api.ap-northeast-1.amazonaws.com/dev"
+          data-login-url="https://dy4lretixtouu.cloudfront.net/login"
+          data-signup-url="https://dy4lretixtouu.cloudfront.net/signup"
+        ></div>
+
+        <!-- ウィジェット本体 -->
+        <script is:inline defer src="https://dy4lretixtouu.cloudfront.net/widget/zebra-widget.js"></script>
 
         <p class="about-foot-note">
           ※ 表示はリアルタイム更新ではありません。ご予約希望日に他の予約が入っている場合は、前後1時間以上あけてのご予約をお願いします。
@@ -660,52 +661,6 @@ const terms = [
     border-bottom: 1px solid var(--brand-mint);
   }
 
-  /* ===== 04 予約カレンダー（プレースホルダー） ===== */
-  .brand-v2.page-reservation .calendar-placeholder {
-    border: 2px dashed var(--brand-mint);
-    background: var(--paper-2);
-    border-radius: var(--r-xl);
-    padding: 56px 32px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
-  .brand-v2.page-reservation .calendar-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--r-lg);
-    background: #fff;
-    border: 1px solid var(--line-1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-  }
-  .brand-v2.page-reservation .calendar-title {
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: 20px;
-    margin: 0;
-  }
-  .brand-v2.page-reservation .calendar-body {
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--ink-2);
-    margin: 0;
-    max-width: 520px;
-  }
-  .brand-v2.page-reservation .calendar-mount {
-    font-family: var(--font-en);
-    font-size: 12px;
-    color: var(--ink-3);
-    background: #fff;
-    border: 1px solid var(--line-1);
-    border-radius: var(--r-sm);
-    padding: 8px 14px;
-  }
-
   /* ===== レスポンシブ ===== */
   @media (max-width: 767px) {
     .brand-v2.page-reservation .section-header {
@@ -734,9 +689,6 @@ const terms = [
       flex-direction: column;
       gap: 10px;
       padding: 16px 18px;
-    }
-    .brand-v2.page-reservation .calendar-placeholder {
-      padding: 40px 20px;
     }
   }
 </style>
