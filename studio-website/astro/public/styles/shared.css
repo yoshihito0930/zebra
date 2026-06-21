@@ -38,16 +38,7 @@ body {
  *=============================================*/
 
 
-@font-face {
-	font-family: yufothicB;
-	src: url(../font/yugothib.ttf);
-	font-display: swap;
-}
-
-
 main {
-	font-family: yufothicB;
-    font-weight: normal !important;
 	clear: both;
 	width: 100%;
 	position: relative;
