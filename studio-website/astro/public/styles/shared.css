@@ -482,7 +482,7 @@ bottom: 20%;
 	}
 }
 
-@media only screen and (max-width: 999px) {	
+@media only screen and (max-width: 1024px) {
 
 	#key-box .slick-dots {
 		
@@ -515,12 +515,6 @@ bottom: 20%;
 	}
 
 	.nav-header ul {
-		/* width: 635px;
-		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 117px;
-    background-size: auto 100%;
-		background-size: auto 100%;
-		height: 40px;
-		right: 15px; */
 		width: 570px;
 		background: url(../img/shared/bg_av_left.webp) no-repeat center left,url(../img/shared/bg_av.webp) no-repeat center right 0;
     background-size: auto 100%;
@@ -528,11 +522,19 @@ bottom: 20%;
 		right: 15px;
 	}
 
+	/* NEWS!(li:9) と X(li:10) をプレート右下に横並びにする */
 	.nav-header ul li:nth-child(9) {
 		position: absolute;
     width: 80px;
     top: 50px;
     right: 60px;
+	}
+
+	.nav-header ul li:nth-child(10) {
+		position: absolute;
+		width: 40px;
+		top: 50px;
+		right: 15px;
 	}
 
 	.page-all .head-info ul li:nth-child(8) {
