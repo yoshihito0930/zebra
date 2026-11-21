@@ -1,196 +1,160 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/common/PageHeader.astro';
 
-const tiers = [
-  { range: '10名以下', base: '¥5,000', incl: '¥5,500', primary: true },
-  { range: '11名以上', base: '¥5,500', incl: '¥6,050', primary: false },
-] as const;
-
-const nightRates = [
-  { range: '10名以下', base: '¥7,500', incl: '¥8,250' },
-  { range: '11名以上', base: '¥8,250', incl: '¥9,075' },
-] as const;
-
-const minTime = [
-  { label: '通常帯のみのご利用', value: '2時間〜' },
-  { label: '深夜帯を含む場合',   value: '4時間〜' },
-] as const;
-
-const addons = [
-  { tag: '+¥2,200', label: '6名以上でのワークショップ利用',         sub: '合計料金に加算（税込）' },
-  { tag: '+¥2,200', label: 'ラメ・グリッター等を多用する衣装・小道具', sub: '合計料金に加算（税込）' },
-] as const;
-
-const cancelTiers = [
-  { when: 'ご利用日の6日以前〜4日前', pct: '50%',  note: 'ご予約時間分の利用料' },
-  { when: 'ご利用日の3日前〜前日',     pct: '80%',  note: 'ご予約時間分の利用料' },
-  { when: 'ご利用日当日',              pct: '100%', note: 'ご予約時間分の利用料', emphasis: true },
-] as const;
-
-// §11 文体: 1 文 1 ルール、ヘッジ表現なし、終止形を統一。カテゴリ別にグループ化
-const noteGroups = [
+const planGroups = [
   {
-    title: '深夜帯のご利用',
-    items: [
-      '深夜帯（23:00〜翌8:00）は通常料金の50%UPでお願い致します。',
-      '深夜帯を含むご利用の最低利用時間は4時間からとさせていただきます。',
+    id: 'basic',
+    icon: '/img/price/icon-sun.svg',
+    title: 'きほんのプラン',
+    hours: '8時〜23時',
+    plans: [
+      {
+        name: 'Aプラン',
+        people: '1〜10名様',
+        price: '¥5,000',
+        conditions: ['最低利用時間：2時間', 'スチール／ムービー 同料金'],
+      },
+      {
+        name: 'Bプラン',
+        people: '11〜14名様',
+        price: '¥5,500',
+        conditions: [
+          '最低利用時間：2時間',
+          'スチール／ムービー 同料金',
+          '床面を全面養生してのご利用の場合は ¥5,000（+tax）。',
+        ],
+      },
+    ],
+    notes: [
+      '6人以上でのワークショップでご利用・・・合計のご利用料に ＋¥2,200（+tax）',
+      'ラメ、グリッターを多用した衣装・小道具をご使用・・・合計のご利用料に ＋¥2,200（+tax）',
     ],
   },
   {
-    title: 'ゴミの回収',
-    items: [
-      'ゴミは45リットル袋1袋につき¥330（税込）にて回収致します。',
-      '分別できていないゴミ・粗大ゴミ・生花用オアシスはお持ち帰りください。',
+    id: 'night',
+    icon: '/img/price/icon-star.svg',
+    title: '深夜早朝プラン',
+    hours: '23時〜翌8時',
+    plans: [
+      {
+        name: 'Cプラン',
+        people: '1〜10名様',
+        price: '¥7,500',
+        conditions: ['最低利用時間：3時間', 'スチール／ムービー 同料金'],
+      },
+      {
+        name: 'Dプラン',
+        people: '11〜14名様',
+        price: '¥8,250',
+        conditions: [
+          '最低利用時間：3時間',
+          'スチール／ムービー 同料金',
+          '床面を全面養生してのご利用の場合は ¥7,500（+tax）。',
+        ],
+      },
     ],
-  },
-  {
-    title: '機材の持ち込み',
-    items: [
-      '機材の持ち込み料は原則無料です。',
-      'HMIお持ち込みは1台あたり¥1,100（税込）／1hの持ち込み料を頂戴致します。',
-      'お持ち込み可能なHMIは1台1.2kw以下・総電力量2.5kwまでとさせていただきます。',
+    notes: [
+      'あんしんパック、6人以上でのワークショップでご利用、ラメ、グリッターを多用した衣装・小道具をご使用については、きほんのプランに準じます。',
     ],
   },
 ];
+
+const cancelTiers = [
+  { lead: 'ご利用日の', when: '6日以前〜4日前', pct: '50%', level: 1 },
+  { lead: 'ご利用日の', when: '3日前〜前日', pct: '80%', level: 2 },
+  { lead: '', when: 'ご利用当日', pct: '100%', level: 3 },
+];
 ---
 
-<BaseLayout title="料金のご案内 | スタジオゼブラ" pageClass="price">
-  <PageHeader
-    title="料金のご案内"
-    subtitle="ご利用人数で基本料金が変わります。"
-    pageClass="price"
-    variant="v2"
-    eyebrow="PRICE"
-  />
-
+<BaseLayout title="プラン・料金 | スタジオゼブラ" pageClass="price">
+  <Fragment slot="head">
+    {/* 料金ページのみ Noto Sans JP を使用（BaseLayout の Montserrat と同じ遅延読み込み） */}
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    </noscript>
+  </Fragment>
   <div class="brand-v2 page-price">
-    <div class="container-narrow">
+    <div class="price-inner">
 
-      {/* Section 1: 機材使い放題バナー */}
-      <section aria-label="機材使い放題のご案内">
-        <div class="price-hero-banner">
-          <div class="zebra-stripe-overlay is-banner" aria-hidden="true"></div>
-          <span class="badge-circle-red">機材<br />使い放題</span>
-          <p class="banner-copy">どの料金プランでも、<span class="accent-mint">機材は使い放題。</span></p>
-        </div>
-      </section>
-
-      {/* Section 2 + 3: 通常帯 */}
-      <section aria-labelledby="rate-daytime-h">
-        <header class="section-row">
-          <h2 id="rate-daytime-h" class="t-h3">
-            <span class="pill pill-black">通常帯</span>基本料金（8:00〜23:00）
-          </h2>
-          <span class="label-en">DAYTIME</span>
-        </header>
-        <div class="price-tier-grid">
-          {tiers.map((t) => (
-            <article
-              class={`price-tier-card ${t.primary ? 'card-pop is-primary' : 'card'}`}
-              aria-label={`${t.range} ${t.base} 税込${t.incl} 1時間あたり`}
-            >
-              {t.primary && <div class="zebra-stripe-overlay is-card" aria-hidden="true"></div>}
-              <span class={t.primary ? 'pill-red' : 'pill-paper'}>{t.range}</span>
-              <div class="price-line">
-                <span class="price-num">{t.base}</span>
-                <span class="price-unit">/ 1h</span>
-              </div>
-              <div class="price-tax">（税込 <b>{t.incl}</b>）</div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* Section 4 + 5: 深夜帯 */}
-      <section aria-labelledby="rate-night-h">
-        <header class="section-row">
-          <h2 id="rate-night-h" class="t-h3">
-            <span class="pill pill-navy">深夜帯</span>23:00〜翌8:00
-            <span class="muted">通常料金の 50%UP</span>
-          </h2>
-          <span class="label-en">NIGHT</span>
-        </header>
-        <article class="card price-night-card">
-          {nightRates.map((r) => (
-            <div class="price-night-row">
-              <span class="row-range">{r.range}</span>
-              <span class="row-rate">
-                <span class="price-num-sm">{r.base}</span>
-                <span class="muted">/ 1h（税込 {r.incl}）</span>
-              </span>
-            </div>
-          ))}
-        </article>
-      </section>
-
-      {/* Section 6: 最低利用時間 + 追加料金 */}
-      <div class="price-twocol-grid">
-        <section class="card" aria-labelledby="min-hours-h">
-          <header class="section-row">
-            <h3 id="min-hours-h" class="t-h4">最低利用時間</h3>
-            <span class="label-en">MIN. HOURS</span>
-          </header>
-          <ul class="price-rows">
-            {minTime.map((m) => (
-              <li class="price-row">
-                <span class="row-label">{m.label}</span>
-                <span class="row-value">{m.value}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section class="card" aria-labelledby="addons-h">
-          <header class="section-row">
-            <h3 id="addons-h" class="t-h4">追加料金が発生する場合</h3>
-            <span class="label-en">ADD-ONS</span>
-          </header>
-          <ul class="price-rows">
-            {addons.map((a) => (
-              <li class="price-row addon-row">
-                <span class="addon-tag">{a.tag}</span>
-                <div>
-                  <div>{a.label}</div>
-                  <div class="addon-sub muted">{a.sub}</div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+      <div class="price-head">
+        <h1>プラン・料金</h1>
+        <p class="price-lead">
+          スタジオゼブラの料金プランはシンプルでリーズナブル。<br />
+          どのプランをお選びいただいても、機材は無料でお使いいただけます。
+        </p>
       </div>
 
-      {/* Section 7a: ご利用に関するご案内 (§11 文体) */}
-      <section aria-labelledby="notes-h">
-        <header class="section-row">
-          <h2 id="notes-h" class="t-h3"><span class="pill pill-mint">ご案内</span>ご利用に関するご案内</h2>
-          <span class="label-en">Usage Notes</span>
-        </header>
-        <article class="card notes-card">
-          {noteGroups.map((g) => (
-            <div class="note-group">
-              <h3 class="note-group-title">{g.title}</h3>
-              <ul class="rule-list">
-                {g.items.map((text) => <li>{text}</li>)}
-              </ul>
-            </div>
-          ))}
-        </article>
-      </section>
+      {planGroups.map((group, i) => (
+        <>
+          <section class="plan-group" aria-labelledby={`plan-${group.id}-h`}>
+            <h2 id={`plan-${group.id}-h`} class="plan-heading">
+              <img src={group.icon} alt="" width="48" height="48" />
+              <span>{group.title}<small>（{group.hours}）</small></span>
+            </h2>
 
-      {/* Section 7b: キャンセル料 */}
-      <section aria-labelledby="cancel-h">
-        <header class="section-row">
-          <h2 id="cancel-h" class="t-h3"><span class="pill pill-red-soft">キャンセル料</span>キャンセル料について</h2>
-          <span class="label-en">Cancellation</span>
-        </header>
-        <p class="muted cancel-intro">本予約確定後は、ご利用日までの日数に応じてキャンセル料が発生致します。</p>
+            <table class="plan-table">
+              <thead>
+                <tr>
+                  <th scope="col">ご利用プラン</th>
+                  <th scope="col">料金（1時間あたり）</th>
+                  <th scope="col">ご利用条件</th>
+                </tr>
+              </thead>
+              <tbody>
+                {group.plans.map((plan) => (
+                  <tr>
+                    <th scope="row" class="plan-name">
+                      {plan.name}<br />
+                      <span class="plan-people">（{plan.people}）</span>
+                    </th>
+                    <td class="plan-fee">
+                      <span class="plan-price">{plan.price}</span>
+                      <span class="plan-tax">（+tax）</span>
+                    </td>
+                    <td class="plan-cond">
+                      <ul>
+                        {plan.conditions.map((c) => <li>{c}</li>)}
+                      </ul>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <ul class="plan-notes">
+              {group.notes.map((n) => <li>{n}</li>)}
+            </ul>
+          </section>
+
+          {i === 0 && (
+            <section class="option-pack" aria-labelledby="option-pack-h">
+              <p class="option-badge">おすすめ<br />オプション</p>
+              <p class="option-fee">
+                ご利用料金の合計 ＋ <span class="option-price">¥1,000</span><span class="option-tax">（+tax）</span>
+              </p>
+              <h2 id="option-pack-h">あんしんパック</h2>
+              <p class="option-desc">
+                お客様の不注意による機材の破損を補償します。<span class="nowrap">（免責¥10,000、1機材に限ります。）</span><br />
+                但し、ホリゾントを破損・汚損した場合の、修繕費用と休業補償は含みません。
+              </p>
+            </section>
+          )}
+        </>
+      ))}
+
+      <section id="cancel" class="cancel-section" aria-labelledby="cancel-h">
+        <h2 id="cancel-h">キャンセル料について</h2>
+        <p class="cancel-intro">本予約確定後は、ご利用日までの日数に応じてキャンセル料が発生します。</p>
         <div class="cancel-grid">
           {cancelTiers.map((c) => (
-            <article class={`cancel-fee-card${'emphasis' in c && c.emphasis ? ' is-emphasis' : ''}`}>
-              <div class="cancel-when">{c.when}</div>
-              <div class="cancel-pct">{c.pct}</div>
-              <div class="cancel-note">{c.note}</div>
+            <article class={`cancel-card is-lv${c.level}`}>
+              <p class="cancel-when">
+                {c.lead && <span>{c.lead}</span>}
+                <b>{c.when}</b>
+              </p>
+              <p class="cancel-note">ご予約時間分の利用料の</p>
+              <p class="cancel-pct">{c.pct}</p>
             </article>
           ))}
         </div>
@@ -199,3 +163,468 @@ const noteGroups = [
     </div>
   </div>
 </BaseLayout>
+
+<style is:global>
+  /* 料金ページ専用。全セレクタを .brand-v2.page-price から始める。
+     common.css のリセットが font: inherit を当てるため、太さ・サイズは明示する。 */
+  .brand-v2.page-price {
+    --price-grad: linear-gradient(90deg, #FF3333 0%, #FF8C42 100%);
+    --price-yellow: #FFFBB5;
+    --cancel-1: #FFE5E5;
+    --cancel-2: #FFCFCF;
+    --cancel-3: #FFA9A9;
+
+    /* 和文は Noto Sans JP（このページ内だけ上書き）。数字・欧文見出しは Montserrat のまま */
+    --font-body: "Noto Sans JP", var(--font-jp);
+    --font-display: "Montserrat", "Noto Sans JP", var(--font-jp);
+    --font-en: "Montserrat", "Noto Sans JP", var(--font-jp);
+
+    background: #fff;
+    color: var(--ink-1);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    /* 上: fixed な .nav-header(約96px) を避ける */
+    padding: calc(96px + var(--s-7)) 0 var(--s-9);
+  }
+
+  .brand-v2.page-price .price-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 var(--s-5);
+  }
+
+  .brand-v2.page-price .nowrap {
+    display: inline-block;
+  }
+
+  /* ---------- ページタイトル ---------- */
+  .brand-v2.page-price .price-head {
+    padding: 0 var(--s-6);
+    margin-bottom: var(--s-7);
+  }
+
+  .brand-v2.page-price .price-head h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    margin-bottom: var(--s-5);
+  }
+
+  .brand-v2.page-price .price-lead {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--ink-3);
+  }
+
+  /* ---------- プラン表 ---------- */
+  .brand-v2.page-price .plan-group {
+    margin: 0 0 var(--s-8);
+  }
+
+  .brand-v2.page-price .plan-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-3);
+    padding-left: var(--s-2);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .brand-v2.page-price .plan-heading img {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand-v2.page-price .plan-heading small {
+    font-size: 0.75em;
+    font-weight: 700;
+    margin-left: 0.2em;
+  }
+
+  .brand-v2.page-price .plan-table {
+    width: 100%;
+    table-layout: fixed;
+    border: 2px solid var(--ink-1);
+    background: #fff;
+  }
+
+  .brand-v2.page-price .plan-table thead th {
+    padding: var(--s-4) var(--s-3);
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+
+  .brand-v2.page-price .plan-table thead tr {
+    background: var(--price-grad);
+  }
+
+  .brand-v2.page-price .plan-table thead th:nth-child(1) { width: 30%; }
+  .brand-v2.page-price .plan-table thead th:nth-child(2) { width: 36%; }
+  .brand-v2.page-price .plan-table thead th:nth-child(3) { width: 34%; }
+
+  .brand-v2.page-price .plan-table tbody tr {
+    border-top: 2px solid var(--ink-1);
+  }
+
+  .brand-v2.page-price .plan-table tbody th,
+  .brand-v2.page-price .plan-table tbody td {
+    padding: var(--s-5) var(--s-3);
+    vertical-align: middle;
+  }
+
+  .brand-v2.page-price .plan-name {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .brand-v2.page-price .plan-people {
+    display: inline-block;
+  }
+
+  .brand-v2.page-price .plan-fee {
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .brand-v2.page-price .plan-price {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 60px);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+
+  .brand-v2.page-price .plan-tax {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .brand-v2.page-price .plan-cond li,
+  .brand-v2.page-price .plan-notes li {
+    position: relative;
+    padding-left: 1.1em;
+  }
+
+  .brand-v2.page-price .plan-cond li {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .brand-v2.page-price .plan-cond li + li {
+    margin-top: var(--s-2);
+  }
+
+  .brand-v2.page-price .plan-cond li::before {
+    content: '・';
+    position: absolute;
+    left: 0;
+  }
+
+  .brand-v2.page-price .plan-notes {
+    margin-top: var(--s-4);
+  }
+
+  .brand-v2.page-price .plan-notes li {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .brand-v2.page-price .plan-notes li + li {
+    margin-top: var(--s-1);
+  }
+
+  .brand-v2.page-price .plan-notes li::before {
+    content: '＊';
+    position: absolute;
+    left: 0;
+  }
+
+  /* ---------- あんしんパック ---------- */
+  .brand-v2.page-price .option-pack {
+    position: relative;
+    margin: calc(var(--s-8) + 40px) 0 var(--s-8);
+    padding: var(--s-6) var(--s-5) var(--s-6);
+    background: var(--price-yellow);
+    border-radius: var(--r-xl);
+    text-align: center;
+  }
+
+  .brand-v2.page-price .option-badge {
+    position: absolute;
+    top: -48px;
+    left: 12px;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/img/price/badge-cloud.svg') center / contain no-repeat;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+  }
+
+  .brand-v2.page-price .option-fee {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .brand-v2.page-price .option-price {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 26px;
+  }
+
+  .brand-v2.page-price .option-tax {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .brand-v2.page-price .option-pack h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    margin: var(--s-1) 0 var(--s-3);
+  }
+
+  .brand-v2.page-price .option-desc {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  /* ---------- キャンセル料 ---------- */
+  .brand-v2.page-price .cancel-section {
+    margin: var(--s-9) 0 0;
+    text-align: center;
+    /* アンカー(#cancel)で飛んだとき固定ナビに隠れないように */
+    scroll-margin-top: 110px;
+  }
+
+  .brand-v2.page-price .cancel-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    margin-bottom: var(--s-4);
+  }
+
+  .brand-v2.page-price .cancel-intro {
+    font-size: 16px;
+    margin-bottom: var(--s-6);
+  }
+
+  .brand-v2.page-price .cancel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-7);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .brand-v2.page-price .cancel-card {
+    padding: var(--s-4) var(--s-3) var(--s-5);
+  }
+
+  .brand-v2.page-price .cancel-card.is-lv1 { background: var(--cancel-1); }
+  .brand-v2.page-price .cancel-card.is-lv2 { background: var(--cancel-2); }
+  .brand-v2.page-price .cancel-card.is-lv3 { background: var(--cancel-3); }
+
+  .brand-v2.page-price .cancel-when {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 3.4em;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .brand-v2.page-price .cancel-when b {
+    font-weight: 700;
+  }
+
+  .brand-v2.page-price .cancel-note {
+    margin-top: var(--s-3);
+    font-size: 17px;
+  }
+
+  .brand-v2.page-price .cancel-pct {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: clamp(44px, 5vw, 56px);
+    line-height: 1.2;
+  }
+
+  /* ---------- モバイル (≤767px) ---------- */
+  @media (max-width: 767px) {
+    .brand-v2.page-price {
+      /* SP は固定ナビ(バー)が無くハンバーガーのみ */
+      padding: 88px 0 var(--s-8);
+    }
+
+    .brand-v2.page-price .price-inner {
+      padding: 0 var(--s-4);
+    }
+
+    .brand-v2.page-price .price-head {
+      padding: 0;
+      margin-bottom: var(--s-6);
+    }
+
+    .brand-v2.page-price .price-lead {
+      font-size: 14px;
+    }
+
+    .brand-v2.page-price .price-lead br {
+      display: none;
+    }
+
+    .brand-v2.page-price .plan-group {
+      margin-bottom: var(--s-7);
+    }
+
+    .brand-v2.page-price .plan-heading {
+      font-size: 21px;
+      padding-left: 0;
+    }
+
+    .brand-v2.page-price .plan-heading img {
+      width: 36px;
+      height: 36px;
+    }
+
+    /* 表を 1 プラン = 1 ブロックの縦積みにする。列見出しは読み上げ用にだけ残す */
+    .brand-v2.page-price .plan-table,
+    .brand-v2.page-price .plan-table tbody,
+    .brand-v2.page-price .plan-table tbody tr,
+    .brand-v2.page-price .plan-table tbody th,
+    .brand-v2.page-price .plan-table tbody td {
+      display: block;
+    }
+
+    .brand-v2.page-price .plan-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .brand-v2.page-price .plan-table tbody tr:first-child {
+      border-top: 0;
+    }
+
+    .brand-v2.page-price .plan-table tbody .plan-name {
+      padding: var(--s-3);
+      background: var(--price-grad);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .brand-v2.page-price .plan-name br {
+      display: none;
+    }
+
+    .brand-v2.page-price .plan-table tbody .plan-fee {
+      padding: var(--s-4) var(--s-3) var(--s-2);
+    }
+
+    .brand-v2.page-price .plan-price {
+      font-size: 44px;
+    }
+
+    .brand-v2.page-price .plan-tax {
+      font-size: 16px;
+    }
+
+    .brand-v2.page-price .plan-table tbody .plan-cond {
+      padding: var(--s-2) var(--s-4) var(--s-4);
+    }
+
+    .brand-v2.page-price .plan-cond li,
+    .brand-v2.page-price .plan-notes li {
+      font-size: 14px;
+    }
+
+    .brand-v2.page-price .option-pack {
+      margin: calc(var(--s-7) + 48px) 0 var(--s-7);
+      padding: 64px var(--s-4) var(--s-5);
+      border-radius: var(--r-lg);
+    }
+
+    .brand-v2.page-price .option-badge {
+      top: -52px;
+      left: 50%;
+      margin-left: -75px;
+      width: 150px;
+      height: 112px;
+      font-size: 15px;
+    }
+
+    .brand-v2.page-price .option-fee {
+      font-size: 15px;
+    }
+
+    .brand-v2.page-price .option-pack h2 {
+      font-size: 28px;
+    }
+
+    .brand-v2.page-price .option-desc {
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .brand-v2.page-price .option-desc br {
+      display: none;
+    }
+
+    .brand-v2.page-price .cancel-section {
+      margin-top: var(--s-8);
+      scroll-margin-top: var(--s-5);
+    }
+
+    .brand-v2.page-price .cancel-section h2 {
+      font-size: 22px;
+    }
+
+    .brand-v2.page-price .cancel-intro {
+      font-size: 14px;
+      text-align: left;
+      margin-bottom: var(--s-5);
+    }
+
+    .brand-v2.page-price .cancel-grid {
+      grid-template-columns: 1fr;
+      gap: var(--s-3);
+    }
+
+    .brand-v2.page-price .cancel-when {
+      min-height: 0;
+      font-size: 16px;
+    }
+
+    .brand-v2.page-price .cancel-note {
+      margin-top: var(--s-1);
+      font-size: 15px;
+    }
+  }
+</style>

@@ -119,6 +119,9 @@ const socialImageURL = new URL(image, Astro.site);
     <link rel="stylesheet" href="/styles/index.css">
     <link rel="stylesheet" href="/styles/global/brand.css">
   </noscript>
+
+  <!-- ページ固有の head 要素（追加フォントなど） -->
+  <slot name="head" />
 </head>
 
 <body class={`ie-smoothscroll ${pageClass}`}>
