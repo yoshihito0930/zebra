@@ -162,10 +162,10 @@ position: absolute;
  * <header>
  *=============================================*/
 
-header {
+.header-box {
 	position: relative;
 	width: 100%;
-	z-index: 100;
+	z-index: var(--z-header);
 }
 header .logo {
 	text-align: center;
