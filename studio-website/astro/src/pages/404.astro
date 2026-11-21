@@ -1,0 +1,163 @@
+---
+/**
+ * 404.astro - ページが見つかりません
+ *
+ * Cloudflare Pages は dist/404.html があると、未定義URLにこのページを
+ * ステータス404で返す（無い場合は index.html を200で返してしまう）。
+ *
+ * BaseLayout は <head> に要素を差し込む手段を持たないため、
+ * noindex を head 内に置くためにここでは head を自前で記述している。
+ * BaseLayout の head を変更した場合は、こちらも合わせて更新すること。
+ * canonical / OGP は 404 ページには不要なため出力しない。
+ */
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/common/PageHeader.astro';
+
+const mainLinks = [
+  { href: '/price/', label: '料金案内' },
+  { href: '/studio/', label: 'スタジオ案内' },
+  { href: '/access/', label: 'アクセス' },
+  { href: '/reservation/', label: 'ご予約・お問い合わせ' },
+] as const;
+---
+
+<!DOCTYPE html>
+<html lang="ja" class="no-js responsive">
+<head>
+  <!-- Google tag (gtag.js) - 遅延読み込み -->
+  <script>
+    function loadGoogleAnalytics() {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-9958VF71PZ';
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9958VF71PZ');
+    }
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadGoogleAnalytics);
+    } else {
+      setTimeout(loadGoogleAnalytics, 2000);
+    }
+  </script>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <!-- Mobile -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- SEO -->
+  <title>ページが見つかりません | スタジオゼブラ</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="/favicon.webp">
+  <link rel="shortcut icon" href="/favicon.webp">
+
+  <!-- Google Fonts - Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts - 遅延読み込み -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- Critical Styles -->
+  <link rel="stylesheet" href="/styles/global/variables.css">
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/common.css">
+  <link rel="stylesheet" href="/styles/shared.css">
+
+  <!-- Non-critical Styles - 遅延読み込み -->
+  <link rel="stylesheet" href="/styles/global/lead-section.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/styles/index.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/styles/global/brand.css" media="print" onload="this.media='all'">
+
+  <noscript>
+    <link rel="stylesheet" href="/styles/global/lead-section.css">
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/global/brand.css">
+  </noscript>
+</head>
+
+<body class="ie-smoothscroll">
+  <main>
+    <Header />
+
+    <PageHeader
+      title="ページが見つかりません"
+      subtitle="お探しのページは移動または削除された可能性があります。"
+      pageClass="notfound"
+      variant="v2"
+      eyebrow="404 NOT FOUND"
+    />
+
+    <section class="brand-v2 notfound-body">
+      <div class="container-narrow">
+        <p class="notfound-top">
+          <a href="/" class="btn btn-primary">トップページへ戻る</a>
+        </p>
+
+        <nav aria-label="主要ページ">
+          <ul class="notfound-links">
+            {mainLinks.map((link) => (
+              <li><a href={link.href} class="btn btn-secondary">{link.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</body>
+</html>
+
+<style>
+  .notfound-body {
+    padding: 48px 0 80px;
+    text-align: center;
+  }
+
+  .notfound-top {
+    margin: 0 0 32px;
+  }
+
+  .notfound-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 767px) {
+    .notfound-body {
+      padding: 32px 16px 56px;
+    }
+
+    .notfound-links {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .notfound-links .btn {
+      width: 100%;
+    }
+  }
+</style>
