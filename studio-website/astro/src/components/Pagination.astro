@@ -51,7 +51,7 @@ const pageNumbers = getPageNumbers();
     {currentPage > 1 ? (
       <li>
         <a
-          href={currentPage === 2 ? baseUrl : `${baseUrl}/${currentPage - 1}`}
+          href={currentPage === 2 ? `${baseUrl}/` : `${baseUrl}/${currentPage - 1}/`}
           class="pagination-link prev"
           aria-label="前のページ"
         >
@@ -78,7 +78,7 @@ const pageNumbers = getPageNumbers();
             </span>
           ) : (
             <a
-              href={page === 1 ? baseUrl : `${baseUrl}/${page}`}
+              href={page === 1 ? `${baseUrl}/` : `${baseUrl}/${page}/`}
               class="pagination-link"
             >
               {page}
@@ -92,7 +92,7 @@ const pageNumbers = getPageNumbers();
     {currentPage < totalPages ? (
       <li>
         <a
-          href={`${baseUrl}/${currentPage + 1}`}
+          href={`${baseUrl}/${currentPage + 1}/`}
           class="pagination-link next"
           aria-label="次のページ"
         >

@@ -20,11 +20,11 @@ const {
   <h3>{heading}</h3>
   <ul>
     <li class={!currentCategory ? 'active' : ''}>
-      <a href={baseUrl}>{allLabel}</a>
+      <a href={`${baseUrl}/`}>{allLabel}</a>
     </li>
     {categories.map((category) => (
       <li class={currentCategory === category ? 'active' : ''}>
-        <a href={`${baseUrl}/category/${encodeURIComponent(category)}`}>{category}</a>
+        <a href={`${baseUrl}/category/${encodeURIComponent(category)}/`}>{category}</a>
       </li>
     ))}
   </ul>

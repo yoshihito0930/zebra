@@ -34,7 +34,7 @@ const formattedDate = new Intl.DateTimeFormat('ja-JP', {
 ---
 
 <article class={`article-card${hasImage ? ' article-card--with-image' : ''}`}>
-  <a href={`${baseUrl}/${slug}`}>
+  <a href={`${baseUrl}/${slug}/`}>
     {hasImage && (
       <div class="article-card__image">
         <img src={imageSrc} alt={title} loading="lazy" />
